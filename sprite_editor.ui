@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1598</width>
+    <height>861</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1598</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QDockWidget" name="sequenceDock">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QTableWidget" name="tableWidget_2">
+       <property name="rowCount">
+        <number>2</number>
+       </property>
+       <property name="columnCount">
+        <number>1</number>
+       </property>
+       <attribute name="verticalHeaderVisible">
+        <bool>true</bool>
+       </attribute>
+       <row>
+        <property name="text">
+         <string>image</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>frames</string>
+        </property>
+       </row>
+       <column/>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="editDock">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QSplitter" name="splitter">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <widget class="QScrollArea" name="editScrollArea">
+        <property name="sizeAdjustPolicy">
+         <enum>QAbstractScrollArea::AdjustToContents</enum>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>530</width>
+           <height>570</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QGraphicsView" name="editView">
+            <property name="minimumSize">
+             <size>
+              <width>512</width>
+              <height>512</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>512</width>
+              <height>512</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QTableWidget" name="tableWidget">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>1677215</width>
+          <height>1677215</height>
+         </size>
+        </property>
+        <property name="sizeAdjustPolicy">
+         <enum>QAbstractScrollArea::AdjustToContents</enum>
+        </property>
+        <property name="rowCount">
+         <number>3</number>
+        </property>
+        <property name="columnCount">
+         <number>8</number>
+        </property>
+        <row/>
+        <row/>
+        <row/>
+        <column>
+         <property name="text">
+          <string>Left</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Top</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Width</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Height</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>X</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Y</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>X Offset</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Y Offset</string>
+         </property>
+        </column>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="textureDock">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_3">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QScrollArea" name="textureScrollArea">
+       <property name="sizeAdjustPolicy">
+        <enum>QAbstractScrollArea::AdjustToContents</enum>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents_2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>280</width>
+          <height>587</height>
+         </rect>
+        </property>
+        <layout class="QFormLayout" name="formLayout">
+         <item row="0" column="0">
+          <widget class="QGraphicsView" name="textureView">
+           <property name="minimumSize">
+            <size>
+             <width>256</width>
+             <height>256</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>256</width>
+             <height>256</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
