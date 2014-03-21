@@ -114,12 +114,12 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>530</width>
+           <width>536</width>
            <height>530</height>
           </rect>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
+         <layout class="QFormLayout" name="formLayout_2">
+          <item row="0" column="0">
            <widget class="QGraphicsView" name="editView">
             <property name="minimumSize">
              <size>
@@ -132,6 +132,12 @@
               <width>512</width>
               <height>512</height>
              </size>
+            </property>
+            <property name="verticalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
             </property>
            </widget>
           </item>
@@ -231,12 +237,12 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>530</width>
-          <height>530</height>
+          <width>582</width>
+          <height>542</height>
          </rect>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
+        <layout class="QFormLayout" name="formLayout">
+         <item row="0" column="0">
           <widget class="QGraphicsView" name="textureView">
            <property name="minimumSize">
             <size>
@@ -250,8 +256,11 @@
              <height>512</height>
             </size>
            </property>
-           <property name="viewportUpdateMode">
-            <enum>QGraphicsView::FullViewportUpdate</enum>
+           <property name="verticalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOff</enum>
+           </property>
+           <property name="horizontalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOff</enum>
            </property>
           </widget>
          </item>
@@ -260,6 +269,8 @@
       </widget>
      </item>
     </layout>
+    <zorder>textureScrollArea</zorder>
+    <zorder>textureView</zorder>
    </widget>
   </widget>
   <action name="action_New">

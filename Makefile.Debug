@@ -373,6 +373,18 @@ debug\moc_sprite_editor_core.cpp: sprite_editor.h \
 		..\..\qt5\qtbase\include\QtWidgets\QDockWidget \
 		..\..\qt5\qtbase\include\QtWidgets\qdockwidget.h \
 		..\..\qt5\qtbase\src\widgets\widgets\qdockwidget.h \
+		..\..\qt5\qtbase\include\QtWidgets\QFormLayout \
+		..\..\qt5\qtbase\include\QtWidgets\qformlayout.h \
+		..\..\qt5\qtbase\src\widgets\kernel\qformlayout.h \
+		..\..\qt5\qtbase\include\QtWidgets\QLayout \
+		..\..\qt5\qtbase\include\QtWidgets\qlayout.h \
+		..\..\qt5\qtbase\src\widgets\kernel\qlayout.h \
+		..\..\qt5\qtbase\include\QtWidgets\qlayoutitem.h \
+		..\..\qt5\qtbase\src\widgets\kernel\qlayoutitem.h \
+		..\..\qt5\qtbase\include\QtWidgets\qboxlayout.h \
+		..\..\qt5\qtbase\src\widgets\kernel\qboxlayout.h \
+		..\..\qt5\qtbase\include\QtWidgets\qgridlayout.h \
+		..\..\qt5\qtbase\src\widgets\kernel\qgridlayout.h \
 		..\..\qt5\qtbase\include\QtWidgets\QGraphicsView \
 		..\..\qt5\qtbase\include\QtWidgets\qgraphicsview.h \
 		..\..\qt5\qtbase\src\widgets\graphicsview\qgraphicsview.h \
@@ -391,14 +403,6 @@ debug\moc_sprite_editor_core.cpp: sprite_editor.h \
 		..\..\qt5\qtbase\include\QtWidgets\qgraphicsscene.h \
 		..\..\qt5\qtbase\src\widgets\graphicsview\qgraphicsscene.h \
 		..\..\qt5\qtbase\include\QtWidgets\QHBoxLayout \
-		..\..\qt5\qtbase\include\QtWidgets\qboxlayout.h \
-		..\..\qt5\qtbase\src\widgets\kernel\qboxlayout.h \
-		..\..\qt5\qtbase\include\QtWidgets\qlayout.h \
-		..\..\qt5\qtbase\src\widgets\kernel\qlayout.h \
-		..\..\qt5\qtbase\include\QtWidgets\qlayoutitem.h \
-		..\..\qt5\qtbase\src\widgets\kernel\qlayoutitem.h \
-		..\..\qt5\qtbase\include\QtWidgets\qgridlayout.h \
-		..\..\qt5\qtbase\src\widgets\kernel\qgridlayout.h \
 		..\..\qt5\qtbase\include\QtWidgets\QHeaderView \
 		..\..\qt5\qtbase\include\QtWidgets\qheaderview.h \
 		..\..\qt5\qtbase\src\widgets\itemviews\qheaderview.h \
@@ -909,6 +913,18 @@ debug\sprite_editor.obj: sprite_editor.cpp sprite_editor_core.h \
 		..\..\qt5\qtbase\include\QtWidgets\QDockWidget \
 		..\..\qt5\qtbase\include\QtWidgets\qdockwidget.h \
 		..\..\qt5\qtbase\src\widgets\widgets\qdockwidget.h \
+		..\..\qt5\qtbase\include\QtWidgets\QFormLayout \
+		..\..\qt5\qtbase\include\QtWidgets\qformlayout.h \
+		..\..\qt5\qtbase\src\widgets\kernel\qformlayout.h \
+		..\..\qt5\qtbase\include\QtWidgets\QLayout \
+		..\..\qt5\qtbase\include\QtWidgets\qlayout.h \
+		..\..\qt5\qtbase\src\widgets\kernel\qlayout.h \
+		..\..\qt5\qtbase\include\QtWidgets\qlayoutitem.h \
+		..\..\qt5\qtbase\src\widgets\kernel\qlayoutitem.h \
+		..\..\qt5\qtbase\include\QtWidgets\qboxlayout.h \
+		..\..\qt5\qtbase\src\widgets\kernel\qboxlayout.h \
+		..\..\qt5\qtbase\include\QtWidgets\qgridlayout.h \
+		..\..\qt5\qtbase\src\widgets\kernel\qgridlayout.h \
 		..\..\qt5\qtbase\include\QtWidgets\QGraphicsView \
 		..\..\qt5\qtbase\include\QtWidgets\qgraphicsview.h \
 		..\..\qt5\qtbase\src\widgets\graphicsview\qgraphicsview.h \
@@ -927,14 +943,6 @@ debug\sprite_editor.obj: sprite_editor.cpp sprite_editor_core.h \
 		..\..\qt5\qtbase\include\QtWidgets\qgraphicsscene.h \
 		..\..\qt5\qtbase\src\widgets\graphicsview\qgraphicsscene.h \
 		..\..\qt5\qtbase\include\QtWidgets\QHBoxLayout \
-		..\..\qt5\qtbase\include\QtWidgets\qboxlayout.h \
-		..\..\qt5\qtbase\src\widgets\kernel\qboxlayout.h \
-		..\..\qt5\qtbase\include\QtWidgets\qlayout.h \
-		..\..\qt5\qtbase\src\widgets\kernel\qlayout.h \
-		..\..\qt5\qtbase\include\QtWidgets\qlayoutitem.h \
-		..\..\qt5\qtbase\src\widgets\kernel\qlayoutitem.h \
-		..\..\qt5\qtbase\include\QtWidgets\qgridlayout.h \
-		..\..\qt5\qtbase\src\widgets\kernel\qgridlayout.h \
 		..\..\qt5\qtbase\include\QtWidgets\QHeaderView \
 		..\..\qt5\qtbase\include\QtWidgets\qheaderview.h \
 		..\..\qt5\qtbase\src\widgets\itemviews\qheaderview.h \

@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDockWidget>
+#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -51,7 +52,7 @@ public:
     QSplitter *splitter;
     QScrollArea *editScrollArea;
     QWidget *scrollAreaWidgetContents;
-    QHBoxLayout *horizontalLayout_3;
+    QFormLayout *formLayout_2;
     QGraphicsView *editView;
     QTableWidget *tableWidget;
     QDockWidget *textureDock;
@@ -59,7 +60,7 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QScrollArea *textureScrollArea;
     QWidget *scrollAreaWidgetContents_2;
-    QHBoxLayout *horizontalLayout_5;
+    QFormLayout *formLayout;
     QGraphicsView *textureView;
 
     void setupUi(QMainWindow *MainWindow)
@@ -132,15 +133,17 @@ public:
         editScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 530, 530));
-        horizontalLayout_3 = new QHBoxLayout(scrollAreaWidgetContents);
-        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 536, 530));
+        formLayout_2 = new QFormLayout(scrollAreaWidgetContents);
+        formLayout_2->setObjectName(QStringLiteral("formLayout_2"));
         editView = new QGraphicsView(scrollAreaWidgetContents);
         editView->setObjectName(QStringLiteral("editView"));
         editView->setMinimumSize(QSize(512, 512));
         editView->setMaximumSize(QSize(512, 512));
+        editView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        editView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-        horizontalLayout_3->addWidget(editView);
+        formLayout_2->setWidget(0, QFormLayout::LabelRole, editView);
 
         editScrollArea->setWidget(scrollAreaWidgetContents);
         splitter->addWidget(editScrollArea);
@@ -190,22 +193,25 @@ public:
         textureScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 530, 530));
-        horizontalLayout_5 = new QHBoxLayout(scrollAreaWidgetContents_2);
-        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 582, 542));
+        formLayout = new QFormLayout(scrollAreaWidgetContents_2);
+        formLayout->setObjectName(QStringLiteral("formLayout"));
         textureView = new QGraphicsView(scrollAreaWidgetContents_2);
         textureView->setObjectName(QStringLiteral("textureView"));
         textureView->setMinimumSize(QSize(512, 512));
         textureView->setMaximumSize(QSize(512, 512));
-        textureView->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+        textureView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        textureView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-        horizontalLayout_5->addWidget(textureView);
+        formLayout->setWidget(0, QFormLayout::LabelRole, textureView);
 
         textureScrollArea->setWidget(scrollAreaWidgetContents_2);
 
         horizontalLayout_2->addWidget(textureScrollArea);
 
         textureDock->setWidget(dockWidgetContents_3);
+        textureScrollArea->raise();
+        textureView->raise();
         MainWindow->addDockWidget(static_cast<Qt::DockWidgetArea>(2), textureDock);
 
         menubar->addAction(menuFile_F->menuAction());
