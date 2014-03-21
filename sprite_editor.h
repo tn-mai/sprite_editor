@@ -14,11 +14,11 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDockWidget>
-#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSplitter>
@@ -31,8 +31,15 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *action_New;
+    QAction *action_Open;
+    QAction *action_Save;
     QWidget *centralwidget;
     QMenuBar *menubar;
+    QMenu *menuFile_F;
+    QMenu *menu_Edit;
+    QMenu *menu_Option;
+    QMenu *menu_Option_2;
     QStatusBar *statusbar;
     QDockWidget *sequenceDock;
     QWidget *dockWidgetContents;
@@ -52,7 +59,7 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QScrollArea *textureScrollArea;
     QWidget *scrollAreaWidgetContents_2;
-    QFormLayout *formLayout;
+    QHBoxLayout *horizontalLayout_5;
     QGraphicsView *textureView;
 
     void setupUi(QMainWindow *MainWindow)
@@ -60,12 +67,26 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(1598, 861);
+        action_New = new QAction(MainWindow);
+        action_New->setObjectName(QStringLiteral("action_New"));
+        action_Open = new QAction(MainWindow);
+        action_Open->setObjectName(QStringLiteral("action_Open"));
+        action_Save = new QAction(MainWindow);
+        action_Save->setObjectName(QStringLiteral("action_Save"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
         menubar->setGeometry(QRect(0, 0, 1598, 21));
+        menuFile_F = new QMenu(menubar);
+        menuFile_F->setObjectName(QStringLiteral("menuFile_F"));
+        menu_Edit = new QMenu(menubar);
+        menu_Edit->setObjectName(QStringLiteral("menu_Edit"));
+        menu_Option = new QMenu(menubar);
+        menu_Option->setObjectName(QStringLiteral("menu_Option"));
+        menu_Option_2 = new QMenu(menubar);
+        menu_Option_2->setObjectName(QStringLiteral("menu_Option_2"));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -111,7 +132,7 @@ public:
         editScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 530, 570));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 530, 530));
         horizontalLayout_3 = new QHBoxLayout(scrollAreaWidgetContents);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         editView = new QGraphicsView(scrollAreaWidgetContents);
@@ -169,15 +190,16 @@ public:
         textureScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 280, 587));
-        formLayout = new QFormLayout(scrollAreaWidgetContents_2);
-        formLayout->setObjectName(QStringLiteral("formLayout"));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 530, 530));
+        horizontalLayout_5 = new QHBoxLayout(scrollAreaWidgetContents_2);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         textureView = new QGraphicsView(scrollAreaWidgetContents_2);
         textureView->setObjectName(QStringLiteral("textureView"));
-        textureView->setMinimumSize(QSize(256, 256));
-        textureView->setMaximumSize(QSize(256, 256));
+        textureView->setMinimumSize(QSize(512, 512));
+        textureView->setMaximumSize(QSize(512, 512));
+        textureView->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 
-        formLayout->setWidget(0, QFormLayout::LabelRole, textureView);
+        horizontalLayout_5->addWidget(textureView);
 
         textureScrollArea->setWidget(scrollAreaWidgetContents_2);
 
@@ -186,6 +208,14 @@ public:
         textureDock->setWidget(dockWidgetContents_3);
         MainWindow->addDockWidget(static_cast<Qt::DockWidgetArea>(2), textureDock);
 
+        menubar->addAction(menuFile_F->menuAction());
+        menubar->addAction(menu_Edit->menuAction());
+        menubar->addAction(menu_Option->menuAction());
+        menubar->addAction(menu_Option_2->menuAction());
+        menuFile_F->addAction(action_New);
+        menuFile_F->addAction(action_Open);
+        menuFile_F->addAction(action_Save);
+
         retranslateUi(MainWindow);
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -193,7 +223,14 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "2D Sprite Editor", 0));
+        action_New->setText(QApplication::translate("MainWindow", "&New", 0));
+        action_Open->setText(QApplication::translate("MainWindow", "&Open", 0));
+        action_Save->setText(QApplication::translate("MainWindow", "&Save", 0));
+        menuFile_F->setTitle(QApplication::translate("MainWindow", "&File", 0));
+        menu_Edit->setTitle(QApplication::translate("MainWindow", "&Edit", 0));
+        menu_Option->setTitle(QApplication::translate("MainWindow", "&View", 0));
+        menu_Option_2->setTitle(QApplication::translate("MainWindow", "&Option", 0));
         QTableWidgetItem *___qtablewidgetitem = tableWidget_2->verticalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "image", 0));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget_2->verticalHeaderItem(1);

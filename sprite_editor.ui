@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>2D Sprite Editor</string>
   </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
@@ -23,6 +23,33 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile_F">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="action_New"/>
+    <addaction name="action_Open"/>
+    <addaction name="action_Save"/>
+   </widget>
+   <widget class="QMenu" name="menu_Edit">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_Option">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_Option_2">
+    <property name="title">
+     <string>&amp;Option</string>
+    </property>
+   </widget>
+   <addaction name="menuFile_F"/>
+   <addaction name="menu_Edit"/>
+   <addaction name="menu_Option"/>
+   <addaction name="menu_Option_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="sequenceDock">
@@ -88,7 +115,7 @@
            <x>0</x>
            <y>0</y>
            <width>530</width>
-           <height>570</height>
+           <height>530</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -204,24 +231,27 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>280</width>
-          <height>587</height>
+          <width>530</width>
+          <height>530</height>
          </rect>
         </property>
-        <layout class="QFormLayout" name="formLayout">
-         <item row="0" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
           <widget class="QGraphicsView" name="textureView">
            <property name="minimumSize">
             <size>
-             <width>256</width>
-             <height>256</height>
+             <width>512</width>
+             <height>512</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>256</width>
-             <height>256</height>
+             <width>512</width>
+             <height>512</height>
             </size>
+           </property>
+           <property name="viewportUpdateMode">
+            <enum>QGraphicsView::FullViewportUpdate</enum>
            </property>
           </widget>
          </item>
@@ -232,6 +262,21 @@
     </layout>
    </widget>
   </widget>
+  <action name="action_New">
+   <property name="text">
+    <string>&amp;New</string>
+   </property>
+  </action>
+  <action name="action_Open">
+   <property name="text">
+    <string>&amp;Open</string>
+   </property>
+  </action>
+  <action name="action_Save">
+   <property name="text">
+    <string>&amp;Save</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

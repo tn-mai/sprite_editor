@@ -186,19 +186,20 @@ Makefile: sprite_editor.pro ..\..\qt5\qtbase\mkspecs\win32-msvc2013\qmake.conf .
 		..\..\qt5\qtbase\mkspecs\features\resolve_config.prf \
 		..\..\qt5\qtbase\mkspecs\features\exclusive_builds_post.prf \
 		..\..\qt5\qtbase\mkspecs\features\default_post.prf \
-		..\..\qt5\qtbase\mkspecs\features\win32\rtti.prf \
-		..\..\qt5\qtbase\mkspecs\features\precompile_header.prf \
-		..\..\qt5\qtbase\mkspecs\features\warn_on.prf \
 		..\..\qt5\qtbase\mkspecs\features\qt.prf \
 		..\..\qt5\qtbase\mkspecs\features\resources.prf \
 		..\..\qt5\qtbase\mkspecs\features\moc.prf \
 		..\..\qt5\qtbase\mkspecs\features\win32\opengl.prf \
+		..\..\qt5\qtbase\mkspecs\features\win32\rtti.prf \
+		..\..\qt5\qtbase\mkspecs\features\precompile_header.prf \
+		..\..\qt5\qtbase\mkspecs\features\warn_on.prf \
 		..\..\qt5\qtbase\mkspecs\features\win32\windows.prf \
 		..\..\qt5\qtbase\mkspecs\features\testcase_targets.prf \
 		..\..\qt5\qtbase\mkspecs\features\exceptions.prf \
 		..\..\qt5\qtbase\mkspecs\features\yacc.prf \
 		..\..\qt5\qtbase\mkspecs\features\lex.prf \
 		sprite_editor.pro \
+		C:/usr/local/qt5/qtbase/lib/Qt5Widgetsd.prl \
 		C:/usr/local/qt5/qtbase/lib/Qt5Gui.prl \
 		C:/usr/local/qt5/qtbase/lib/Qt5Core.prl
 	$(QMAKE) -o Makefile sprite_editor.pro
@@ -315,19 +316,20 @@ Makefile: sprite_editor.pro ..\..\qt5\qtbase\mkspecs\win32-msvc2013\qmake.conf .
 ..\..\qt5\qtbase\mkspecs\features\resolve_config.prf:
 ..\..\qt5\qtbase\mkspecs\features\exclusive_builds_post.prf:
 ..\..\qt5\qtbase\mkspecs\features\default_post.prf:
-..\..\qt5\qtbase\mkspecs\features\win32\rtti.prf:
-..\..\qt5\qtbase\mkspecs\features\precompile_header.prf:
-..\..\qt5\qtbase\mkspecs\features\warn_on.prf:
 ..\..\qt5\qtbase\mkspecs\features\qt.prf:
 ..\..\qt5\qtbase\mkspecs\features\resources.prf:
 ..\..\qt5\qtbase\mkspecs\features\moc.prf:
 ..\..\qt5\qtbase\mkspecs\features\win32\opengl.prf:
+..\..\qt5\qtbase\mkspecs\features\win32\rtti.prf:
+..\..\qt5\qtbase\mkspecs\features\precompile_header.prf:
+..\..\qt5\qtbase\mkspecs\features\warn_on.prf:
 ..\..\qt5\qtbase\mkspecs\features\win32\windows.prf:
 ..\..\qt5\qtbase\mkspecs\features\testcase_targets.prf:
 ..\..\qt5\qtbase\mkspecs\features\exceptions.prf:
 ..\..\qt5\qtbase\mkspecs\features\yacc.prf:
 ..\..\qt5\qtbase\mkspecs\features\lex.prf:
 sprite_editor.pro:
+C:/usr/local/qt5/qtbase/lib/Qt5Widgetsd.prl:
 C:/usr/local/qt5/qtbase/lib/Qt5Gui.prl:
 C:/usr/local/qt5/qtbase/lib/Qt5Core.prl:
 qmake: FORCE

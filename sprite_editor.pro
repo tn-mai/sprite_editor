@@ -7,6 +7,8 @@ TARGET = sprite_editor
 INCLUDEPATH += .
 
 # Input
-HEADERS += sprite_editor.h
+CONFIG += qt debug
+HEADERS += sprite_editor.h sprite_editor_core.h
 FORMS += sprite_editor.ui untitled.ui
 SOURCES += sprite_editor.cpp
+LIBS += C:\usr\local\qt5\qtbase\lib\Qt5Widgetsd.lib
