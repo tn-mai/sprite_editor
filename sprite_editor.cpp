@@ -22,8 +22,8 @@ void Main::openFile()
     return;
   }
   if (!pTextureImage) {
-    pTextureImage = new QPixmap(512, 512);
-    pTextureScene->addPixmap(*pTextureImage);
+    pTextureImage.reset(new QPixmap(512, 512));
+    pItem = pTextureScene->addPixmap(*pTextureImage);
   }
   pTextureImage->convertFromImage(image, Qt::ColorOnly);
   pUi->textureDock->setWindowTitle(filename);

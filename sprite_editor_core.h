@@ -19,7 +19,7 @@ public:
   Main(QWidget* parent = 0) :
     QMainWindow(parent),
     pUi(new Ui::MainWindow),
-    pTextureImage(0),
+    pTextureImage(),
     pTextureScene(0),
     pItem(0)
   {
@@ -35,7 +35,7 @@ private slots:
 
 private:
   std::shared_ptr<Ui::MainWindow> pUi;
-  QPixmap*  pTextureImage;
+  std::shared_ptr<QPixmap>  pTextureImage;
   QGraphicsScene* pTextureScene;
   QGraphicsPixmapItem* pItem;
 };
