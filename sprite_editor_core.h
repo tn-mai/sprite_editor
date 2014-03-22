@@ -20,7 +20,8 @@ public:
     QMainWindow(parent),
     pUi(new Ui::MainWindow),
     pTextureImage(0),
-    pTextureScene(0)
+    pTextureScene(0),
+    pItem(0)
   {
     pUi->setupUi(this);
     pTextureScene = new QGraphicsScene(this);
@@ -36,6 +37,7 @@ private:
   std::shared_ptr<Ui::MainWindow> pUi;
   QPixmap*  pTextureImage;
   QGraphicsScene* pTextureScene;
+  QGraphicsPixmapItem* pItem;
 };
 
 } // namespace SpriteEditor

@@ -16,16 +16,17 @@ void Main::openFile()
   if (filename.isEmpty()) {
     return;
   }
-  if (!pTextureImage) {
-    pTextureImage = new QPixmap(256, 256);
-    QGraphicsPixmapItem* pItem = pTextureScene->addPixmap(*pTextureImage);
-    pItem->setVisible(true);
-    pTextureScene->addRect(10, 10, 100, 100);
-  }
-  if (!pTextureImage->load(filename)) {
+  QImage image;
+  if (!image.load(filename)) {
     QMessageBox::information(this, tr("Unable to open file."), filename);
     return;
   }
+  if (!pTextureImage) {
+    pTextureImage = new QPixmap(512, 512);
+    pTextureScene->addPixmap(*pTextureImage);
+  }
+  pTextureImage->convertFromImage(image, Qt::ColorOnly);
+  pUi->textureDock->setWindowTitle(filename);
   pUi->textureView->repaint();
 }
 
