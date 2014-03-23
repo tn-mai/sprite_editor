@@ -193,13 +193,13 @@ public:
         textureScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 582, 542));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 358, 542));
         formLayout = new QFormLayout(scrollAreaWidgetContents_2);
         formLayout->setObjectName(QStringLiteral("formLayout"));
         textureView = new QGraphicsView(scrollAreaWidgetContents_2);
         textureView->setObjectName(QStringLiteral("textureView"));
-        textureView->setMinimumSize(QSize(512, 512));
-        textureView->setMaximumSize(QSize(512, 512));
+        textureView->setMinimumSize(QSize(0, 0));
+        textureView->setMaximumSize(QSize(65535, 65535));
         textureView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         textureView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
@@ -210,8 +210,6 @@ public:
         horizontalLayout_2->addWidget(textureScrollArea);
 
         textureDock->setWidget(dockWidgetContents_3);
-        textureScrollArea->raise();
-        textureView->raise();
         MainWindow->addDockWidget(static_cast<Qt::DockWidgetArea>(2), textureDock);
 
         menubar->addAction(menuFile_F->menuAction());

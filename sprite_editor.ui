@@ -237,7 +237,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>582</width>
+          <width>358</width>
           <height>542</height>
          </rect>
         </property>
@@ -246,14 +246,14 @@
           <widget class="QGraphicsView" name="textureView">
            <property name="minimumSize">
             <size>
-             <width>512</width>
-             <height>512</height>
+             <width>0</width>
+             <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>512</width>
-             <height>512</height>
+             <width>65535</width>
+             <height>65535</height>
             </size>
            </property>
            <property name="verticalScrollBarPolicy">
@@ -269,8 +269,6 @@
       </widget>
      </item>
     </layout>
-    <zorder>textureScrollArea</zorder>
-    <zorder>textureView</zorder>
    </widget>
   </widget>
   <action name="action_New">

@@ -21,13 +21,17 @@ void Main::openFile()
     QMessageBox::information(this, tr("Unable to open file."), filename);
     return;
   }
-  if (!pTextureImage) {
-    pTextureImage.reset(new QPixmap(512, 512));
-    pItem = pTextureScene->addPixmap(*pTextureImage);
+  if (pItem) {
+    pTextureScene->removeItem(pItem);
+    pItem = 0;
   }
+  pTextureImage.reset(new QPixmap(image.width(), image.height()));
   pTextureImage->convertFromImage(image, Qt::ColorOnly);
-  pUi->textureDock->setWindowTitle(filename);
+  pItem = pTextureScene->addPixmap(*pTextureImage);
+  pTextureScene->setSceneRect(0, 0, image.width(), image.height());
+  pUi->textureView->setMinimumSize(image.width(), image.height());
   pUi->textureView->repaint();
+  pUi->textureDock->setWindowTitle(filename + '(' + QString::number(image.width()) + ',' + QString::number(image.height()) + ')');
 }
 
 } // namespace SpriteEditor
