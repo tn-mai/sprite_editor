@@ -4,11 +4,11 @@
 
 TEMPLATE = app
 TARGET = sprite_editor
-INCLUDEPATH += .
+INCLUDEPATH += . ..\..\qt5\qtbase\include\QtWidgets
 
 # Input
 CONFIG += qt debug
-HEADERS += sprite_editor.h sprite_editor_core.h
-FORMS += sprite_editor.ui untitled.ui
-SOURCES += sprite_editor.cpp
+HEADERS += sprite_editor.h sprite_editor_core.h statebox.h cornergrabber.h
+FORMS += sprite_editor.ui
+SOURCES += sprite_editor.cpp statebox.cpp cornergrabber.cpp
 LIBS += C:\usr\local\qt5\qtbase\lib\Qt5Widgetsd.lib

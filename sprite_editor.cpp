@@ -2,8 +2,28 @@
   Sprite Editor
 */
 #include "sprite_editor_core.h"
+#include "sprite_editor.h"
+#include "statebox.h"
 
 namespace SpriteEditor {
+
+Main::Main(QWidget* parent) :
+  QMainWindow(parent),
+  pUi(new Ui::MainWindow),
+  pTextureImage(new QPixmap(1, 1)),
+  pStateBox(new StateBox),
+  pTextureScene(0),
+  pItem(0)
+{
+  pUi->setupUi(this);
+  pTextureScene = new QGraphicsScene(this);
+  pStateBox->setPos(200, 200);
+  pItem = pTextureScene->addPixmap(*pTextureImage);
+  pTextureScene->addItem(pStateBox.get());
+  pUi->textureView->setScene(pTextureScene);
+
+  connect(pUi->action_Open, SIGNAL(triggered()), this, SLOT(openFile()));
+}
 
 void Main::openFile()
 {
@@ -21,13 +41,7 @@ void Main::openFile()
     QMessageBox::information(this, tr("Unable to open file."), filename);
     return;
   }
-  if (pItem) {
-    pTextureScene->removeItem(pItem);
-    pItem = 0;
-  }
-  pTextureImage.reset(new QPixmap(image.width(), image.height()));
   pTextureImage->convertFromImage(image, Qt::ColorOnly);
-  pItem = pTextureScene->addPixmap(*pTextureImage);
   pTextureScene->setSceneRect(0, 0, image.width(), image.height());
   pUi->textureView->setMinimumSize(image.width(), image.height());
   pUi->textureView->repaint();
