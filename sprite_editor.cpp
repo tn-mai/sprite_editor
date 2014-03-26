@@ -23,6 +23,8 @@ Main::Main(QWidget* parent) :
   pUi->textureView->setScene(pTextureScene);
 
   connect(pUi->action_Open, SIGNAL(triggered()), this, SLOT(openFile()));
+  connect(pUi->action_Insert, SIGNAL(triggered()), this, SLOT(insertChip()));
+  connect(pUi->action_Delete, SIGNAL(triggered()), this, SLOT(deleteChip()));
 }
 
 void Main::openFile()
@@ -46,6 +48,15 @@ void Main::openFile()
   pUi->textureView->setMinimumSize(image.width(), image.height());
   pUi->textureView->repaint();
   pUi->textureDock->setWindowTitle(filename + '(' + QString::number(image.width()) + ',' + QString::number(image.height()) + ')');
+}
+
+void Main::insertChip()
+{
+  pUi->chipList;
+}
+
+void Main::deleteChip()
+{
 }
 
 } // namespace SpriteEditor

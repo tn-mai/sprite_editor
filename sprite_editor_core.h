@@ -1,13 +1,18 @@
 /**
   Sprite Editor
 */
-#include "sprite_editor.h"
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGraphicsPixmapItem>
-#include <QtCore>
+#include <QtWidgets/QMainWindow>
 #include <memory>
+
+class StateBox;
+
+namespace Ui {
+class MainWindow;
+} // namespace Ui
 
 namespace SpriteEditor {
 
@@ -16,26 +21,17 @@ class Main : public QMainWindow
   Q_OBJECT
 
 public:
-  Main(QWidget* parent = 0) :
-    QMainWindow(parent),
-    pUi(new Ui::MainWindow),
-    pTextureImage(),
-    pTextureScene(0),
-    pItem(0)
-  {
-    pUi->setupUi(this);
-    pTextureScene = new QGraphicsScene(this);
-    pTextureScene->setSceneRect(pUi->textureView->rect());
-    pUi->textureView->setScene(pTextureScene);
-    connect(pUi->action_Open, SIGNAL(triggered()), this, SLOT(openFile()));
-  }
+  Main(QWidget* parent = 0);
 
 private slots:
   void openFile();
+  void insertChip();
+  void deleteChip();
 
 private:
   std::shared_ptr<Ui::MainWindow> pUi;
   std::shared_ptr<QPixmap>  pTextureImage;
+  std::shared_ptr<StateBox>  pStateBox;
   QGraphicsScene* pTextureScene;
   QGraphicsPixmapItem* pItem;
 };

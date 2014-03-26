@@ -35,6 +35,8 @@
     <property name="title">
      <string>&amp;Edit</string>
     </property>
+    <addaction name="action_Insert"/>
+    <addaction name="action_Delete"/>
    </widget>
    <widget class="QMenu" name="menu_Option">
     <property name="title">
@@ -62,7 +64,7 @@
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
-      <widget class="QTableWidget" name="tableWidget_2">
+      <widget class="QTableWidget" name="imageList">
        <property name="rowCount">
         <number>2</number>
        </property>
@@ -144,7 +146,7 @@
          </layout>
         </widget>
        </widget>
-       <widget class="QTableWidget" name="tableWidget">
+       <widget class="QTableWidget" name="chipList">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -237,7 +239,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>358</width>
+          <width>280</width>
           <height>542</height>
          </rect>
         </property>
@@ -280,10 +282,29 @@
    <property name="text">
     <string>&amp;Open</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="action_Save">
    <property name="text">
     <string>&amp;Save</string>
+   </property>
+  </action>
+  <action name="action_Insert">
+   <property name="text">
+    <string>&amp;Insert</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="action_Delete">
+   <property name="text">
+    <string>&amp;Delete</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>
