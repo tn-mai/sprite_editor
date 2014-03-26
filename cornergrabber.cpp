@@ -2,7 +2,8 @@
 
 namespace /* unnamed */ {
 
-static const QRect rect(-4, -4, 4, 4);
+static const QRect boundary(-9, -9, 18, 18);
+static const QRect rect(-8, -8, 16, 16);
 
 } // unnamed namespace
 
@@ -74,18 +75,18 @@ void CornerGrabber::mouseMoveEvent ( QGraphicsSceneMouseEvent * event )
 void CornerGrabber::hoverLeaveEvent ( QGraphicsSceneHoverEvent * )
 {
     _outterborderColor = Qt::black;
-    this->update(rect);
+    this->update();
 }
 
 void CornerGrabber::hoverEnterEvent ( QGraphicsSceneHoverEvent * )
 {
     _outterborderColor = Qt::red;
-    this->update(rect);
+    this->update();
 }
 
 QRectF CornerGrabber::boundingRect() const
 {
-    return QRectF(rect);
+    return boundary;
 }
 
 void CornerGrabber::paint (QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
