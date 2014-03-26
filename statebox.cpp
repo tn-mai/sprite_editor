@@ -54,6 +54,7 @@ StateBox::StateBox():
  */
 void StateBox::adjustSize(int x, int y)
 {
+    prepareGeometryChange();
     _width += x;
     _height += y;
 }
