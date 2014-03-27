@@ -52,11 +52,25 @@ void Main::openFile()
 
 void Main::insertChip()
 {
+  enum ChipListColumnId {
+    Left,
+    Top,
+    Width,
+    Height,
+    XPos,
+    YPos,
+    XOffset,
+    YOffset
+  };
   pUi->chipList->insertRow(0);
-  pUi->chipList->setItem(0, 0, new QTableWidgetItem(tr("%1").arg(pStateBox->pos().x())));
-  pUi->chipList->setItem(0, 1, new QTableWidgetItem(tr("%1").arg(pStateBox->pos().y())));
-  pUi->chipList->setItem(0, 2, new QTableWidgetItem(tr("%1").arg(pStateBox->size().x())));
-  pUi->chipList->setItem(0, 3, new QTableWidgetItem(tr("%1").arg(pStateBox->size().y())));
+  pUi->chipList->setItem(0, Left, new QTableWidgetItem(tr("%1").arg(pStateBox->pos().x())));
+  pUi->chipList->setItem(0, Top, new QTableWidgetItem(tr("%1").arg(pStateBox->pos().y())));
+  pUi->chipList->setItem(0, Width, new QTableWidgetItem(tr("%1").arg(pStateBox->size().x())));
+  pUi->chipList->setItem(0, Height, new QTableWidgetItem(tr("%1").arg(pStateBox->size().y())));
+  pUi->chipList->setItem(0, XPos, new QTableWidgetItem(tr("%1").arg(0)));
+  pUi->chipList->setItem(0, YPos, new QTableWidgetItem(tr("%1").arg(0)));
+  pUi->chipList->setItem(0, XOffset, new QTableWidgetItem(tr("%1").arg(0)));
+  pUi->chipList->setItem(0, YOffset, new QTableWidgetItem(tr("%1").arg(0)));
 }
 
 void Main::deleteChip()
