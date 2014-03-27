@@ -16,6 +16,7 @@
 #include <QPainter>
 #include <QPen>
 #include <QPointF>
+#include <QVector2D>
 #include "cornergrabber.h"
 
 
@@ -42,10 +43,9 @@ public:
     StateBox();
 
     void setGridSpace(int space);
+    QVector2D size() const { return QVector2D(_width, _height); }
 
-    private:
-
-
+private:
     virtual QRectF boundingRect() const; ///< must be re-implemented in this class to provide the diminsions of the box to the QGraphicsView
     virtual void paint (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget); ///< must be re-implemented here to pain the box on the paint-event
     virtual void hoverEnterEvent ( QGraphicsSceneHoverEvent * event ); ///< must be re-implemented to handle mouse hover enter events
@@ -61,6 +61,7 @@ public:
 
     void setCornerPositions();
     void adjustSize(int x, int y);
+
 
 
     QColor _outterborderColor; ///< the hover event handlers will toggle this between red and black

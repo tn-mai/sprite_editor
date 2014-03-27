@@ -52,11 +52,21 @@ void Main::openFile()
 
 void Main::insertChip()
 {
-  pUi->chipList;
+  pUi->chipList->insertRow(0);
+  pUi->chipList->setItem(0, 0, new QTableWidgetItem(tr("%1").arg(pStateBox->pos().x())));
+  pUi->chipList->setItem(0, 1, new QTableWidgetItem(tr("%1").arg(pStateBox->pos().y())));
+  pUi->chipList->setItem(0, 2, new QTableWidgetItem(tr("%1").arg(pStateBox->size().x())));
+  pUi->chipList->setItem(0, 3, new QTableWidgetItem(tr("%1").arg(pStateBox->size().y())));
 }
 
 void Main::deleteChip()
 {
+  for (auto range : pUi->chipList->selectedRanges()) {
+    const int row = range.topRow();
+    for (int i = 0; i < range.rowCount(); ++i) {
+      pUi->chipList->removeRow(row);
+    }
+  }
 }
 
 } // namespace SpriteEditor
