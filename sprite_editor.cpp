@@ -12,15 +12,16 @@ Main::Main(QWidget* parent) :
   pUi(new Ui::MainWindow),
   pTextureImage(new QPixmap(1, 1)),
   pStateBox(new StateBox),
-  pTextureScene(0),
+  pTextureScene(new QGraphicsScene),
+  pEditScene(new QGraphicsScene),
   pItem(0)
 {
   pUi->setupUi(this);
-  pTextureScene = new QGraphicsScene(this);
   pStateBox->setPos(200, 200);
   pItem = pTextureScene->addPixmap(*pTextureImage);
   pTextureScene->addItem(pStateBox.get());
-  pUi->textureView->setScene(pTextureScene);
+  pUi->textureView->setScene(pTextureScene.get());
+  pUi->editView->setScene(pEditScene.get());
 
   connect(pUi->action_Open, SIGNAL(triggered()), this, SLOT(openFile()));
   connect(pUi->action_Insert, SIGNAL(triggered()), this, SLOT(insertChip()));
@@ -71,6 +72,9 @@ void Main::insertChip()
   pUi->chipList->setItem(0, YPos, new QTableWidgetItem(tr("%1").arg(0)));
   pUi->chipList->setItem(0, XOffset, new QTableWidgetItem(tr("%1").arg(0)));
   pUi->chipList->setItem(0, YOffset, new QTableWidgetItem(tr("%1").arg(0)));
+
+  QGraphicsPixmapItem* pItem = pEditScene->addPixmap(pTextureImage->copy(pStateBox->pos().x(), pStateBox->pos().y(), pStateBox->size().x(), pStateBox->size().y()));
+  pItem->setOffset(0, 0);
 }
 
 void Main::deleteChip()

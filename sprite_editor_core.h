@@ -32,7 +32,8 @@ private:
   std::shared_ptr<Ui::MainWindow> pUi;
   std::shared_ptr<QPixmap>  pTextureImage;
   std::shared_ptr<StateBox>  pStateBox;
-  QGraphicsScene* pTextureScene;
+  std::unique_ptr<QGraphicsScene> pTextureScene;
+  std::unique_ptr<QGraphicsScene> pEditScene;
   QGraphicsPixmapItem* pItem;
 };
 
