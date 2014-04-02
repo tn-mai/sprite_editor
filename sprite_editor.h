@@ -35,8 +35,11 @@ public:
     QAction *action_New;
     QAction *action_Open;
     QAction *action_Save;
-    QAction *action_Insert;
-    QAction *action_Delete;
+    QAction *actionInsertChip;
+    QAction *actionDeleteChip;
+    QAction *actionInsertSheet;
+    QAction *actionDeleteSheet;
+    QAction *actionAb;
     QWidget *centralwidget;
     QMenuBar *menubar;
     QMenu *menuFile_F;
@@ -76,10 +79,16 @@ public:
         action_Open->setObjectName(QStringLiteral("action_Open"));
         action_Save = new QAction(MainWindow);
         action_Save->setObjectName(QStringLiteral("action_Save"));
-        action_Insert = new QAction(MainWindow);
-        action_Insert->setObjectName(QStringLiteral("action_Insert"));
-        action_Delete = new QAction(MainWindow);
-        action_Delete->setObjectName(QStringLiteral("action_Delete"));
+        actionInsertChip = new QAction(MainWindow);
+        actionInsertChip->setObjectName(QStringLiteral("actionInsertChip"));
+        actionDeleteChip = new QAction(MainWindow);
+        actionDeleteChip->setObjectName(QStringLiteral("actionDeleteChip"));
+        actionInsertSheet = new QAction(MainWindow);
+        actionInsertSheet->setObjectName(QStringLiteral("actionInsertSheet"));
+        actionDeleteSheet = new QAction(MainWindow);
+        actionDeleteSheet->setObjectName(QStringLiteral("actionDeleteSheet"));
+        actionAb = new QAction(MainWindow);
+        actionAb->setObjectName(QStringLiteral("actionAb"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         MainWindow->setCentralWidget(centralwidget);
@@ -106,8 +115,6 @@ public:
         horizontalLayout_4 = new QHBoxLayout(dockWidgetContents);
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
         imageList = new QTableWidget(dockWidgetContents);
-        if (imageList->columnCount() < 1)
-            imageList->setColumnCount(1);
         if (imageList->rowCount() < 2)
             imageList->setRowCount(2);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
@@ -116,7 +123,7 @@ public:
         imageList->setVerticalHeaderItem(1, __qtablewidgetitem1);
         imageList->setObjectName(QStringLiteral("imageList"));
         imageList->setRowCount(2);
-        imageList->setColumnCount(1);
+        imageList->setColumnCount(0);
         imageList->verticalHeader()->setVisible(true);
 
         horizontalLayout_4->addWidget(imageList);
@@ -172,13 +179,11 @@ public:
         chipList->setHorizontalHeaderItem(6, __qtablewidgetitem8);
         QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
         chipList->setHorizontalHeaderItem(7, __qtablewidgetitem9);
-        if (chipList->rowCount() < 3)
-            chipList->setRowCount(3);
         chipList->setObjectName(QStringLiteral("chipList"));
         chipList->setMinimumSize(QSize(0, 0));
         chipList->setMaximumSize(QSize(1677215, 1677215));
         chipList->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
-        chipList->setRowCount(3);
+        chipList->setRowCount(0);
         chipList->setColumnCount(8);
         splitter->addWidget(chipList);
 
@@ -225,8 +230,10 @@ public:
         menuFile_F->addAction(action_New);
         menuFile_F->addAction(action_Open);
         menuFile_F->addAction(action_Save);
-        menu_Edit->addAction(action_Insert);
-        menu_Edit->addAction(action_Delete);
+        menu_Edit->addAction(actionInsertChip);
+        menu_Edit->addAction(actionDeleteChip);
+        menu_Edit->addAction(actionInsertSheet);
+        menu_Edit->addAction(actionDeleteSheet);
 
         retranslateUi(MainWindow);
 
@@ -240,10 +247,13 @@ public:
         action_Open->setText(QApplication::translate("MainWindow", "&Open", 0));
         action_Open->setShortcut(QApplication::translate("MainWindow", "Ctrl+O", 0));
         action_Save->setText(QApplication::translate("MainWindow", "&Save", 0));
-        action_Insert->setText(QApplication::translate("MainWindow", "&Insert", 0));
-        action_Insert->setShortcut(QApplication::translate("MainWindow", "Ctrl+I", 0));
-        action_Delete->setText(QApplication::translate("MainWindow", "&Delete", 0));
-        action_Delete->setShortcut(QApplication::translate("MainWindow", "Ctrl+D", 0));
+        actionInsertChip->setText(QApplication::translate("MainWindow", "&Insert Chip", 0));
+        actionInsertChip->setShortcut(QApplication::translate("MainWindow", "Ctrl+I", 0));
+        actionDeleteChip->setText(QApplication::translate("MainWindow", "&Delete Chip", 0));
+        actionDeleteChip->setShortcut(QApplication::translate("MainWindow", "Ctrl+D", 0));
+        actionInsertSheet->setText(QApplication::translate("MainWindow", "Insert Sheet", 0));
+        actionDeleteSheet->setText(QApplication::translate("MainWindow", "Delete Sheet", 0));
+        actionAb->setText(QApplication::translate("MainWindow", "ab", 0));
         menuFile_F->setTitle(QApplication::translate("MainWindow", "&File", 0));
         menu_Edit->setTitle(QApplication::translate("MainWindow", "&Edit", 0));
         menu_Option->setTitle(QApplication::translate("MainWindow", "&View", 0));

@@ -35,8 +35,10 @@
     <property name="title">
      <string>&amp;Edit</string>
     </property>
-    <addaction name="action_Insert"/>
-    <addaction name="action_Delete"/>
+    <addaction name="actionInsertChip"/>
+    <addaction name="actionDeleteChip"/>
+    <addaction name="actionInsertSheet"/>
+    <addaction name="actionDeleteSheet"/>
    </widget>
    <widget class="QMenu" name="menu_Option">
     <property name="title">
@@ -69,7 +71,7 @@
         <number>2</number>
        </property>
        <property name="columnCount">
-        <number>1</number>
+        <number>0</number>
        </property>
        <attribute name="verticalHeaderVisible">
         <bool>true</bool>
@@ -84,7 +86,6 @@
          <string>frames</string>
         </property>
        </row>
-       <column/>
       </widget>
      </item>
     </layout>
@@ -163,14 +164,11 @@
          <enum>QAbstractScrollArea::AdjustToContents</enum>
         </property>
         <property name="rowCount">
-         <number>3</number>
+         <number>0</number>
         </property>
         <property name="columnCount">
          <number>8</number>
         </property>
-        <row/>
-        <row/>
-        <row/>
         <column>
          <property name="text">
           <string>Left</string>
@@ -291,20 +289,35 @@
     <string>&amp;Save</string>
    </property>
   </action>
-  <action name="action_Insert">
+  <action name="actionInsertChip">
    <property name="text">
-    <string>&amp;Insert</string>
+    <string>&amp;Insert Chip</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>
    </property>
   </action>
-  <action name="action_Delete">
+  <action name="actionDeleteChip">
    <property name="text">
-    <string>&amp;Delete</string>
+    <string>&amp;Delete Chip</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionInsertSheet">
+   <property name="text">
+    <string>Insert Sheet</string>
+   </property>
+  </action>
+  <action name="actionDeleteSheet">
+   <property name="text">
+    <string>Delete Sheet</string>
+   </property>
+  </action>
+  <action name="actionAb">
+   <property name="text">
+    <string>ab</string>
    </property>
   </action>
  </widget>

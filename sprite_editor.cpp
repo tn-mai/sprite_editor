@@ -24,8 +24,8 @@ Main::Main(QWidget* parent) :
   pUi->editView->setScene(pEditScene.get());
 
   connect(pUi->action_Open, SIGNAL(triggered()), this, SLOT(openFile()));
-  connect(pUi->action_Insert, SIGNAL(triggered()), this, SLOT(insertChip()));
-  connect(pUi->action_Delete, SIGNAL(triggered()), this, SLOT(deleteChip()));
+  connect(pUi->actionInsertChip, SIGNAL(triggered()), this, SLOT(insertChip()));
+  connect(pUi->actionDeleteChip, SIGNAL(triggered()), this, SLOT(deleteChip()));
 }
 
 void Main::openFile()
