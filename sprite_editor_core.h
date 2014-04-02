@@ -4,11 +4,11 @@
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QGraphicsPixmapItem>
 #include <QtWidgets/QMainWindow>
 #include <memory>
 
 class StateBox;
+class QGraphicsPixmapItem;
 
 namespace Ui {
 class MainWindow;
@@ -34,7 +34,7 @@ private:
   std::shared_ptr<StateBox>  pStateBox;
   std::unique_ptr<QGraphicsScene> pTextureScene;
   std::unique_ptr<QGraphicsScene> pEditScene;
-  QGraphicsPixmapItem* pItem;
+  std::vector<QGraphicsPixmapItem*> chipPtrList;
 };
 
 } // namespace SpriteEditor

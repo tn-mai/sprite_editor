@@ -4,6 +4,7 @@
 #include "sprite_editor_core.h"
 #include "sprite_editor.h"
 #include "statebox.h"
+#include <QtWidgets/QGraphicsPixmapItem>
 
 namespace SpriteEditor {
 
@@ -13,12 +14,11 @@ Main::Main(QWidget* parent) :
   pTextureImage(new QPixmap(1, 1)),
   pStateBox(new StateBox),
   pTextureScene(new QGraphicsScene),
-  pEditScene(new QGraphicsScene),
-  pItem(0)
+  pEditScene(new QGraphicsScene)
 {
   pUi->setupUi(this);
   pStateBox->setPos(200, 200);
-  pItem = pTextureScene->addPixmap(*pTextureImage);
+  pTextureScene->addPixmap(*pTextureImage);
   pTextureScene->addItem(pStateBox.get());
   pUi->textureView->setScene(pTextureScene.get());
   pUi->editView->setScene(pEditScene.get());
@@ -73,8 +73,11 @@ void Main::insertChip()
   pUi->chipList->setItem(0, XOffset, new QTableWidgetItem(tr("%1").arg(0)));
   pUi->chipList->setItem(0, YOffset, new QTableWidgetItem(tr("%1").arg(0)));
 
-  QGraphicsPixmapItem* pItem = pEditScene->addPixmap(pTextureImage->copy(pStateBox->pos().x(), pStateBox->pos().y(), pStateBox->size().x(), pStateBox->size().y()));
+  QGraphicsPixmapItem* pItem = pEditScene->addPixmap(
+    pTextureImage->copy(pStateBox->pos().x(), pStateBox->pos().y(), pStateBox->size().x(), pStateBox->size().y())
+  );
   pItem->setOffset(0, 0);
+  chipPtrList.push_back(pItem);
 }
 
 void Main::deleteChip()
