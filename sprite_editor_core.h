@@ -1,6 +1,7 @@
 /**
   Sprite Editor
 */
+#include "data.h"
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QApplication>
@@ -35,6 +36,8 @@ private:
   std::unique_ptr<QGraphicsScene> pTextureScene;
   std::unique_ptr<QGraphicsScene> pEditScene;
   std::vector<QGraphicsPixmapItem*> chipPtrList;
+
+  Animation  animation;
 };
 
 } // namespace SpriteEditor
