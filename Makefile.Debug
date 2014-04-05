@@ -45,10 +45,12 @@ OBJECTS_DIR   = debug
 
 SOURCES       = sprite_editor.cpp \
 		statebox.cpp \
-		cornergrabber.cpp debug\moc_sprite_editor_core.cpp
+		cornergrabber.cpp \
+		data.cpp debug\moc_sprite_editor_core.cpp
 OBJECTS       = debug\sprite_editor.obj \
 		debug\statebox.obj \
 		debug\cornergrabber.obj \
+		debug\data.obj \
 		debug\moc_sprite_editor_core.obj
 
 DIST          = 
@@ -60,26 +62,6 @@ DESTDIR_TARGET = debug\sprite_editor.exe
 ####### Implicit rules
 
 .SUFFIXES: .c .cpp .cc .cxx
-
-{debug}.cpp{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{debug}.cc{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{debug}.cxx{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{debug}.c{debug\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
 
 {.}.cpp{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
@@ -97,6 +79,26 @@ DESTDIR_TARGET = debug\sprite_editor.exe
 <<
 
 {.}.c{debug\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{debug}.cpp{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{debug}.cc{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{debug}.cxx{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{debug}.c{debug\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<
@@ -132,7 +134,7 @@ dist:
 	$(ZIP) sprite_editor.zip $(SOURCES) $(DIST) sprite_editor.pro ..\..\qt5\qtbase\mkspecs\features\spec_pre.prf ..\..\qt5\qtbase\mkspecs\common\shell-win32.conf ..\..\qt5\qtbase\mkspecs\qconfig.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_axbase.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_axbase_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_axcontainer.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_axserver.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_axserver_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_bluetooth.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_bootstrap_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_clucene_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_concurrent.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_core.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_core_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_declarative.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_declarative_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_designer.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_designer_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_gui.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_gui_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_help.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_help_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_multimedia.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_network.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_network_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_nfc.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_nfc_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_opengl.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_opengl_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_openglextensions.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_openglextensions_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_platformsupport_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_positioning.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_positioning_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_printsupport.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_qml.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_qml_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_qmltest.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_quick.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_quick_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_script.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_script_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_scripttools.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_scripttools_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_sensors.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_sensors_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_serialport.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_serialport_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_sql.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_sql_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_svg.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_svg_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_testlib.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_testlib_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_uitools.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_uitools_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_websockets.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_websockets_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_widgets.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_widgets_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_winextras.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_winextras_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_xml.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_xml_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_xmlpatterns.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_xmlpatterns_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_dumpcpp.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_dumpdoc.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_lconvert.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_lrelease.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_lupdate.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qcollectiongenerator.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qdoc.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qhelpgenerator.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qlalr.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qml.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qml1plugindump.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qmlbundle.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qmlimportscanner.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qmljs.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qmlmin.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qmlplugindump.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qmlprofiler.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qmlscene.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qmltestrunner.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_syncqt.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_uic.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_xmlpatterns.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_xmlpatternsvalidator.pri ..\..\qt5\qtbase\mkspecs\features\qt_functions.prf ..\..\qt5\qtbase\mkspecs\features\qt_config.prf ..\..\qt5\qtbase\mkspecs\win32-msvc2013\qmake.conf ..\..\qt5\qtbase\mkspecs\features\spec_post.prf ..\..\qt5\qtbase\mkspecs\features\exclusive_builds.prf ..\..\qt5\qtbase\mkspecs\features\default_pre.prf ..\..\qt5\qtbase\mkspecs\features\win32\default_pre.prf ..\..\qt5\qtbase\mkspecs\features\resolve_config.prf ..\..\qt5\qtbase\mkspecs\features\exclusive_builds_post.prf ..\..\qt5\qtbase\mkspecs\features\default_post.prf ..\..\qt5\qtbase\mkspecs\features\build_pass.prf ..\..\qt5\qtbase\mkspecs\features\qt.prf ..\..\qt5\qtbase\mkspecs\features\resources.prf ..\..\qt5\qtbase\mkspecs\features\moc.prf ..\..\qt5\qtbase\mkspecs\features\win32\opengl.prf ..\..\qt5\qtbase\mkspecs\features\win32\rtti.prf ..\..\qt5\qtbase\mkspecs\features\precompile_header.prf ..\..\qt5\qtbase\mkspecs\features\warn_on.prf ..\..\qt5\qtbase\mkspecs\features\win32\windows.prf ..\..\qt5\qtbase\mkspecs\features\testcase_targets.prf ..\..\qt5\qtbase\mkspecs\features\exceptions.prf ..\..\qt5\qtbase\mkspecs\features\yacc.prf ..\..\qt5\qtbase\mkspecs\features\lex.prf sprite_editor.pro C:/usr/local/qt5/qtbase/lib/Qt5Widgetsd.prl C:/usr/local/qt5/qtbase/lib/Qt5Guid.prl C:/usr/local/qt5/qtbase/lib/Qt5Cored.prl  RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES NO_PCH_SOURCES YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\sprite_editor.obj debug\statebox.obj debug\cornergrabber.obj debug\moc_sprite_editor_core.obj
+	-$(DEL_FILE) debug\sprite_editor.obj debug\statebox.obj debug\cornergrabber.obj debug\data.obj debug\moc_sprite_editor_core.obj
 	-$(DEL_FILE) debug\sprite_editor.exp debug\sprite_editor.ilk debug\sprite_editor.idb debug\sprite_editor.exe.embed.manifest debug\sprite_editor.exe_manifest.rc debug\sprite_editor.exe_manifest.res
 
 distclean: clean 
@@ -1141,6 +1143,8 @@ debug\cornergrabber.obj: cornergrabber.cpp cornergrabber.h \
 		..\..\qt5\qtbase\src\gui\text\qfontmetrics.h \
 		..\..\qt5\qtbase\include\QtGui\QPen \
 		..\..\qt5\qtbase\include\QtCore\QPointF
+
+debug\data.obj: data.cpp data.h
 
 debug\moc_sprite_editor_core.obj: debug\moc_sprite_editor_core.cpp 
 

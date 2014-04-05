@@ -4,17 +4,18 @@
 #ifndef SPRITEEDITOR_DATA_H_INCLUDED
 #define SPRITEEDITOR_DATA_H_INCLUDED
 #include <vector>
+#include <string>
 
 namespace SpriteEditor {
 
 typedef int Int;
 typedef float Float;
-struct Rect;
 struct Vector2;
 struct Point2;
+struct Rect;
 struct Chip;
 struct Sheet;
-struct SheetList;
+struct Animation;
 
 /**
   2éüå≥ÉxÉNÉgÉã.
@@ -62,8 +63,9 @@ struct Chip {
   Point2 position;
   Vector2  center;
   Vector2  scale;
-  Float  angle;
   Color  color;
+  Float  angle;
+  Int  flags;
 
   Chip() {}
   Chip(const Rect& r, const Point2& p, const Vector2& c, const Vector2& s, Float a = 0, const Color& col = Color(1, 1, 1, 1)) :
@@ -71,8 +73,9 @@ struct Chip {
     position(p),
     center(c),
     scale(s),
+    color(col),
     angle(a),
-    color(col)
+    flags(0)
   {}
 };
 
@@ -91,11 +94,17 @@ struct Sheet {
   SheetÇï°êîÇ‹Ç∆ÇﬂÇΩÇ‡ÇÃ.
 */
 struct Animation {
-  std::vector<Sheet>  sheetList;
+  unsigned int version;
+  std::string textureName;
+  std::vector<Sheet> sheetList;
 };
 
 inline Vector2::Vector2(const Point2& p) : x(p.x), y(p.y) {}
 inline Point2::Point2(const Vector2& v) : x(v.x), y(v.y) {}
+
+bool LoadFromFile(const char*, Animation*);
+bool SaveToFile(const char*, const Animation&);
+
 
 } // namespace SpriteEditor
 
