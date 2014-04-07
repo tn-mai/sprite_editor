@@ -23,12 +23,42 @@ Main::Main(QWidget* parent) :
   pUi->textureView->setScene(pTextureScene.get());
   pUi->editView->setScene(pEditScene.get());
 
-  connect(pUi->action_Open, SIGNAL(triggered()), this, SLOT(openFile()));
+  connect(pUi->actionOpen, SIGNAL(triggered()), this, SLOT(openFile()));
+  connect(pUi->actionSave, SIGNAL(triggered()), this, SLOT(saveFile()));
+  connect(pUi->actionOpenTexture, SIGNAL(triggered()), this, SLOT(openTextureFile()));
   connect(pUi->actionInsertChip, SIGNAL(triggered()), this, SLOT(insertChip()));
   connect(pUi->actionDeleteChip, SIGNAL(triggered()), this, SLOT(deleteChip()));
 }
 
 void Main::openFile()
+{
+  QString filename = QFileDialog::getOpenFileName(
+    this,
+    tr("Open Sprite data file"),
+    QString(),
+    tr("Sprite data files (*.knsp);;All Files (*)")
+  );
+  if (filename.isEmpty()) {
+    return;
+  }
+  LoadFromFile(filename.toLocal8Bit(), &animation);
+}
+
+void Main::saveFile()
+{
+  QString filename = QFileDialog::getSaveFileName(
+    this,
+    tr("Save Sprite data file"),
+    QString(),
+    tr("Sprite data files (*.knsp);;All Files (*)")
+  );
+  if (filename.isEmpty()) {
+    return;
+  }
+  SaveToFile(filename.toLocal8Bit(), animation);
+}
+
+void Main::openTextureFile()
 {
   QString filename = QFileDialog::getOpenFileName(
     this,

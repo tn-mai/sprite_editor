@@ -18,7 +18,7 @@ INCPATH       = -I"." -I"..\..\qt5\qtbase\include\QtWidgets" -I"..\..\qt5\qtbase
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /DEBUG /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
 LIBS          = glu32.lib opengl32.lib gdi32.lib user32.lib qtmaind.lib C:\usr\local\qt5\qtbase\lib\Qt5Widgetsd.lib /LIBPATH:C:\usr\local\qt5\qtbase\lib C:\usr\local\qt5\qtbase\lib\Qt5Guid.lib C:\usr\local\qt5\qtbase\lib\Qt5Cored.lib 
-QMAKE         = c:\usr\local\qt5\qtbase\bin\qmake.exe
+QMAKE         = C:\usr\local\qt5\qtbase\bin\qmake.exe
 IDC           = idc
 IDL           = midl
 ZIP           = zip -r -9
@@ -63,26 +63,6 @@ DESTDIR_TARGET = debug\sprite_editor.exe
 
 .SUFFIXES: .c .cpp .cc .cxx
 
-{.}.cpp{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{.}.cc{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{.}.cxx{debug\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
-{.}.c{debug\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
-	$<
-<<
-
 {debug}.cpp{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
@@ -99,6 +79,26 @@ DESTDIR_TARGET = debug\sprite_editor.exe
 <<
 
 {debug}.c{debug\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{.}.cpp{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{.}.cc{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{.}.cxx{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{.}.c{debug\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
 <<

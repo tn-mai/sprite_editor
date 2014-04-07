@@ -26,6 +26,8 @@ public:
 
 private slots:
   void openFile();
+  void saveFile();
+  void openTextureFile();
   void insertChip();
   void deleteChip();
 

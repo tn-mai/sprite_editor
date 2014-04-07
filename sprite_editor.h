@@ -32,14 +32,15 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-    QAction *action_New;
-    QAction *action_Open;
-    QAction *action_Save;
+    QAction *actionNew;
+    QAction *actionOpen;
+    QAction *actionSave;
     QAction *actionInsertChip;
     QAction *actionDeleteChip;
     QAction *actionInsertSheet;
     QAction *actionDeleteSheet;
     QAction *actionAb;
+    QAction *actionOpenTexture;
     QWidget *centralwidget;
     QMenuBar *menubar;
     QMenu *menuFile_F;
@@ -73,12 +74,12 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(1598, 861);
-        action_New = new QAction(MainWindow);
-        action_New->setObjectName(QStringLiteral("action_New"));
-        action_Open = new QAction(MainWindow);
-        action_Open->setObjectName(QStringLiteral("action_Open"));
-        action_Save = new QAction(MainWindow);
-        action_Save->setObjectName(QStringLiteral("action_Save"));
+        actionNew = new QAction(MainWindow);
+        actionNew->setObjectName(QStringLiteral("actionNew"));
+        actionOpen = new QAction(MainWindow);
+        actionOpen->setObjectName(QStringLiteral("actionOpen"));
+        actionSave = new QAction(MainWindow);
+        actionSave->setObjectName(QStringLiteral("actionSave"));
         actionInsertChip = new QAction(MainWindow);
         actionInsertChip->setObjectName(QStringLiteral("actionInsertChip"));
         actionDeleteChip = new QAction(MainWindow);
@@ -89,6 +90,8 @@ public:
         actionDeleteSheet->setObjectName(QStringLiteral("actionDeleteSheet"));
         actionAb = new QAction(MainWindow);
         actionAb->setObjectName(QStringLiteral("actionAb"));
+        actionOpenTexture = new QAction(MainWindow);
+        actionOpenTexture->setObjectName(QStringLiteral("actionOpenTexture"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         MainWindow->setCentralWidget(centralwidget);
@@ -227,9 +230,10 @@ public:
         menubar->addAction(menu_Edit->menuAction());
         menubar->addAction(menu_Option->menuAction());
         menubar->addAction(menu_Option_2->menuAction());
-        menuFile_F->addAction(action_New);
-        menuFile_F->addAction(action_Open);
-        menuFile_F->addAction(action_Save);
+        menuFile_F->addAction(actionNew);
+        menuFile_F->addAction(actionOpen);
+        menuFile_F->addAction(actionSave);
+        menuFile_F->addAction(actionOpenTexture);
         menu_Edit->addAction(actionInsertChip);
         menu_Edit->addAction(actionDeleteChip);
         menu_Edit->addAction(actionInsertSheet);
@@ -243,10 +247,10 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "2D Sprite Editor", 0));
-        action_New->setText(QApplication::translate("MainWindow", "&New", 0));
-        action_Open->setText(QApplication::translate("MainWindow", "&Open", 0));
-        action_Open->setShortcut(QApplication::translate("MainWindow", "Ctrl+O", 0));
-        action_Save->setText(QApplication::translate("MainWindow", "&Save", 0));
+        actionNew->setText(QApplication::translate("MainWindow", "&New", 0));
+        actionOpen->setText(QApplication::translate("MainWindow", "&Open", 0));
+        actionOpen->setShortcut(QApplication::translate("MainWindow", "Ctrl+O", 0));
+        actionSave->setText(QApplication::translate("MainWindow", "&Save", 0));
         actionInsertChip->setText(QApplication::translate("MainWindow", "&Insert Chip", 0));
         actionInsertChip->setShortcut(QApplication::translate("MainWindow", "Ctrl+I", 0));
         actionDeleteChip->setText(QApplication::translate("MainWindow", "&Delete Chip", 0));
@@ -254,6 +258,7 @@ public:
         actionInsertSheet->setText(QApplication::translate("MainWindow", "Insert Sheet", 0));
         actionDeleteSheet->setText(QApplication::translate("MainWindow", "Delete Sheet", 0));
         actionAb->setText(QApplication::translate("MainWindow", "ab", 0));
+        actionOpenTexture->setText(QApplication::translate("MainWindow", "Open &Texture", 0));
         menuFile_F->setTitle(QApplication::translate("MainWindow", "&File", 0));
         menu_Edit->setTitle(QApplication::translate("MainWindow", "&Edit", 0));
         menu_Option->setTitle(QApplication::translate("MainWindow", "&View", 0));

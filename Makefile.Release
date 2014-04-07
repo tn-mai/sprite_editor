@@ -18,7 +18,7 @@ INCPATH       = -I"." -I"..\..\qt5\qtbase\include\QtWidgets" -I"..\..\qt5\qtbase
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
 LIBS          = glu32.lib opengl32.lib gdi32.lib user32.lib qtmain.lib C:\usr\local\qt5\qtbase\lib\Qt5Widgetsd.lib /LIBPATH:C:\usr\local\qt5\qtbase\lib C:\usr\local\qt5\qtbase\lib\Qt5Gui.lib C:\usr\local\qt5\qtbase\lib\Qt5Core.lib 
-QMAKE         = c:\usr\local\qt5\qtbase\bin\qmake.exe
+QMAKE         = C:\usr\local\qt5\qtbase\bin\qmake.exe
 IDC           = idc
 IDL           = midl
 ZIP           = zip -r -9
