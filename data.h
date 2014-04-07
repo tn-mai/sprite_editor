@@ -22,7 +22,7 @@ struct Animation;
 */
 struct Vector2 {
   Float x, y;
-  Vector2() : x(), y() {}
+  Vector2() {}
   Vector2(Float ax, Float ay) : x(ax), y(ay) {}
   explicit Vector2(const Point2&);
 };
@@ -32,7 +32,7 @@ struct Vector2 {
 */
 struct Point2 {
   Float x, y;
-  Point2() : x(), y() {}
+  Point2() {}
   Point2(Float ax, Float ay) : x(ax), y(ay) {}
   explicit Point2(const Vector2&);
 };
@@ -42,8 +42,8 @@ struct Point2 {
 */
 struct Rect {
   Float left, top, right, bottom;
-  Rect() : left(), top(), right(), bottom() {}
-  explicit Rect(Float l, Float t, Float r, Float b) : left(l), top(t), right(r), bottom(b) {}
+  Rect() {}
+  Rect(Float l, Float t, Float r, Float b) : left(l), top(t), right(r), bottom(b) {}
 };
 
 /**
@@ -68,15 +68,7 @@ struct Chip {
   Int  flags;
 
   Chip() {}
-  Chip(const Rect& r, const Point2& p, const Vector2& c, const Vector2& s, Float a = 0, const Color& col = Color(1, 1, 1, 1)) :
-    rect(r),
-    position(p),
-    center(c),
-    scale(s),
-    color(col),
-    angle(a),
-    flags(0)
-  {}
+  Chip(const Rect& r, const Point2& p, const Vector2& c, const Vector2& s, Float a = 0, const Color& col = Color(1, 1, 1, 1));
 };
 
 /**

@@ -67,6 +67,17 @@
 
 namespace SpriteEditor {
 
+Chip::Chip(const Rect& r, const Point2& p, const Vector2& c, const Vector2& s, Float a, const Color& col) :
+  rect(r),
+  position(p),
+  center(c),
+  scale(s),
+  color(col),
+  angle(a),
+  flags(0)
+{
+}
+
 class Serializer {
 public:
   explicit Serializer(const char* filename) : ofs_(filename, std::ios::out | std::ios::binary)
