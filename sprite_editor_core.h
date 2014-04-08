@@ -29,8 +29,13 @@ private slots:
   void saveFile();
   void openTextureFile();
   void insertChip();
-  void insertChip(int, const Rect&, const Point2&, const Vector2&, const Vector2&);
+  void insertChip(const Rect&, const Point2&, const Vector2&, const Vector2&);
   void deleteChip();
+  void clearChipList();
+  void insertImage();
+  void deleteImage();
+  void clearImageList();
+  void setAnimation(size_t);
 
 private:
   std::shared_ptr<Ui::MainWindow> pUi;

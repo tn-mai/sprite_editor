@@ -22,12 +22,24 @@ Main::Main(QWidget* parent) :
   pTextureScene->addItem(pStateBox.get());
   pUi->textureView->setScene(pTextureScene.get());
   pUi->editView->setScene(pEditScene.get());
+  insertImage();
 
   connect(pUi->actionOpen, SIGNAL(triggered()), this, SLOT(openFile()));
   connect(pUi->actionSave, SIGNAL(triggered()), this, SLOT(saveFile()));
   connect(pUi->actionOpenTexture, SIGNAL(triggered()), this, SLOT(openTextureFile()));
   connect(pUi->actionInsertChip, SIGNAL(triggered()), this, SLOT(insertChip()));
   connect(pUi->actionDeleteChip, SIGNAL(triggered()), this, SLOT(deleteChip()));
+}
+
+void Main::setAnimation(size_t imageIndex)
+{
+  if (imageIndex >= animation.sheetList.size()) {
+    return;
+  }
+  clearChipList();
+  for (auto i : animation.sheetList[imageIndex].chipList) {
+    insertChip(i.rect, i.position, i.center, i.scale);
+  }
 }
 
 void Main::openFile()
@@ -42,6 +54,10 @@ void Main::openFile()
     return;
   }
   LoadFromFile(filename.toLocal8Bit(), &animation);
+  clearImageList();
+  clearChipList();
+  insertImage();
+  setAnimation(0);
 }
 
 void Main::saveFile()
@@ -87,11 +103,16 @@ void Main::insertChip()
   const float y = pStateBox->pos().y();
   const float w = pStateBox->size().x();
   const float h = pStateBox->size().y();
-  const int sheetIndex = pUi->imageList->selectedRanges().begin()->leftColumn();
-  insertChip(sheetIndex, Rect(x, y, x + w, y + h), Point2(0, 0), Vector2(0, 0), Vector2(1, 1));
+  const int imageIndex = pUi->imageList->selectionModel()->currentIndex().column();
+  const Rect rect(x, y, x + w, y + h);
+  const Point2 position(0, 0);
+  const Vector2 offset(0, 0);
+  const Vector2 scale(1, 1);
+  animation.sheetList[imageIndex].chipList.push_back(Chip(rect, position, offset, scale));
+  insertChip(rect, position, offset, scale);
 }
 
-void Main::insertChip(int sheetIndex, const Rect& rect, const Point2& pos, const Vector2& offset, const Vector2& scale)
+void Main::insertChip(const Rect& rect, const Point2& pos, const Vector2& offset, const Vector2& scale)
 {
   enum ChipListColumnId {
     Left,
@@ -118,7 +139,6 @@ void Main::insertChip(int sheetIndex, const Rect& rect, const Point2& pos, const
   );
   pItem->setOffset(0, 0);
   chipPtrList.push_back(pItem);
-  animation.sheetList[sheetIndex].chipList.push_back(Chip(rect, pos, offset, scale));
 }
 
 void Main::deleteChip()
@@ -130,6 +150,38 @@ void Main::deleteChip()
       pUi->chipList->removeRow(row);
     }
   }
+}
+
+void Main::clearChipList()
+{
+  pUi->chipList->clear();
+  pUi->chipList->setRowCount(0);
+}
+
+void Main::insertImage()
+{
+  animation.sheetList.push_back(Sheet());
+  pUi->imageList->insertColumn(0);
+  if (pUi->imageList->rowCount() == 1) {
+    pUi->imageList->setRangeSelected(QTableWidgetSelectionRange(0, 0, 1, 1), true);
+  }
+}
+
+void Main::deleteImage()
+{
+  for (auto range : pUi->imageList->selectedRanges()) {
+    const int col = range.leftColumn();
+    for (int i = 0; i < range.columnCount(); ++i) {
+      pUi->imageList->removeColumn(col);
+    }
+  }
+}
+
+void Main::clearImageList()
+{
+  animation.sheetList.clear();
+  pUi->imageList->clear();
+  pUi->imageList->setColumnCount(0);
 }
 
 } // namespace SpriteEditor
