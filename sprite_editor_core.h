@@ -32,9 +32,9 @@ private slots:
   void insertChip(const Rect&, const Point2&, const Vector2&, const Vector2&);
   void deleteChip();
   void clearChipList();
-  void insertImage();
-  void deleteImage();
-  void clearImageList();
+  void insertSheet();
+  void deleteSheet();
+  void clearSheetList();
   void setAnimation(size_t);
 
 private:

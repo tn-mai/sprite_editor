@@ -51,7 +51,7 @@ public:
     QDockWidget *sequenceDock;
     QWidget *dockWidgetContents;
     QHBoxLayout *horizontalLayout_4;
-    QTableWidget *imageList;
+    QTableWidget *sheetList;
     QDockWidget *editDock;
     QWidget *dockWidgetContents_2;
     QHBoxLayout *horizontalLayout;
@@ -117,19 +117,19 @@ public:
         dockWidgetContents->setObjectName(QStringLiteral("dockWidgetContents"));
         horizontalLayout_4 = new QHBoxLayout(dockWidgetContents);
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        imageList = new QTableWidget(dockWidgetContents);
-        if (imageList->rowCount() < 2)
-            imageList->setRowCount(2);
+        sheetList = new QTableWidget(dockWidgetContents);
+        if (sheetList->rowCount() < 2)
+            sheetList->setRowCount(2);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
-        imageList->setVerticalHeaderItem(0, __qtablewidgetitem);
+        sheetList->setVerticalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
-        imageList->setVerticalHeaderItem(1, __qtablewidgetitem1);
-        imageList->setObjectName(QStringLiteral("imageList"));
-        imageList->setRowCount(2);
-        imageList->setColumnCount(0);
-        imageList->verticalHeader()->setVisible(true);
+        sheetList->setVerticalHeaderItem(1, __qtablewidgetitem1);
+        sheetList->setObjectName(QStringLiteral("sheetList"));
+        sheetList->setRowCount(2);
+        sheetList->setColumnCount(0);
+        sheetList->verticalHeader()->setVisible(true);
 
-        horizontalLayout_4->addWidget(imageList);
+        horizontalLayout_4->addWidget(sheetList);
 
         sequenceDock->setWidget(dockWidgetContents);
         MainWindow->addDockWidget(static_cast<Qt::DockWidgetArea>(8), sequenceDock);
@@ -263,9 +263,9 @@ public:
         menu_Edit->setTitle(QApplication::translate("MainWindow", "&Edit", 0));
         menu_Option->setTitle(QApplication::translate("MainWindow", "&View", 0));
         menu_Option_2->setTitle(QApplication::translate("MainWindow", "&Option", 0));
-        QTableWidgetItem *___qtablewidgetitem = imageList->verticalHeaderItem(0);
+        QTableWidgetItem *___qtablewidgetitem = sheetList->verticalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "image", 0));
-        QTableWidgetItem *___qtablewidgetitem1 = imageList->verticalHeaderItem(1);
+        QTableWidgetItem *___qtablewidgetitem1 = sheetList->verticalHeaderItem(1);
         ___qtablewidgetitem1->setText(QApplication::translate("MainWindow", "frames", 0));
         QTableWidgetItem *___qtablewidgetitem2 = chipList->horizontalHeaderItem(0);
         ___qtablewidgetitem2->setText(QApplication::translate("MainWindow", "Left", 0));

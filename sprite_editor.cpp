@@ -22,7 +22,7 @@ Main::Main(QWidget* parent) :
   pTextureScene->addItem(pStateBox.get());
   pUi->textureView->setScene(pTextureScene.get());
   pUi->editView->setScene(pEditScene.get());
-  insertImage();
+  insertSheet();
 
   connect(pUi->actionOpen, SIGNAL(triggered()), this, SLOT(openFile()));
   connect(pUi->actionSave, SIGNAL(triggered()), this, SLOT(saveFile()));
@@ -54,9 +54,9 @@ void Main::openFile()
     return;
   }
   LoadFromFile(filename.toLocal8Bit(), &animation);
-  clearImageList();
+  clearSheetList();
   clearChipList();
-  insertImage();
+  insertSheet();
   setAnimation(0);
 }
 
@@ -103,7 +103,7 @@ void Main::insertChip()
   const float y = pStateBox->pos().y();
   const float w = pStateBox->size().x();
   const float h = pStateBox->size().y();
-  const int imageIndex = pUi->imageList->selectionModel()->currentIndex().column();
+  const int imageIndex = pUi->sheetList->selectionModel()->currentIndex().column();
   const Rect rect(x, y, x + w, y + h);
   const Point2 position(0, 0);
   const Vector2 offset(0, 0);
@@ -158,30 +158,30 @@ void Main::clearChipList()
   pUi->chipList->setRowCount(0);
 }
 
-void Main::insertImage()
+void Main::insertSheet()
 {
   animation.sheetList.push_back(Sheet());
-  pUi->imageList->insertColumn(0);
-  if (pUi->imageList->rowCount() == 1) {
-    pUi->imageList->setRangeSelected(QTableWidgetSelectionRange(0, 0, 1, 1), true);
+  pUi->sheetList->insertColumn(0);
+  if (pUi->sheetList->rowCount() == 1) {
+    pUi->sheetList->setRangeSelected(QTableWidgetSelectionRange(0, 0, 1, 1), true);
   }
 }
 
-void Main::deleteImage()
+void Main::deleteSheet()
 {
-  for (auto range : pUi->imageList->selectedRanges()) {
+  for (auto range : pUi->sheetList->selectedRanges()) {
     const int col = range.leftColumn();
     for (int i = 0; i < range.columnCount(); ++i) {
-      pUi->imageList->removeColumn(col);
+      pUi->sheetList->removeColumn(col);
     }
   }
 }
 
-void Main::clearImageList()
+void Main::clearSheetList()
 {
   animation.sheetList.clear();
-  pUi->imageList->clear();
-  pUi->imageList->setColumnCount(0);
+  pUi->sheetList->clear();
+  pUi->sheetList->setColumnCount(0);
 }
 
 } // namespace SpriteEditor
