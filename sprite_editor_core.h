@@ -29,6 +29,7 @@ private slots:
   void saveFile();
   void openTextureFile();
   void insertChip();
+  void insertChip(int, const Rect&, const Point2&, const Vector2&, const Vector2&);
   void deleteChip();
 
 private:

@@ -83,6 +83,16 @@ void Main::openTextureFile()
 
 void Main::insertChip()
 {
+  const float x = pStateBox->pos().x();
+  const float y = pStateBox->pos().y();
+  const float w = pStateBox->size().x();
+  const float h = pStateBox->size().y();
+  const int sheetIndex = pUi->imageList->selectedRanges().begin()->leftColumn();
+  insertChip(sheetIndex, Rect(x, y, x + w, y + h), Point2(0, 0), Vector2(0, 0), Vector2(1, 1));
+}
+
+void Main::insertChip(int sheetIndex, const Rect& rect, const Point2& pos, const Vector2& offset, const Vector2& scale)
+{
   enum ChipListColumnId {
     Left,
     Top,
@@ -94,26 +104,28 @@ void Main::insertChip()
     YOffset
   };
   pUi->chipList->insertRow(0);
-  pUi->chipList->setItem(0, Left, new QTableWidgetItem(tr("%1").arg(pStateBox->pos().x())));
-  pUi->chipList->setItem(0, Top, new QTableWidgetItem(tr("%1").arg(pStateBox->pos().y())));
-  pUi->chipList->setItem(0, Width, new QTableWidgetItem(tr("%1").arg(pStateBox->size().x())));
-  pUi->chipList->setItem(0, Height, new QTableWidgetItem(tr("%1").arg(pStateBox->size().y())));
-  pUi->chipList->setItem(0, XPos, new QTableWidgetItem(tr("%1").arg(0)));
-  pUi->chipList->setItem(0, YPos, new QTableWidgetItem(tr("%1").arg(0)));
-  pUi->chipList->setItem(0, XOffset, new QTableWidgetItem(tr("%1").arg(0)));
-  pUi->chipList->setItem(0, YOffset, new QTableWidgetItem(tr("%1").arg(0)));
+  pUi->chipList->setItem(0, Left, new QTableWidgetItem(tr("%1").arg(rect.left)));
+  pUi->chipList->setItem(0, Top, new QTableWidgetItem(tr("%1").arg(rect.top)));
+  pUi->chipList->setItem(0, Width, new QTableWidgetItem(tr("%1").arg(rect.right - rect.left)));
+  pUi->chipList->setItem(0, Height, new QTableWidgetItem(tr("%1").arg(rect.bottom - rect.top)));
+  pUi->chipList->setItem(0, XPos, new QTableWidgetItem(tr("%1").arg(pos.x)));
+  pUi->chipList->setItem(0, YPos, new QTableWidgetItem(tr("%1").arg(pos.y)));
+  pUi->chipList->setItem(0, XOffset, new QTableWidgetItem(tr("%1").arg(offset.x)));
+  pUi->chipList->setItem(0, YOffset, new QTableWidgetItem(tr("%1").arg(offset.y)));
 
   QGraphicsPixmapItem* pItem = pEditScene->addPixmap(
-    pTextureImage->copy(pStateBox->pos().x(), pStateBox->pos().y(), pStateBox->size().x(), pStateBox->size().y())
+    pTextureImage->copy(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top)
   );
   pItem->setOffset(0, 0);
   chipPtrList.push_back(pItem);
+  animation.sheetList[sheetIndex].chipList.push_back(Chip(rect, pos, offset, scale));
 }
 
 void Main::deleteChip()
 {
   for (auto range : pUi->chipList->selectedRanges()) {
     const int row = range.topRow();
+    chipPtrList.erase(chipPtrList.begin() + row);
     for (int i = 0; i < range.rowCount(); ++i) {
       pUi->chipList->removeRow(row);
     }
