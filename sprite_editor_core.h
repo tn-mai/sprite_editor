@@ -31,7 +31,7 @@ private slots:
   void insertChip();
   void insertChip(const Rect&, const Point2&, const Vector2&, const Vector2&);
   void deleteChip();
-  void clearChipList();
+  void clearChipListView();
   void insertSheet();
   void deleteSheet();
   void clearSheetList();

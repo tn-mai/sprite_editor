@@ -47,7 +47,7 @@ void Main::setAnimation(size_t imageIndex)
   if (imageIndex >= animation.sheetList.size()) {
     return;
   }
-  clearChipList();
+  clearChipListView();
   for (auto i : animation.sheetList[imageIndex].chipList) {
     insertChip(i.rect, i.position, i.center, i.scale);
   }
@@ -71,7 +71,7 @@ void Main::openFile()
 
   // ビューの内容を再設定する.
   clearSheetList();
-  clearChipList();
+  clearChipListView();
   insertSheet();
   setAnimation(0);
 }
@@ -195,7 +195,7 @@ void Main::deleteChip()
 
   チップリストビュー再設定のためのヘルパ関数. シートデータからは削除されないことに注意.
 */
-void Main::clearChipList()
+void Main::clearChipListView()
 {
   pUi->chipList->clear();
   pUi->chipList->setRowCount(0);
