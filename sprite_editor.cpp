@@ -68,6 +68,8 @@ void Main::openFile()
     return;
   }
   LoadFromFile(filename.toLocal8Bit(), &animation);
+
+  // ビューの内容を再設定する.
   clearSheetList();
   clearChipList();
   insertSheet();
@@ -120,7 +122,7 @@ void Main::openTextureFile()
 /**
   選択範囲をシートに追加する.
 
-  テクスチャビューの選択範囲をスプライトチップとして現在選択されているシートに追加する.
+  テクスチャビューの選択範囲をスプライトチップとして、現在選択されているシートに追加する.
 */
 void Main::insertChip()
 {
@@ -181,7 +183,7 @@ void Main::deleteChip()
 {
   for (auto range : pUi->chipList->selectedRanges()) {
     const int row = range.topRow();
-    chipPtrList.erase(chipPtrList.begin() + row);
+    chipPtrList.erase(chipPtrList.begin() + row); // データから削除.
     for (int i = 0; i < range.rowCount(); ++i) {
       pUi->chipList->removeRow(row);
     }
@@ -220,6 +222,7 @@ void Main::deleteSheet()
 {
   for (auto range : pUi->sheetList->selectedRanges()) {
     const int col = range.leftColumn();
+    animation.sheetList.erase(animation.sheetList.begin() + col); // データから削除.
     for (int i = 0; i < range.columnCount(); ++i) {
       pUi->sheetList->removeColumn(col);
     }
@@ -231,7 +234,7 @@ void Main::deleteSheet()
 */
 void Main::clearSheetList()
 {
-  animation.sheetList.clear();
+  animation.sheetList.clear(); // データを空にする.
   pUi->sheetList->clear();
   pUi->sheetList->setColumnCount(0);
 }
