@@ -6,8 +6,14 @@
 #include "statebox.h"
 #include <QtWidgets/QGraphicsPixmapItem>
 
+/**
+  スプライトエディタ用の名前空間.
+*/
 namespace SpriteEditor {
 
+/**
+  コンストラクタ.
+*/
 Main::Main(QWidget* parent) :
   QMainWindow(parent),
   pUi(new Ui::MainWindow),
@@ -31,6 +37,11 @@ Main::Main(QWidget* parent) :
   connect(pUi->actionDeleteChip, SIGNAL(triggered()), this, SLOT(deleteChip()));
 }
 
+/**
+  指定されたスプライトシートデータをビューに反映する.
+
+  @param  imageIndex  スプライトシートのインデックス.
+*/
 void Main::setAnimation(size_t imageIndex)
 {
   if (imageIndex >= animation.sheetList.size()) {
@@ -42,6 +53,9 @@ void Main::setAnimation(size_t imageIndex)
   }
 }
 
+/**
+  スプライトデータファイルを開く.
+*/
 void Main::openFile()
 {
   QString filename = QFileDialog::getOpenFileName(
@@ -60,6 +74,9 @@ void Main::openFile()
   setAnimation(0);
 }
 
+/**
+  スプライトデータファイルを保存する.
+*/
 void Main::saveFile()
 {
   QString filename = QFileDialog::getSaveFileName(
@@ -74,6 +91,9 @@ void Main::saveFile()
   SaveToFile(filename.toLocal8Bit(), animation);
 }
 
+/**
+  テクスチャファイルを開く.
+*/
 void Main::openTextureFile()
 {
   QString filename = QFileDialog::getOpenFileName(
@@ -97,6 +117,11 @@ void Main::openTextureFile()
   pUi->textureDock->setWindowTitle(filename + '(' + QString::number(image.width()) + ',' + QString::number(image.height()) + ')');
 }
 
+/**
+  選択範囲をシートに追加する.
+
+  テクスチャビューの選択範囲をスプライトチップとして現在選択されているシートに追加する.
+*/
 void Main::insertChip()
 {
   const float x = pStateBox->pos().x();
@@ -112,6 +137,14 @@ void Main::insertChip()
   insertChip(rect, position, offset, scale);
 }
 
+/**
+  指定されたデータをシートに追加する.
+
+  @param  rect テクスチャ範囲.
+  @param  pos  チップ配置座標.
+  @param  offset チップ回転拡縮中心座標.
+  @param  scale チップ拡縮率.
+*/
 void Main::insertChip(const Rect& rect, const Point2& pos, const Vector2& offset, const Vector2& scale)
 {
   enum ChipListColumnId {
@@ -141,6 +174,9 @@ void Main::insertChip(const Rect& rect, const Point2& pos, const Vector2& offset
   chipPtrList.push_back(pItem);
 }
 
+/**
+  チップリストビューで選択されているチップをシートから削除する.
+*/
 void Main::deleteChip()
 {
   for (auto range : pUi->chipList->selectedRanges()) {
@@ -152,12 +188,22 @@ void Main::deleteChip()
   }
 }
 
+/**
+  チップリストビューを空にする.
+
+  チップリストビュー再設定のためのヘルパ関数. シートデータからは削除されないことに注意.
+*/
 void Main::clearChipList()
 {
   pUi->chipList->clear();
   pUi->chipList->setRowCount(0);
 }
 
+/**
+  シートを追加する.
+
+  シートリストにからのスプライトシートを追加する.
+*/
 void Main::insertSheet()
 {
   animation.sheetList.push_back(Sheet());
@@ -167,6 +213,9 @@ void Main::insertSheet()
   }
 }
 
+/**
+  シートリストで選択されているシートを削除する.
+*/
 void Main::deleteSheet()
 {
   for (auto range : pUi->sheetList->selectedRanges()) {
@@ -177,6 +226,9 @@ void Main::deleteSheet()
   }
 }
 
+/**
+  シートリストビューを空にする.
+*/
 void Main::clearSheetList()
 {
   animation.sheetList.clear();
@@ -186,6 +238,9 @@ void Main::clearSheetList()
 
 } // namespace SpriteEditor
 
+/**
+  エントリポイント.
+*/
 int main(int argc, char* argv[])
 {
   QApplication app(argc, argv);
