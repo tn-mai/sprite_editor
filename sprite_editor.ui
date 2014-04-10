@@ -168,8 +168,11 @@
          <number>0</number>
         </property>
         <property name="columnCount">
-         <number>8</number>
+         <number>11</number>
         </property>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>56</number>
+        </attribute>
         <column>
          <property name="text">
           <string>Left</string>
@@ -208,6 +211,21 @@
         <column>
          <property name="text">
           <string>Y Offset</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>X Scale</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Y Scale</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Rotation</string>
          </property>
         </column>
        </widget>

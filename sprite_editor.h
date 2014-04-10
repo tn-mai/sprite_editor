@@ -164,8 +164,8 @@ public:
         editScrollArea->setWidget(scrollAreaWidgetContents);
         splitter->addWidget(editScrollArea);
         chipList = new QTableWidget(splitter);
-        if (chipList->columnCount() < 8)
-            chipList->setColumnCount(8);
+        if (chipList->columnCount() < 11)
+            chipList->setColumnCount(11);
         QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
         chipList->setHorizontalHeaderItem(0, __qtablewidgetitem2);
         QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
@@ -182,13 +182,20 @@ public:
         chipList->setHorizontalHeaderItem(6, __qtablewidgetitem8);
         QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
         chipList->setHorizontalHeaderItem(7, __qtablewidgetitem9);
+        QTableWidgetItem *__qtablewidgetitem10 = new QTableWidgetItem();
+        chipList->setHorizontalHeaderItem(8, __qtablewidgetitem10);
+        QTableWidgetItem *__qtablewidgetitem11 = new QTableWidgetItem();
+        chipList->setHorizontalHeaderItem(9, __qtablewidgetitem11);
+        QTableWidgetItem *__qtablewidgetitem12 = new QTableWidgetItem();
+        chipList->setHorizontalHeaderItem(10, __qtablewidgetitem12);
         chipList->setObjectName(QStringLiteral("chipList"));
         chipList->setMinimumSize(QSize(0, 0));
         chipList->setMaximumSize(QSize(1677215, 1677215));
         chipList->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
         chipList->setRowCount(0);
-        chipList->setColumnCount(8);
+        chipList->setColumnCount(11);
         splitter->addWidget(chipList);
+        chipList->horizontalHeader()->setDefaultSectionSize(56);
 
         horizontalLayout->addWidget(splitter);
 
@@ -292,6 +299,12 @@ public:
         ___qtablewidgetitem8->setText(QApplication::translate("MainWindow", "X Offset", 0));
         QTableWidgetItem *___qtablewidgetitem9 = chipList->horizontalHeaderItem(7);
         ___qtablewidgetitem9->setText(QApplication::translate("MainWindow", "Y Offset", 0));
+        QTableWidgetItem *___qtablewidgetitem10 = chipList->horizontalHeaderItem(8);
+        ___qtablewidgetitem10->setText(QApplication::translate("MainWindow", "X Scale", 0));
+        QTableWidgetItem *___qtablewidgetitem11 = chipList->horizontalHeaderItem(9);
+        ___qtablewidgetitem11->setText(QApplication::translate("MainWindow", "Y Scale", 0));
+        QTableWidgetItem *___qtablewidgetitem12 = chipList->horizontalHeaderItem(10);
+        ___qtablewidgetitem12->setText(QApplication::translate("MainWindow", "Rotation", 0));
     } // retranslateUi
 
 };
