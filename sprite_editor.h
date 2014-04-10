@@ -214,6 +214,15 @@ public:
         textureView->setObjectName(QStringLiteral("textureView"));
         textureView->setMinimumSize(QSize(0, 0));
         textureView->setMaximumSize(QSize(65535, 65535));
+        QPalette palette;
+        QBrush brush(QColor(120, 120, 120, 255));
+        brush.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Base, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::Base, brush);
+        QBrush brush1(QColor(240, 240, 240, 255));
+        brush1.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Disabled, QPalette::Base, brush1);
+        textureView->setPalette(palette);
         textureView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         textureView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 

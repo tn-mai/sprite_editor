@@ -24,6 +24,13 @@ class Main : public QMainWindow
 public:
   Main(QWidget* parent = 0);
 
+private:
+  void clearChipListView();
+  void clearSheetList();
+  void setAnimation(size_t);
+  int getCurrentSheetIndex() const;
+  int getCurrentChipIndex() const;
+
 private slots:
   void openFile();
   void saveFile();
@@ -31,11 +38,10 @@ private slots:
   void insertChip();
   void insertChip(const Rect&, const Point2&, const Vector2&, const Vector2&);
   void deleteChip();
-  void clearChipListView();
   void insertSheet();
   void deleteSheet();
-  void clearSheetList();
-  void setAnimation(size_t);
+
+  void onChipListChanged(int, int);
 
 private:
   std::shared_ptr<Ui::MainWindow> pUi;
