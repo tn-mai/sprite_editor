@@ -27,7 +27,17 @@ enum ChipListColumnId {
 
 QPixmap copyPixmap(const QPixmap& pixmap, const Rect& rect)
 {
-    return pixmap.copy(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top);
+    const Float width = rect.right - rect.left;
+    const Float height = rect.bottom - rect.top;
+    QPixmap tmp = pixmap.copy(rect.left, rect.top, width, height);
+    QPainter p;
+    QPen  pen(QColor(0xff, 0, 0, 0x7f));
+    pen.setStyle(Qt::DashLine);
+    p.begin(&tmp);
+    p.setPen(pen);
+    p.drawRect(0, 0, tmp.width() - 1, tmp.height() - 1);
+    p.end();
+    return tmp;
 }
 
 /**
