@@ -299,10 +299,12 @@ void Main::onChipListChanged(int row, int column)
   QGraphicsPixmapItem* pPixmap = chipPtrList[row];
   switch(column) {
   case Left:
+    chip.rect.right += value - chip.rect.left;
     chip.rect.left = value;
     pPixmap->setPixmap(copyPixmap(*pTextureImage, chip.rect));
     break;
   case Top:
+    chip.rect.bottom += value - chip.rect.top;
     chip.rect.top = value;
     pPixmap->setPixmap(copyPixmap(*pTextureImage, chip.rect));
     break;
