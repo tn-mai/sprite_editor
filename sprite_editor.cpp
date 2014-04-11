@@ -193,6 +193,9 @@ void Main::insertChip(const Rect& rect, const Point2& pos, const Vector2& offset
   pUi->chipList->setItem(row, YPos, new QTableWidgetItem(tr("%1").arg(pos.y)));
   pUi->chipList->setItem(row, XOffset, new QTableWidgetItem(tr("%1").arg(offset.x)));
   pUi->chipList->setItem(row, YOffset, new QTableWidgetItem(tr("%1").arg(offset.y)));
+  pUi->chipList->setItem(row, XScale, new QTableWidgetItem(tr("%1").arg(scale.x)));
+  pUi->chipList->setItem(row, YScale, new QTableWidgetItem(tr("%1").arg(scale.y)));
+  pUi->chipList->setItem(row, Rotation, new QTableWidgetItem(tr("0")));
 
   QGraphicsPixmapItem* pItem = pEditScene->addPixmap(copyPixmap(*pTextureImage, rect));
   pItem->setOffset(0, 0);
