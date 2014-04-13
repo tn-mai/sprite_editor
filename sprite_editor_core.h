@@ -30,6 +30,7 @@ private:
   void setAnimation(size_t);
   int getCurrentSheetIndex() const;
   int getCurrentChipIndex() const;
+  void updateSheetPicture(int);
 
 private slots:
   void openFile();

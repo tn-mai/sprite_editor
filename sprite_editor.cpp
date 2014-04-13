@@ -57,6 +57,9 @@ Main::Main(QWidget* parent) :
   pTextureScene->addItem(pStateBox.get());
   pUi->textureView->setScene(pTextureScene.get());
   pUi->editView->setScene(pEditScene.get());
+  pUi->sheetList->verticalHeader()->resizeSection(0, 128);
+  pUi->sheetList->horizontalHeader()->setDefaultSectionSize(128);
+  pUi->sheetList->setIconSize(QSize(128, 128));
   insertSheet();
 
   connect(pUi->actionOpen, SIGNAL(triggered()), this, SLOT(openFile()));
@@ -200,6 +203,7 @@ void Main::insertChip(const Rect& rect, const Point2& pos, const Vector2& offset
   QGraphicsPixmapItem* pItem = pEditScene->addPixmap(copyPixmap(*pTextureImage, rect));
   pItem->setOffset(0, 0);
   chipPtrList.insert(chipPtrList.begin() + row, pItem);
+  updateSheetPicture(getCurrentSheetIndex());
 
   connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
 }
@@ -291,6 +295,24 @@ int Main::getCurrentChipIndex() const
   return index >= 0 ? index : 0;
 }
 
+void Main::updateSheetPicture(int index)
+{
+  QPixmap  image(512, 512);
+  QPainter  painter(&image);
+  painter.setRenderHint(QPainter::Antialiasing);
+  pEditScene->render(&painter);
+  pUi->sheetList->setItem(
+    index,
+    0,
+    new QTableWidgetItem(
+      QIcon(
+        image
+      ),
+      ""
+    )
+  );
+}
+
 /**
   チップリストビューの値が更新された.
 */
@@ -343,6 +365,7 @@ void Main::onChipListChanged(int row, int column)
     chip.angle = value;
     break;
   }
+  updateSheetPicture(getCurrentSheetIndex());
 }
 
 } // namespace SpriteEditor
