@@ -37,7 +37,7 @@ void EditScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
       auto grabbedItem = std::find(grabbedItemList.begin(), end, i);
       QGraphicsPixmapItem* pItem = static_cast<QGraphicsPixmapItem*>(i);
       QPixmap pixmap = pItem->pixmap();
-      if ( grabbedItem != end) {
+      if (grabbedItem != end) {
         if (!(event->modifiers() & Qt::ControlModifier)) {
           drawDashFrame(&pixmap, QColor(0xff, 0x00, 0x00, 0x7f));
           pItem->setPixmap(pixmap);
@@ -51,7 +51,7 @@ void EditScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
     } else if (!(event->modifiers() & Qt::ControlModifier)) {
       auto end = grabbedItemList.end();
       auto grabbedItem = std::find(grabbedItemList.begin(), end, i);
-      if ( grabbedItem != end) {
+      if (grabbedItem != end) {
         QGraphicsPixmapItem* pItem = static_cast<QGraphicsPixmapItem*>(i);
         QPixmap pixmap = pItem->pixmap();
         drawDashFrame(&pixmap, QColor(0xff, 0x00, 0x00, 0x7f));
