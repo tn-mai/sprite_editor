@@ -48,6 +48,16 @@ void EditScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
       drawDashFrame(&pixmap, QColor(0x00, 0xff, 0x00, 0x7f));
       pItem->setPixmap(pixmap);
       grabbedItemList.push_back(i);
+    } else if (!(event->modifiers() & Qt::ControlModifier)) {
+      auto end = grabbedItemList.end();
+      auto grabbedItem = std::find(grabbedItemList.begin(), end, i);
+      if ( grabbedItem != end) {
+        QGraphicsPixmapItem* pItem = static_cast<QGraphicsPixmapItem*>(i);
+        QPixmap pixmap = pItem->pixmap();
+        drawDashFrame(&pixmap, QColor(0xff, 0x00, 0x00, 0x7f));
+        pItem->setPixmap(pixmap);
+        grabbedItemList.erase(grabbedItem);
+      }
     }
   }
   dragStartingPoint = event->scenePos();
