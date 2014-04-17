@@ -50,7 +50,7 @@ void EditScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
       grabbedItemList.push_back(i);
     }
   }
-  dragStartingPoint = event->pos();
+  dragStartingPoint = event->scenePos();
   event->setAccepted(true);
 }
 
@@ -59,7 +59,7 @@ void EditScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 */
 void EditScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
-  const QPointF moveVector = event->pos() - dragStartingPoint;
+  const QPointF moveVector = event->scenePos() - event->lastScenePos();
   for (auto i : grabbedItemList) {
     i->setPos(i->pos() + moveVector);
   }
