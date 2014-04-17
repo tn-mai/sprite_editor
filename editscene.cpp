@@ -28,7 +28,7 @@ EditScene::EditScene(QObject* parent) :
 void EditScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
   QList<QGraphicsItem*> itemList = items();
-  const QPointF pos = event->pos();
+  const QPointF pos = event->scenePos();
   for (auto i : itemList) {
     if (i->sceneBoundingRect().contains(pos)) {
       // Ctrlキーが押されている時、既に選択されているなら何もしない. そうでなければ選択.
