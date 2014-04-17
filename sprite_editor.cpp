@@ -4,6 +4,7 @@
 #include "sprite_editor_core.h"
 #include "sprite_editor.h"
 #include "statebox.h"
+#include "editscene.h"
 #include <QtWidgets/QGraphicsPixmapItem>
 
 /**
@@ -49,7 +50,7 @@ Main::Main(QWidget* parent) :
   pTextureImage(new QPixmap(1, 1)),
   pStateBox(new StateBox),
   pTextureScene(new QGraphicsScene),
-  pEditScene(new QGraphicsScene)
+  pEditScene(new EditScene)
 {
   pUi->setupUi(this);
   pStateBox->setPos(200, 200);

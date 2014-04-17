@@ -1,17 +1,18 @@
 /**
-  Edit View.
+  Edit Scene.
 */
-#include "editview.h"
-#include <QtWidgets/QGraphicsSceneMouseEvent>
+#include "editscene.h"
 #include <QtWidgets/QGraphicsItem>
+#include <QtWidgets/QGraphicsSceneMouseEvent>
+#include <QtGui/QMouseEvent>
 
 namespace SpriteEditor {
 
 /**
   コンストラクタ.
 */
-EditView::EditView(QWidget* parent) :
-  QGraphicsView(parent),
+EditScene::EditScene(QObject* parent) :
+  QGraphicsScene(parent),
   grabbedItemList(),
   dragStartingPoint(0, 0)
 {
@@ -23,12 +24,12 @@ EditView::EditView(QWidget* parent) :
   押されていなければ選択リストを空にしてから加える.
   その後、ドラッグモードにする.
 */
-void EditView::mousePressEvent(QGraphicsSceneMouseEvent* event)
+void EditScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
-  QList<QGraphicsItem*> itemList = scene()->items();
+  QList<QGraphicsItem*> itemList = items();
   const QPointF pos = event->pos();
   for (auto i : itemList) {
-    if (i->boundingRect().contains(pos)) {
+    if (i->sceneBoundingRect().contains(pos)) {
       // Ctrlキーが押されている時、既に選択されているなら何もしない. そうでなければ選択.
       // Ctrlキーが押されていない時、既に選択されているなら選択解除. そうでなければ選択.
       auto grabbedItem = std::find(grabbedItemList.begin(), grabbedItemList.end(), i);
@@ -48,7 +49,7 @@ void EditView::mousePressEvent(QGraphicsSceneMouseEvent* event)
 /**
   選択リストのオブジェクトを移動させる.
 */
-void EditView::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
+void EditScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
   const QPointF moveVector = event->pos() - dragStartingPoint;
   for (auto i : grabbedItemList) {
@@ -60,17 +61,17 @@ void EditView::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 /**
   ドラッグモードを終了する.
 */
-void EditView::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+void EditScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
   event->setAccepted(false);
 }
 
-void EditView::mouseMoveEvent(QGraphicsSceneDragDropEvent* event)
+void EditScene::mouseMoveEvent(QGraphicsSceneDragDropEvent* event)
 {
   event->setAccepted(false);
 }
 
-void EditView::mousePressEvent(QGraphicsSceneDragDropEvent* event)
+void EditScene::mousePressEvent(QGraphicsSceneDragDropEvent* event)
 {
   event->setAccepted(false);
 }

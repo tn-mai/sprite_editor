@@ -47,15 +47,15 @@ SOURCES       = sprite_editor.cpp \
 		statebox.cpp \
 		cornergrabber.cpp \
 		data.cpp \
-		editview.cpp release\moc_sprite_editor_core.cpp \
-		release\moc_editview.cpp
+		editscene.cpp release\moc_sprite_editor_core.cpp \
+		release\moc_editscene.cpp
 OBJECTS       = release\sprite_editor.obj \
 		release\statebox.obj \
 		release\cornergrabber.obj \
 		release\data.obj \
-		release\editview.obj \
+		release\editscene.obj \
 		release\moc_sprite_editor_core.obj \
-		release\moc_editview.obj
+		release\moc_editscene.obj
 
 DIST          = 
 QMAKE_TARGET  = sprite_editor
@@ -66,26 +66,6 @@ DESTDIR_TARGET = release\sprite_editor.exe
 ####### Implicit rules
 
 .SUFFIXES: .c .cpp .cc .cxx
-
-{release}.cpp{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{release}.cc{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{release}.cxx{release\}.obj::
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
-
-{release}.c{release\}.obj::
-	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
-	$<
-<<
 
 {.}.cpp{release\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
@@ -103,6 +83,26 @@ DESTDIR_TARGET = release\sprite_editor.exe
 <<
 
 {.}.c{release\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{release}.cpp{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{release}.cc{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{release}.cxx{release\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Forelease\ @<<
+	$<
+<<
+
+{release}.c{release\}.obj::
 	$(CC) -c $(CFLAGS) $(INCPATH) -Forelease\ @<<
 	$<
 <<
@@ -127,7 +127,7 @@ dist:
 	$(ZIP) sprite_editor.zip $(SOURCES) $(DIST) sprite_editor.pro ..\..\qt5\qtbase\mkspecs\features\spec_pre.prf ..\..\qt5\qtbase\mkspecs\common\shell-win32.conf ..\..\qt5\qtbase\mkspecs\qconfig.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_axbase.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_axbase_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_axcontainer.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_axserver.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_axserver_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_bluetooth.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_bootstrap_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_clucene_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_concurrent.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_core.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_core_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_declarative.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_declarative_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_designer.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_designer_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_gui.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_gui_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_help.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_help_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_multimedia.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_network.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_network_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_nfc.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_nfc_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_opengl.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_opengl_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_openglextensions.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_openglextensions_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_platformsupport_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_positioning.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_positioning_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_printsupport.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_qml.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_qml_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_qmltest.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_quick.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_quick_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_script.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_script_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_scripttools.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_scripttools_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_sensors.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_sensors_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_serialport.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_serialport_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_sql.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_sql_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_svg.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_svg_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_testlib.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_testlib_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_uitools.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_uitools_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_websockets.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_websockets_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_widgets.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_widgets_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_winextras.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_winextras_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_xml.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_xml_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_xmlpatterns.pri ..\..\qt5\qtbase\mkspecs\modules\qt_lib_xmlpatterns_private.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_dumpcpp.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_dumpdoc.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_lconvert.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_lrelease.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_lupdate.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qcollectiongenerator.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qdoc.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qhelpgenerator.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qlalr.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qml.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qml1plugindump.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qmlbundle.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qmlimportscanner.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qmljs.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qmlmin.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qmlplugindump.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qmlprofiler.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qmlscene.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_qmltestrunner.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_syncqt.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_uic.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_xmlpatterns.pri ..\..\qt5\qtbase\mkspecs\modules\qt_tool_xmlpatternsvalidator.pri ..\..\qt5\qtbase\mkspecs\features\qt_functions.prf ..\..\qt5\qtbase\mkspecs\features\qt_config.prf ..\..\qt5\qtbase\mkspecs\win32-msvc2013\qmake.conf ..\..\qt5\qtbase\mkspecs\features\spec_post.prf ..\..\qt5\qtbase\mkspecs\features\exclusive_builds.prf ..\..\qt5\qtbase\mkspecs\features\default_pre.prf ..\..\qt5\qtbase\mkspecs\features\win32\default_pre.prf ..\..\qt5\qtbase\mkspecs\features\resolve_config.prf ..\..\qt5\qtbase\mkspecs\features\exclusive_builds_post.prf ..\..\qt5\qtbase\mkspecs\features\default_post.prf ..\..\qt5\qtbase\mkspecs\features\build_pass.prf ..\..\qt5\qtbase\mkspecs\features\qt.prf ..\..\qt5\qtbase\mkspecs\features\resources.prf ..\..\qt5\qtbase\mkspecs\features\moc.prf ..\..\qt5\qtbase\mkspecs\features\win32\opengl.prf ..\..\qt5\qtbase\mkspecs\features\win32\rtti.prf ..\..\qt5\qtbase\mkspecs\features\precompile_header.prf ..\..\qt5\qtbase\mkspecs\features\warn_on.prf ..\..\qt5\qtbase\mkspecs\features\win32\windows.prf ..\..\qt5\qtbase\mkspecs\features\testcase_targets.prf ..\..\qt5\qtbase\mkspecs\features\exceptions.prf ..\..\qt5\qtbase\mkspecs\features\yacc.prf ..\..\qt5\qtbase\mkspecs\features\lex.prf sprite_editor.pro C:/usr/local/qt5/qtbase/lib/Qt5Widgetsd.prl C:/usr/local/qt5/qtbase/lib/Qt5Gui.prl C:/usr/local/qt5/qtbase/lib/Qt5Core.prl  RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES NO_PCH_SOURCES YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\sprite_editor.obj release\statebox.obj release\cornergrabber.obj release\data.obj release\editview.obj release\moc_sprite_editor_core.obj release\moc_editview.obj
+	-$(DEL_FILE) release\sprite_editor.obj release\statebox.obj release\cornergrabber.obj release\data.obj release\editscene.obj release\moc_sprite_editor_core.obj release\moc_editscene.obj
 	-$(DEL_FILE) release\sprite_editor.exp release\sprite_editor.exe.embed.manifest
 
 distclean: clean 
@@ -142,9 +142,9 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: release\moc_sprite_editor_core.cpp release\moc_editview.cpp
+compiler_moc_header_make_all: release\moc_sprite_editor_core.cpp release\moc_editscene.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) release\moc_sprite_editor_core.cpp release\moc_editview.cpp
+	-$(DEL_FILE) release\moc_sprite_editor_core.cpp release\moc_editscene.cpp
 release\moc_sprite_editor_core.cpp: data.h \
 		..\..\qt5\qtbase\include\QtWidgets\QFileDialog \
 		..\..\qt5\qtbase\include\QtWidgets\qfiledialog.h \
@@ -379,11 +379,15 @@ release\moc_sprite_editor_core.cpp: data.h \
 		sprite_editor_core.h
 	C:\usr\local\qt5\qtbase\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/usr/local/qt5/qtbase/mkspecs/win32-msvc2013 -IC:/usr/local/projects/sprite_editor -IC:/usr/local/projects/sprite_editor -IC:/usr/local/qt5/qtbase/include/QtWidgets -IC:/usr/local/qt5/qtbase/include -IC:/usr/local/qt5/qtbase/include/QtGui -IC:/usr/local/qt5/qtbase/include/QtCore sprite_editor_core.h -o release\moc_sprite_editor_core.cpp
 
-release\moc_editview.cpp: ..\..\qt5\qtbase\include\QtWidgets\QGraphicsView \
-		..\..\qt5\qtbase\include\QtWidgets\qgraphicsview.h \
-		..\..\qt5\qtbase\src\widgets\graphicsview\qgraphicsview.h \
-		..\..\qt5\qtbase\include\QtCore\qmetatype.h \
-		..\..\qt5\qtbase\src\corelib\kernel\qmetatype.h \
+release\moc_editscene.cpp: ..\..\qt5\qtbase\include\QtWidgets\QGraphicsScene \
+		..\..\qt5\qtbase\include\QtWidgets\qgraphicsscene.h \
+		..\..\qt5\qtbase\src\widgets\graphicsview\qgraphicsscene.h \
+		..\..\qt5\qtbase\include\QtCore\qobject.h \
+		..\..\qt5\qtbase\src\corelib\kernel\qobject.h \
+		..\..\qt5\qtbase\include\QtCore\qobjectdefs.h \
+		..\..\qt5\qtbase\src\corelib\kernel\qobjectdefs.h \
+		..\..\qt5\qtbase\include\QtCore\qnamespace.h \
+		..\..\qt5\qtbase\src\corelib\global\qnamespace.h \
 		..\..\qt5\qtbase\include\QtCore\qglobal.h \
 		..\..\qt5\qtbase\src\corelib\global\qglobal.h \
 		..\..\qt5\qtbase\include\QtCore\qconfig.h \
@@ -440,52 +444,54 @@ release\moc_editview.cpp: ..\..\qt5\qtbase\include\QtWidgets\QGraphicsView \
 		..\..\qt5\qtbase\src\corelib\thread\qmutex.h \
 		..\..\qt5\qtbase\include\QtCore\qnumeric.h \
 		..\..\qt5\qtbase\src\corelib\global\qnumeric.h \
-		..\..\qt5\qtbase\include\QtCore\qbytearray.h \
-		..\..\qt5\qtbase\src\corelib\tools\qbytearray.h \
-		..\..\qt5\qtbase\include\QtCore\qrefcount.h \
-		..\..\qt5\qtbase\src\corelib\tools\qrefcount.h \
-		..\..\qt5\qtbase\include\QtCore\qnamespace.h \
-		..\..\qt5\qtbase\src\corelib\global\qnamespace.h \
-		..\..\qt5\qtbase\include\QtCore\qarraydata.h \
-		..\..\qt5\qtbase\src\corelib\tools\qarraydata.h \
+		..\..\qt5\qtbase\include\QtCore\qobjectdefs_impl.h \
+		..\..\qt5\qtbase\src\corelib\kernel\qobjectdefs_impl.h \
 		..\..\qt5\qtbase\include\QtCore\qstring.h \
 		..\..\qt5\qtbase\src\corelib\tools\qstring.h \
 		..\..\qt5\qtbase\include\QtCore\qchar.h \
 		..\..\qt5\qtbase\src\corelib\tools\qchar.h \
+		..\..\qt5\qtbase\include\QtCore\qbytearray.h \
+		..\..\qt5\qtbase\src\corelib\tools\qbytearray.h \
+		..\..\qt5\qtbase\include\QtCore\qrefcount.h \
+		..\..\qt5\qtbase\src\corelib\tools\qrefcount.h \
+		..\..\qt5\qtbase\include\QtCore\qarraydata.h \
+		..\..\qt5\qtbase\src\corelib\tools\qarraydata.h \
 		..\..\qt5\qtbase\include\QtCore\qstringbuilder.h \
 		..\..\qt5\qtbase\src\corelib\tools\qstringbuilder.h \
+		..\..\qt5\qtbase\include\QtCore\qlist.h \
+		..\..\qt5\qtbase\src\corelib\tools\qlist.h \
+		..\..\qt5\qtbase\include\QtCore\qalgorithms.h \
+		..\..\qt5\qtbase\src\corelib\tools\qalgorithms.h \
+		..\..\qt5\qtbase\include\QtCore\qiterator.h \
+		..\..\qt5\qtbase\src\corelib\tools\qiterator.h \
+		..\..\qt5\qtbase\include\QtCore\qcoreevent.h \
+		..\..\qt5\qtbase\src\corelib\kernel\qcoreevent.h \
+		..\..\qt5\qtbase\include\QtCore\qscopedpointer.h \
+		..\..\qt5\qtbase\src\corelib\tools\qscopedpointer.h \
+		..\..\qt5\qtbase\include\QtCore\qmetatype.h \
+		..\..\qt5\qtbase\src\corelib\kernel\qmetatype.h \
 		..\..\qt5\qtbase\include\QtCore\qvarlengtharray.h \
 		..\..\qt5\qtbase\src\corelib\tools\qvarlengtharray.h \
 		..\..\qt5\qtbase\include\QtCore\qcontainerfwd.h \
 		..\..\qt5\qtbase\src\corelib\tools\qcontainerfwd.h \
-		..\..\qt5\qtbase\include\QtCore\qalgorithms.h \
-		..\..\qt5\qtbase\src\corelib\tools\qalgorithms.h \
 		..\..\qt5\qtbase\include\QtCore\qisenum.h \
 		..\..\qt5\qtbase\src\corelib\global\qisenum.h \
-		..\..\qt5\qtbase\include\QtCore\qobjectdefs.h \
-		..\..\qt5\qtbase\src\corelib\kernel\qobjectdefs.h \
-		..\..\qt5\qtbase\include\QtCore\qobjectdefs_impl.h \
-		..\..\qt5\qtbase\src\corelib\kernel\qobjectdefs_impl.h \
-		..\..\qt5\qtbase\include\QtGui\qpainter.h \
-		..\..\qt5\qtbase\src\gui\painting\qpainter.h \
+		..\..\qt5\qtbase\include\QtCore\qobject_impl.h \
+		..\..\qt5\qtbase\src\corelib\kernel\qobject_impl.h \
+		..\..\qt5\qtbase\include\QtCore\qpoint.h \
+		..\..\qt5\qtbase\src\corelib\tools\qpoint.h \
 		..\..\qt5\qtbase\include\QtCore\qrect.h \
 		..\..\qt5\qtbase\src\corelib\tools\qrect.h \
 		..\..\qt5\qtbase\include\QtCore\qmargins.h \
 		..\..\qt5\qtbase\src\corelib\tools\qmargins.h \
 		..\..\qt5\qtbase\include\QtCore\qsize.h \
 		..\..\qt5\qtbase\src\corelib\tools\qsize.h \
-		..\..\qt5\qtbase\include\QtCore\qpoint.h \
-		..\..\qt5\qtbase\src\corelib\tools\qpoint.h \
-		..\..\qt5\qtbase\include\QtCore\qscopedpointer.h \
-		..\..\qt5\qtbase\src\corelib\tools\qscopedpointer.h \
-		..\..\qt5\qtbase\include\QtGui\qpixmap.h \
-		..\..\qt5\qtbase\src\gui\image\qpixmap.h \
-		..\..\qt5\qtbase\include\QtGui\qpaintdevice.h \
-		..\..\qt5\qtbase\src\gui\painting\qpaintdevice.h \
-		..\..\qt5\qtbase\include\QtGui\qwindowdefs.h \
-		..\..\qt5\qtbase\src\gui\kernel\qwindowdefs.h \
-		..\..\qt5\qtbase\include\QtGui\qwindowdefs_win.h \
-		..\..\qt5\qtbase\src\gui\kernel\qwindowdefs_win.h \
+		..\..\qt5\qtbase\include\QtGui\qbrush.h \
+		..\..\qt5\qtbase\src\gui\painting\qbrush.h \
+		..\..\qt5\qtbase\include\QtCore\qpair.h \
+		..\..\qt5\qtbase\src\corelib\tools\qpair.h \
+		..\..\qt5\qtbase\include\QtCore\qvector.h \
+		..\..\qt5\qtbase\src\corelib\tools\qvector.h \
 		..\..\qt5\qtbase\include\QtGui\qcolor.h \
 		..\..\qt5\qtbase\src\gui\painting\qcolor.h \
 		..\..\qt5\qtbase\include\QtGui\qrgb.h \
@@ -496,22 +502,32 @@ release\moc_editview.cpp: ..\..\qt5\qtbase\include\QtWidgets\QGraphicsView \
 		..\..\qt5\qtbase\src\corelib\io\qdatastream.h \
 		..\..\qt5\qtbase\include\QtCore\qiodevice.h \
 		..\..\qt5\qtbase\src\corelib\io\qiodevice.h \
-		..\..\qt5\qtbase\include\QtCore\qobject.h \
-		..\..\qt5\qtbase\src\corelib\kernel\qobject.h \
-		..\..\qt5\qtbase\include\QtCore\qlist.h \
-		..\..\qt5\qtbase\src\corelib\tools\qlist.h \
-		..\..\qt5\qtbase\include\QtCore\qiterator.h \
-		..\..\qt5\qtbase\src\corelib\tools\qiterator.h \
-		..\..\qt5\qtbase\include\QtCore\qcoreevent.h \
-		..\..\qt5\qtbase\src\corelib\kernel\qcoreevent.h \
-		..\..\qt5\qtbase\include\QtCore\qobject_impl.h \
-		..\..\qt5\qtbase\src\corelib\kernel\qobject_impl.h \
-		..\..\qt5\qtbase\include\QtCore\qpair.h \
-		..\..\qt5\qtbase\src\corelib\tools\qpair.h \
 		..\..\qt5\qtbase\include\QtCore\qregexp.h \
 		..\..\qt5\qtbase\src\corelib\tools\qregexp.h \
 		..\..\qt5\qtbase\include\QtCore\qstringmatcher.h \
 		..\..\qt5\qtbase\src\corelib\tools\qstringmatcher.h \
+		..\..\qt5\qtbase\include\QtGui\qmatrix.h \
+		..\..\qt5\qtbase\src\gui\painting\qmatrix.h \
+		..\..\qt5\qtbase\include\QtGui\qpolygon.h \
+		..\..\qt5\qtbase\src\gui\painting\qpolygon.h \
+		..\..\qt5\qtbase\include\QtGui\qregion.h \
+		..\..\qt5\qtbase\src\gui\painting\qregion.h \
+		..\..\qt5\qtbase\include\QtGui\qwindowdefs.h \
+		..\..\qt5\qtbase\src\gui\kernel\qwindowdefs.h \
+		..\..\qt5\qtbase\include\QtGui\qwindowdefs_win.h \
+		..\..\qt5\qtbase\src\gui\kernel\qwindowdefs_win.h \
+		..\..\qt5\qtbase\include\QtCore\qline.h \
+		..\..\qt5\qtbase\src\corelib\tools\qline.h \
+		..\..\qt5\qtbase\include\QtGui\qtransform.h \
+		..\..\qt5\qtbase\src\gui\painting\qtransform.h \
+		..\..\qt5\qtbase\include\QtGui\qpainterpath.h \
+		..\..\qt5\qtbase\src\gui\painting\qpainterpath.h \
+		..\..\qt5\qtbase\include\QtGui\qimage.h \
+		..\..\qt5\qtbase\src\gui\image\qimage.h \
+		..\..\qt5\qtbase\include\QtGui\qpaintdevice.h \
+		..\..\qt5\qtbase\src\gui\painting\qpaintdevice.h \
+		..\..\qt5\qtbase\include\QtGui\qpixmap.h \
+		..\..\qt5\qtbase\src\gui\image\qpixmap.h \
 		..\..\qt5\qtbase\include\QtCore\qsharedpointer.h \
 		..\..\qt5\qtbase\src\corelib\tools\qsharedpointer.h \
 		..\..\qt5\qtbase\include\QtCore\qshareddata.h \
@@ -520,82 +536,12 @@ release\moc_editview.cpp: ..\..\qt5\qtbase\include\QtWidgets\QGraphicsView \
 		..\..\qt5\qtbase\src\corelib\tools\qsharedpointer_impl.h \
 		..\..\qt5\qtbase\include\QtCore\qhash.h \
 		..\..\qt5\qtbase\src\corelib\tools\qhash.h \
-		..\..\qt5\qtbase\include\QtGui\qimage.h \
-		..\..\qt5\qtbase\src\gui\image\qimage.h \
-		..\..\qt5\qtbase\include\QtGui\qtransform.h \
-		..\..\qt5\qtbase\src\gui\painting\qtransform.h \
-		..\..\qt5\qtbase\include\QtGui\qmatrix.h \
-		..\..\qt5\qtbase\src\gui\painting\qmatrix.h \
-		..\..\qt5\qtbase\include\QtGui\qpolygon.h \
-		..\..\qt5\qtbase\src\gui\painting\qpolygon.h \
-		..\..\qt5\qtbase\include\QtCore\qvector.h \
-		..\..\qt5\qtbase\src\corelib\tools\qvector.h \
-		..\..\qt5\qtbase\include\QtGui\qregion.h \
-		..\..\qt5\qtbase\src\gui\painting\qregion.h \
-		..\..\qt5\qtbase\include\QtCore\qline.h \
-		..\..\qt5\qtbase\src\corelib\tools\qline.h \
-		..\..\qt5\qtbase\include\QtGui\qpainterpath.h \
-		..\..\qt5\qtbase\src\gui\painting\qpainterpath.h \
-		..\..\qt5\qtbase\include\QtGui\qtextoption.h \
-		..\..\qt5\qtbase\src\gui\text\qtextoption.h \
-		..\..\qt5\qtbase\include\QtGui\qpen.h \
-		..\..\qt5\qtbase\src\gui\painting\qpen.h \
-		..\..\qt5\qtbase\include\QtGui\qbrush.h \
-		..\..\qt5\qtbase\src\gui\painting\qbrush.h \
-		..\..\qt5\qtbase\include\QtGui\qfontinfo.h \
-		..\..\qt5\qtbase\src\gui\text\qfontinfo.h \
 		..\..\qt5\qtbase\include\QtGui\qfont.h \
 		..\..\qt5\qtbase\src\gui\text\qfont.h \
-		..\..\qt5\qtbase\include\QtGui\qfontmetrics.h \
-		..\..\qt5\qtbase\src\gui\text\qfontmetrics.h \
-		..\..\qt5\qtbase\include\QtWidgets\qscrollarea.h \
-		..\..\qt5\qtbase\src\widgets\widgets\qscrollarea.h \
-		..\..\qt5\qtbase\include\QtWidgets\qabstractscrollarea.h \
-		..\..\qt5\qtbase\src\widgets\widgets\qabstractscrollarea.h \
-		..\..\qt5\qtbase\include\QtWidgets\qframe.h \
-		..\..\qt5\qtbase\src\widgets\widgets\qframe.h \
-		..\..\qt5\qtbase\include\QtWidgets\qwidget.h \
-		..\..\qt5\qtbase\src\widgets\kernel\qwidget.h \
-		..\..\qt5\qtbase\include\QtGui\qpalette.h \
-		..\..\qt5\qtbase\src\gui\kernel\qpalette.h \
-		..\..\qt5\qtbase\include\QtWidgets\qsizepolicy.h \
-		..\..\qt5\qtbase\src\widgets\kernel\qsizepolicy.h \
-		..\..\qt5\qtbase\include\QtGui\qcursor.h \
-		..\..\qt5\qtbase\src\gui\kernel\qcursor.h \
-		..\..\qt5\qtbase\include\QtGui\qkeysequence.h \
-		..\..\qt5\qtbase\src\gui\kernel\qkeysequence.h \
-		..\..\qt5\qtbase\include\QtGui\qevent.h \
-		..\..\qt5\qtbase\src\gui\kernel\qevent.h \
-		..\..\qt5\qtbase\include\QtCore\qvariant.h \
-		..\..\qt5\qtbase\src\corelib\kernel\qvariant.h \
-		..\..\qt5\qtbase\include\QtCore\qmap.h \
-		..\..\qt5\qtbase\src\corelib\tools\qmap.h \
-		..\..\qt5\qtbase\include\QtCore\qdebug.h \
-		..\..\qt5\qtbase\src\corelib\io\qdebug.h \
-		..\..\qt5\qtbase\include\QtCore\qtextstream.h \
-		..\..\qt5\qtbase\src\corelib\io\qtextstream.h \
-		..\..\qt5\qtbase\include\QtCore\qlocale.h \
-		..\..\qt5\qtbase\src\corelib\tools\qlocale.h \
-		..\..\qt5\qtbase\include\QtCore\qset.h \
-		..\..\qt5\qtbase\src\corelib\tools\qset.h \
-		..\..\qt5\qtbase\include\QtCore\qcontiguouscache.h \
-		..\..\qt5\qtbase\src\corelib\tools\qcontiguouscache.h \
-		..\..\qt5\qtbase\include\QtCore\qurl.h \
-		..\..\qt5\qtbase\src\corelib\io\qurl.h \
-		..\..\qt5\qtbase\include\QtCore\qurlquery.h \
-		..\..\qt5\qtbase\src\corelib\io\qurlquery.h \
-		..\..\qt5\qtbase\include\QtCore\qfile.h \
-		..\..\qt5\qtbase\src\corelib\io\qfile.h \
-		..\..\qt5\qtbase\include\QtCore\qfiledevice.h \
-		..\..\qt5\qtbase\src\corelib\io\qfiledevice.h \
-		..\..\qt5\qtbase\include\QtGui\qvector2d.h \
-		..\..\qt5\qtbase\src\gui\math3d\qvector2d.h \
-		..\..\qt5\qtbase\include\QtGui\qtouchdevice.h \
-		..\..\qt5\qtbase\src\gui\kernel\qtouchdevice.h \
-		..\..\qt5\qtbase\include\QtWidgets\qgraphicsscene.h \
-		..\..\qt5\qtbase\src\widgets\graphicsview\qgraphicsscene.h \
-		editview.h
-	C:\usr\local\qt5\qtbase\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/usr/local/qt5/qtbase/mkspecs/win32-msvc2013 -IC:/usr/local/projects/sprite_editor -IC:/usr/local/projects/sprite_editor -IC:/usr/local/qt5/qtbase/include/QtWidgets -IC:/usr/local/qt5/qtbase/include -IC:/usr/local/qt5/qtbase/include/QtGui -IC:/usr/local/qt5/qtbase/include/QtCore editview.h -o release\moc_editview.cpp
+		..\..\qt5\qtbase\include\QtGui\qpen.h \
+		..\..\qt5\qtbase\src\gui\painting\qpen.h \
+		editscene.h
+	C:\usr\local\qt5\qtbase\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/usr/local/qt5/qtbase/mkspecs/win32-msvc2013 -IC:/usr/local/projects/sprite_editor -IC:/usr/local/projects/sprite_editor -IC:/usr/local/qt5/qtbase/include/QtWidgets -IC:/usr/local/qt5/qtbase/include -IC:/usr/local/qt5/qtbase/include/QtGui -IC:/usr/local/qt5/qtbase/include/QtCore editscene.h -o release\moc_editscene.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -936,7 +882,6 @@ release\sprite_editor.obj: sprite_editor.cpp sprite_editor_core.h \
 		..\..\qt5\qtbase\include\QtWidgets\qtableview.h \
 		..\..\qt5\qtbase\src\widgets\itemviews\qtableview.h \
 		..\..\qt5\qtbase\include\QtWidgets\QWidget \
-		editview.h \
 		statebox.h \
 		..\..\qt5\qtbase\include\QtWidgets\QGraphicsItem \
 		..\..\qt5\qtbase\include\QtWidgets\qgraphicsitem.h \
@@ -954,6 +899,8 @@ release\sprite_editor.obj: sprite_editor.cpp sprite_editor_core.h \
 		..\..\qt5\qtbase\include\QtGui\QVector2D \
 		cornergrabber.h \
 		..\..\qt5\qtbase\include\QtCore\QObject \
+		editscene.h \
+		..\..\qt5\qtbase\include\QtWidgets\QGraphicsScene \
 		..\..\qt5\qtbase\include\QtWidgets\QGraphicsPixmapItem
 
 release\statebox.obj: statebox.cpp statebox.h \
@@ -1357,12 +1304,16 @@ release\cornergrabber.obj: cornergrabber.cpp cornergrabber.h \
 
 release\data.obj: data.cpp data.h
 
-release\editview.obj: editview.cpp editview.h \
-		..\..\qt5\qtbase\include\QtWidgets\QGraphicsView \
-		..\..\qt5\qtbase\include\QtWidgets\qgraphicsview.h \
-		..\..\qt5\qtbase\src\widgets\graphicsview\qgraphicsview.h \
-		..\..\qt5\qtbase\include\QtCore\qmetatype.h \
-		..\..\qt5\qtbase\src\corelib\kernel\qmetatype.h \
+release\editscene.obj: editscene.cpp editscene.h \
+		..\..\qt5\qtbase\include\QtWidgets\QGraphicsScene \
+		..\..\qt5\qtbase\include\QtWidgets\qgraphicsscene.h \
+		..\..\qt5\qtbase\src\widgets\graphicsview\qgraphicsscene.h \
+		..\..\qt5\qtbase\include\QtCore\qobject.h \
+		..\..\qt5\qtbase\src\corelib\kernel\qobject.h \
+		..\..\qt5\qtbase\include\QtCore\qobjectdefs.h \
+		..\..\qt5\qtbase\src\corelib\kernel\qobjectdefs.h \
+		..\..\qt5\qtbase\include\QtCore\qnamespace.h \
+		..\..\qt5\qtbase\src\corelib\global\qnamespace.h \
 		..\..\qt5\qtbase\include\QtCore\qglobal.h \
 		..\..\qt5\qtbase\src\corelib\global\qglobal.h \
 		..\..\qt5\qtbase\include\QtCore\qconfig.h \
@@ -1419,52 +1370,54 @@ release\editview.obj: editview.cpp editview.h \
 		..\..\qt5\qtbase\src\corelib\thread\qmutex.h \
 		..\..\qt5\qtbase\include\QtCore\qnumeric.h \
 		..\..\qt5\qtbase\src\corelib\global\qnumeric.h \
-		..\..\qt5\qtbase\include\QtCore\qbytearray.h \
-		..\..\qt5\qtbase\src\corelib\tools\qbytearray.h \
-		..\..\qt5\qtbase\include\QtCore\qrefcount.h \
-		..\..\qt5\qtbase\src\corelib\tools\qrefcount.h \
-		..\..\qt5\qtbase\include\QtCore\qnamespace.h \
-		..\..\qt5\qtbase\src\corelib\global\qnamespace.h \
-		..\..\qt5\qtbase\include\QtCore\qarraydata.h \
-		..\..\qt5\qtbase\src\corelib\tools\qarraydata.h \
+		..\..\qt5\qtbase\include\QtCore\qobjectdefs_impl.h \
+		..\..\qt5\qtbase\src\corelib\kernel\qobjectdefs_impl.h \
 		..\..\qt5\qtbase\include\QtCore\qstring.h \
 		..\..\qt5\qtbase\src\corelib\tools\qstring.h \
 		..\..\qt5\qtbase\include\QtCore\qchar.h \
 		..\..\qt5\qtbase\src\corelib\tools\qchar.h \
+		..\..\qt5\qtbase\include\QtCore\qbytearray.h \
+		..\..\qt5\qtbase\src\corelib\tools\qbytearray.h \
+		..\..\qt5\qtbase\include\QtCore\qrefcount.h \
+		..\..\qt5\qtbase\src\corelib\tools\qrefcount.h \
+		..\..\qt5\qtbase\include\QtCore\qarraydata.h \
+		..\..\qt5\qtbase\src\corelib\tools\qarraydata.h \
 		..\..\qt5\qtbase\include\QtCore\qstringbuilder.h \
 		..\..\qt5\qtbase\src\corelib\tools\qstringbuilder.h \
+		..\..\qt5\qtbase\include\QtCore\qlist.h \
+		..\..\qt5\qtbase\src\corelib\tools\qlist.h \
+		..\..\qt5\qtbase\include\QtCore\qalgorithms.h \
+		..\..\qt5\qtbase\src\corelib\tools\qalgorithms.h \
+		..\..\qt5\qtbase\include\QtCore\qiterator.h \
+		..\..\qt5\qtbase\src\corelib\tools\qiterator.h \
+		..\..\qt5\qtbase\include\QtCore\qcoreevent.h \
+		..\..\qt5\qtbase\src\corelib\kernel\qcoreevent.h \
+		..\..\qt5\qtbase\include\QtCore\qscopedpointer.h \
+		..\..\qt5\qtbase\src\corelib\tools\qscopedpointer.h \
+		..\..\qt5\qtbase\include\QtCore\qmetatype.h \
+		..\..\qt5\qtbase\src\corelib\kernel\qmetatype.h \
 		..\..\qt5\qtbase\include\QtCore\qvarlengtharray.h \
 		..\..\qt5\qtbase\src\corelib\tools\qvarlengtharray.h \
 		..\..\qt5\qtbase\include\QtCore\qcontainerfwd.h \
 		..\..\qt5\qtbase\src\corelib\tools\qcontainerfwd.h \
-		..\..\qt5\qtbase\include\QtCore\qalgorithms.h \
-		..\..\qt5\qtbase\src\corelib\tools\qalgorithms.h \
 		..\..\qt5\qtbase\include\QtCore\qisenum.h \
 		..\..\qt5\qtbase\src\corelib\global\qisenum.h \
-		..\..\qt5\qtbase\include\QtCore\qobjectdefs.h \
-		..\..\qt5\qtbase\src\corelib\kernel\qobjectdefs.h \
-		..\..\qt5\qtbase\include\QtCore\qobjectdefs_impl.h \
-		..\..\qt5\qtbase\src\corelib\kernel\qobjectdefs_impl.h \
-		..\..\qt5\qtbase\include\QtGui\qpainter.h \
-		..\..\qt5\qtbase\src\gui\painting\qpainter.h \
+		..\..\qt5\qtbase\include\QtCore\qobject_impl.h \
+		..\..\qt5\qtbase\src\corelib\kernel\qobject_impl.h \
+		..\..\qt5\qtbase\include\QtCore\qpoint.h \
+		..\..\qt5\qtbase\src\corelib\tools\qpoint.h \
 		..\..\qt5\qtbase\include\QtCore\qrect.h \
 		..\..\qt5\qtbase\src\corelib\tools\qrect.h \
 		..\..\qt5\qtbase\include\QtCore\qmargins.h \
 		..\..\qt5\qtbase\src\corelib\tools\qmargins.h \
 		..\..\qt5\qtbase\include\QtCore\qsize.h \
 		..\..\qt5\qtbase\src\corelib\tools\qsize.h \
-		..\..\qt5\qtbase\include\QtCore\qpoint.h \
-		..\..\qt5\qtbase\src\corelib\tools\qpoint.h \
-		..\..\qt5\qtbase\include\QtCore\qscopedpointer.h \
-		..\..\qt5\qtbase\src\corelib\tools\qscopedpointer.h \
-		..\..\qt5\qtbase\include\QtGui\qpixmap.h \
-		..\..\qt5\qtbase\src\gui\image\qpixmap.h \
-		..\..\qt5\qtbase\include\QtGui\qpaintdevice.h \
-		..\..\qt5\qtbase\src\gui\painting\qpaintdevice.h \
-		..\..\qt5\qtbase\include\QtGui\qwindowdefs.h \
-		..\..\qt5\qtbase\src\gui\kernel\qwindowdefs.h \
-		..\..\qt5\qtbase\include\QtGui\qwindowdefs_win.h \
-		..\..\qt5\qtbase\src\gui\kernel\qwindowdefs_win.h \
+		..\..\qt5\qtbase\include\QtGui\qbrush.h \
+		..\..\qt5\qtbase\src\gui\painting\qbrush.h \
+		..\..\qt5\qtbase\include\QtCore\qpair.h \
+		..\..\qt5\qtbase\src\corelib\tools\qpair.h \
+		..\..\qt5\qtbase\include\QtCore\qvector.h \
+		..\..\qt5\qtbase\src\corelib\tools\qvector.h \
 		..\..\qt5\qtbase\include\QtGui\qcolor.h \
 		..\..\qt5\qtbase\src\gui\painting\qcolor.h \
 		..\..\qt5\qtbase\include\QtGui\qrgb.h \
@@ -1475,22 +1428,32 @@ release\editview.obj: editview.cpp editview.h \
 		..\..\qt5\qtbase\src\corelib\io\qdatastream.h \
 		..\..\qt5\qtbase\include\QtCore\qiodevice.h \
 		..\..\qt5\qtbase\src\corelib\io\qiodevice.h \
-		..\..\qt5\qtbase\include\QtCore\qobject.h \
-		..\..\qt5\qtbase\src\corelib\kernel\qobject.h \
-		..\..\qt5\qtbase\include\QtCore\qlist.h \
-		..\..\qt5\qtbase\src\corelib\tools\qlist.h \
-		..\..\qt5\qtbase\include\QtCore\qiterator.h \
-		..\..\qt5\qtbase\src\corelib\tools\qiterator.h \
-		..\..\qt5\qtbase\include\QtCore\qcoreevent.h \
-		..\..\qt5\qtbase\src\corelib\kernel\qcoreevent.h \
-		..\..\qt5\qtbase\include\QtCore\qobject_impl.h \
-		..\..\qt5\qtbase\src\corelib\kernel\qobject_impl.h \
-		..\..\qt5\qtbase\include\QtCore\qpair.h \
-		..\..\qt5\qtbase\src\corelib\tools\qpair.h \
 		..\..\qt5\qtbase\include\QtCore\qregexp.h \
 		..\..\qt5\qtbase\src\corelib\tools\qregexp.h \
 		..\..\qt5\qtbase\include\QtCore\qstringmatcher.h \
 		..\..\qt5\qtbase\src\corelib\tools\qstringmatcher.h \
+		..\..\qt5\qtbase\include\QtGui\qmatrix.h \
+		..\..\qt5\qtbase\src\gui\painting\qmatrix.h \
+		..\..\qt5\qtbase\include\QtGui\qpolygon.h \
+		..\..\qt5\qtbase\src\gui\painting\qpolygon.h \
+		..\..\qt5\qtbase\include\QtGui\qregion.h \
+		..\..\qt5\qtbase\src\gui\painting\qregion.h \
+		..\..\qt5\qtbase\include\QtGui\qwindowdefs.h \
+		..\..\qt5\qtbase\src\gui\kernel\qwindowdefs.h \
+		..\..\qt5\qtbase\include\QtGui\qwindowdefs_win.h \
+		..\..\qt5\qtbase\src\gui\kernel\qwindowdefs_win.h \
+		..\..\qt5\qtbase\include\QtCore\qline.h \
+		..\..\qt5\qtbase\src\corelib\tools\qline.h \
+		..\..\qt5\qtbase\include\QtGui\qtransform.h \
+		..\..\qt5\qtbase\src\gui\painting\qtransform.h \
+		..\..\qt5\qtbase\include\QtGui\qpainterpath.h \
+		..\..\qt5\qtbase\src\gui\painting\qpainterpath.h \
+		..\..\qt5\qtbase\include\QtGui\qimage.h \
+		..\..\qt5\qtbase\src\gui\image\qimage.h \
+		..\..\qt5\qtbase\include\QtGui\qpaintdevice.h \
+		..\..\qt5\qtbase\src\gui\painting\qpaintdevice.h \
+		..\..\qt5\qtbase\include\QtGui\qpixmap.h \
+		..\..\qt5\qtbase\src\gui\image\qpixmap.h \
 		..\..\qt5\qtbase\include\QtCore\qsharedpointer.h \
 		..\..\qt5\qtbase\src\corelib\tools\qsharedpointer.h \
 		..\..\qt5\qtbase\include\QtCore\qshareddata.h \
@@ -1499,52 +1462,13 @@ release\editview.obj: editview.cpp editview.h \
 		..\..\qt5\qtbase\src\corelib\tools\qsharedpointer_impl.h \
 		..\..\qt5\qtbase\include\QtCore\qhash.h \
 		..\..\qt5\qtbase\src\corelib\tools\qhash.h \
-		..\..\qt5\qtbase\include\QtGui\qimage.h \
-		..\..\qt5\qtbase\src\gui\image\qimage.h \
-		..\..\qt5\qtbase\include\QtGui\qtransform.h \
-		..\..\qt5\qtbase\src\gui\painting\qtransform.h \
-		..\..\qt5\qtbase\include\QtGui\qmatrix.h \
-		..\..\qt5\qtbase\src\gui\painting\qmatrix.h \
-		..\..\qt5\qtbase\include\QtGui\qpolygon.h \
-		..\..\qt5\qtbase\src\gui\painting\qpolygon.h \
-		..\..\qt5\qtbase\include\QtCore\qvector.h \
-		..\..\qt5\qtbase\src\corelib\tools\qvector.h \
-		..\..\qt5\qtbase\include\QtGui\qregion.h \
-		..\..\qt5\qtbase\src\gui\painting\qregion.h \
-		..\..\qt5\qtbase\include\QtCore\qline.h \
-		..\..\qt5\qtbase\src\corelib\tools\qline.h \
-		..\..\qt5\qtbase\include\QtGui\qpainterpath.h \
-		..\..\qt5\qtbase\src\gui\painting\qpainterpath.h \
-		..\..\qt5\qtbase\include\QtGui\qtextoption.h \
-		..\..\qt5\qtbase\src\gui\text\qtextoption.h \
-		..\..\qt5\qtbase\include\QtGui\qpen.h \
-		..\..\qt5\qtbase\src\gui\painting\qpen.h \
-		..\..\qt5\qtbase\include\QtGui\qbrush.h \
-		..\..\qt5\qtbase\src\gui\painting\qbrush.h \
-		..\..\qt5\qtbase\include\QtGui\qfontinfo.h \
-		..\..\qt5\qtbase\src\gui\text\qfontinfo.h \
 		..\..\qt5\qtbase\include\QtGui\qfont.h \
 		..\..\qt5\qtbase\src\gui\text\qfont.h \
-		..\..\qt5\qtbase\include\QtGui\qfontmetrics.h \
-		..\..\qt5\qtbase\src\gui\text\qfontmetrics.h \
-		..\..\qt5\qtbase\include\QtWidgets\qscrollarea.h \
-		..\..\qt5\qtbase\src\widgets\widgets\qscrollarea.h \
-		..\..\qt5\qtbase\include\QtWidgets\qabstractscrollarea.h \
-		..\..\qt5\qtbase\src\widgets\widgets\qabstractscrollarea.h \
-		..\..\qt5\qtbase\include\QtWidgets\qframe.h \
-		..\..\qt5\qtbase\src\widgets\widgets\qframe.h \
-		..\..\qt5\qtbase\include\QtWidgets\qwidget.h \
-		..\..\qt5\qtbase\src\widgets\kernel\qwidget.h \
-		..\..\qt5\qtbase\include\QtGui\qpalette.h \
-		..\..\qt5\qtbase\src\gui\kernel\qpalette.h \
-		..\..\qt5\qtbase\include\QtWidgets\qsizepolicy.h \
-		..\..\qt5\qtbase\src\widgets\kernel\qsizepolicy.h \
-		..\..\qt5\qtbase\include\QtGui\qcursor.h \
-		..\..\qt5\qtbase\src\gui\kernel\qcursor.h \
-		..\..\qt5\qtbase\include\QtGui\qkeysequence.h \
-		..\..\qt5\qtbase\src\gui\kernel\qkeysequence.h \
-		..\..\qt5\qtbase\include\QtGui\qevent.h \
-		..\..\qt5\qtbase\src\gui\kernel\qevent.h \
+		..\..\qt5\qtbase\include\QtGui\qpen.h \
+		..\..\qt5\qtbase\src\gui\painting\qpen.h \
+		..\..\qt5\qtbase\include\QtWidgets\QGraphicsItem \
+		..\..\qt5\qtbase\include\QtWidgets\qgraphicsitem.h \
+		..\..\qt5\qtbase\src\widgets\graphicsview\qgraphicsitem.h \
 		..\..\qt5\qtbase\include\QtCore\qvariant.h \
 		..\..\qt5\qtbase\src\corelib\kernel\qvariant.h \
 		..\..\qt5\qtbase\include\QtCore\qmap.h \
@@ -1559,6 +1483,14 @@ release\editview.obj: editview.cpp editview.h \
 		..\..\qt5\qtbase\src\corelib\tools\qset.h \
 		..\..\qt5\qtbase\include\QtCore\qcontiguouscache.h \
 		..\..\qt5\qtbase\src\corelib\tools\qcontiguouscache.h \
+		..\..\qt5\qtbase\include\QtWidgets\QGraphicsSceneMouseEvent \
+		..\..\qt5\qtbase\include\QtWidgets\qgraphicssceneevent.h \
+		..\..\qt5\qtbase\src\widgets\graphicsview\qgraphicssceneevent.h \
+		..\..\qt5\qtbase\include\QtGui\QMouseEvent \
+		..\..\qt5\qtbase\include\QtGui\qevent.h \
+		..\..\qt5\qtbase\src\gui\kernel\qevent.h \
+		..\..\qt5\qtbase\include\QtGui\qkeysequence.h \
+		..\..\qt5\qtbase\src\gui\kernel\qkeysequence.h \
 		..\..\qt5\qtbase\include\QtCore\qurl.h \
 		..\..\qt5\qtbase\src\corelib\io\qurl.h \
 		..\..\qt5\qtbase\include\QtCore\qurlquery.h \
@@ -1570,13 +1502,11 @@ release\editview.obj: editview.cpp editview.h \
 		..\..\qt5\qtbase\include\QtGui\qvector2d.h \
 		..\..\qt5\qtbase\src\gui\math3d\qvector2d.h \
 		..\..\qt5\qtbase\include\QtGui\qtouchdevice.h \
-		..\..\qt5\qtbase\src\gui\kernel\qtouchdevice.h \
-		..\..\qt5\qtbase\include\QtWidgets\qgraphicsscene.h \
-		..\..\qt5\qtbase\src\widgets\graphicsview\qgraphicsscene.h
+		..\..\qt5\qtbase\src\gui\kernel\qtouchdevice.h
 
 release\moc_sprite_editor_core.obj: release\moc_sprite_editor_core.cpp 
 
-release\moc_editview.obj: release\moc_editview.cpp 
+release\moc_editscene.obj: release\moc_editscene.cpp 
 
 ####### Install
 

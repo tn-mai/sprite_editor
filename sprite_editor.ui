@@ -127,7 +127,7 @@
            <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
           </property>
           <item row="0" column="0">
-           <widget class="SpriteEditor::EditView" name="editView">
+           <widget class="QGraphicsView" name="editView">
             <property name="minimumSize">
              <size>
               <width>512</width>
@@ -385,13 +385,6 @@
    </property>
   </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>SpriteEditor::EditView</class>
-   <extends>QGraphicsView</extends>
-   <header>editview.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

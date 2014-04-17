@@ -26,7 +26,6 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QWidget>
-#include "editview.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -60,7 +59,7 @@ public:
     QScrollArea *editScrollArea;
     QWidget *scrollAreaWidgetContents;
     QFormLayout *formLayout_2;
-    SpriteEditor::EditView *editView;
+    QGraphicsView *editView;
     QTableWidget *chipList;
     QDockWidget *textureDock;
     QWidget *dockWidgetContents_3;
@@ -154,7 +153,7 @@ public:
         formLayout_2 = new QFormLayout(scrollAreaWidgetContents);
         formLayout_2->setObjectName(QStringLiteral("formLayout_2"));
         formLayout_2->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
-        editView = new SpriteEditor::EditView(scrollAreaWidgetContents);
+        editView = new QGraphicsView(scrollAreaWidgetContents);
         editView->setObjectName(QStringLiteral("editView"));
         editView->setMinimumSize(QSize(512, 512));
         editView->setMaximumSize(QSize(512, 512));

@@ -1,21 +1,21 @@
 /**
-  Edit View.
+  Edit Scene.
 */
-#ifndef EDITVIEW_H_INCLUDED
-#define EDITVIEW_H_INCLUDED
+#ifndef EDITSCENE_H_INCLUDED
+#define EDITSCENE_H_INCLUDED
 
-#include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGraphicsScene>
 
 namespace SpriteEditor {
 
 /**
   スプライトチップ作成ビュー.
 */
-class EditView : public QGraphicsView
+class EditScene : public QGraphicsScene
 {
 Q_OBJECT
 public:
-  EditView(QWidget* = 0);
+  EditScene(QObject* = 0);
 
 private:
   virtual void mouseMoveEvent(QGraphicsSceneMouseEvent*);
@@ -31,4 +31,4 @@ private:
 
 } // namespace SpriteEditor
 
-#endif // EDITVIEW_H_INCLUDED
+#endif // EDITSCENE_H_INCLUDED
