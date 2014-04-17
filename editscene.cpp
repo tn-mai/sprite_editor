@@ -2,6 +2,7 @@
   Edit Scene.
 */
 #include "editscene.h"
+#include "sprite_editor_core.h"
 #include <QtWidgets/QGraphicsItem>
 #include <QtWidgets/QGraphicsSceneMouseEvent>
 #include <QtGui/QMouseEvent>
@@ -32,13 +33,20 @@ void EditScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
     if (i->sceneBoundingRect().contains(pos)) {
       // Ctrlキーが押されている時、既に選択されているなら何もしない. そうでなければ選択.
       // Ctrlキーが押されていない時、既に選択されているなら選択解除. そうでなければ選択.
-      auto grabbedItem = std::find(grabbedItemList.begin(), grabbedItemList.end(), i);
-      if ( grabbedItem != grabbedItemList.end()) {
+      auto end = grabbedItemList.end();
+      auto grabbedItem = std::find(grabbedItemList.begin(), end, i);
+     QGraphicsPixmapItem* pItem = static_cast<QGraphicsPixmapItem*>(i);
+      QPixmap pixmap = pItem->pixmap();
+      if ( grabbedItem != end) {
         if (!(event->modifiers() & Qt::ControlModifier)) {
+          drawDashFrame(&pixmap, QColor(0xff, 0x00, 0x00, 0x7f));
+          pItem->setPixmap(pixmap);
           grabbedItemList.erase(grabbedItem);
           continue;
         }
       }
+      drawDashFrame(&pixmap, QColor(0x00, 0xff, 0x00, 0x7f));
+      pItem->setPixmap(pixmap);
       grabbedItemList.push_back(i);
     }
   }

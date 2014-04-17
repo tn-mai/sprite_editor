@@ -26,18 +26,23 @@ enum ChipListColumnId {
   Rotation,
 };
 
+void drawDashFrame(QPixmap* pixmap, const QColor& color)
+{
+  QPainter p;
+  QPen  pen(color);
+  pen.setStyle(Qt::DashLine);
+  p.begin(pixmap);
+  p.setPen(pen);
+  p.drawRect(0, 0, pixmap->width() - 1, pixmap->height() - 1);
+  p.end();
+}
+
 QPixmap copyPixmap(const QPixmap& pixmap, const Rect& rect)
 {
     const Float width = rect.right - rect.left;
     const Float height = rect.bottom - rect.top;
     QPixmap tmp = pixmap.copy(rect.left, rect.top, width, height);
-    QPainter p;
-    QPen  pen(QColor(0xff, 0, 0, 0x7f));
-    pen.setStyle(Qt::DashLine);
-    p.begin(&tmp);
-    p.setPen(pen);
-    p.drawRect(0, 0, tmp.width() - 1, tmp.height() - 1);
-    p.end();
+    drawDashFrame(&tmp, QColor(0xff, 0, 0, 0x7f));
     return tmp;
 }
 

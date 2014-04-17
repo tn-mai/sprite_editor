@@ -55,4 +55,6 @@ private:
   Animation  animation;
 };
 
+void drawDashFrame(QPixmap*, const QColor&);
+
 } // namespace SpriteEditor
