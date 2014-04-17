@@ -35,7 +35,7 @@ void EditScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
       // Ctrlキーが押されていない時、既に選択されているなら選択解除. そうでなければ選択.
       auto end = grabbedItemList.end();
       auto grabbedItem = std::find(grabbedItemList.begin(), end, i);
-     QGraphicsPixmapItem* pItem = static_cast<QGraphicsPixmapItem*>(i);
+      QGraphicsPixmapItem* pItem = static_cast<QGraphicsPixmapItem*>(i);
       QPixmap pixmap = pItem->pixmap();
       if ( grabbedItem != end) {
         if (!(event->modifiers() & Qt::ControlModifier)) {
