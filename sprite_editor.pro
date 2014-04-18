@@ -8,7 +8,7 @@ INCLUDEPATH += . ..\..\qt5\qtbase\include\QtWidgets
 
 # Input
 CONFIG += qt debug
-HEADERS += sprite_editor.h sprite_editor_core.h statebox.h cornergrabber.h editscene.h
+HEADERS += sprite_editor.h sprite_editor_core.h statebox.h cornergrabber.h
 FORMS += sprite_editor.ui
-SOURCES += sprite_editor.cpp statebox.cpp cornergrabber.cpp data.cpp editscene.cpp
+SOURCES += sprite_editor.cpp statebox.cpp cornergrabber.cpp data.cpp
 LIBS += C:\usr\local\qt5\qtbase\lib\Qt5Widgetsd.lib

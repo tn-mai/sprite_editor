@@ -17,6 +17,8 @@ class MainWindow;
 
 namespace SpriteEditor {
 
+class ChipItem;
+
 class Main : public QMainWindow
 {
   Q_OBJECT
@@ -31,6 +33,7 @@ private:
   int getCurrentSheetIndex() const;
   int getCurrentChipIndex() const;
   void updateSheetPicture(int);
+  void onChangeChipItem(const QPointF&, const ChipItem&);
 
 private slots:
   void openFile();
@@ -43,6 +46,7 @@ private slots:
   void deleteSheet();
 
   void onChipListChanged(int, int);
+  void onEditSceneChanged(const QList<QRectF>&);
 
 private:
   std::shared_ptr<Ui::MainWindow> pUi;

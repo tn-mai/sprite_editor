@@ -4,8 +4,8 @@
 #include "sprite_editor_core.h"
 #include "sprite_editor.h"
 #include "statebox.h"
-#include "editscene.h"
 #include <QtWidgets/QGraphicsPixmapItem>
+#include <functional>
 
 /**
   スプライトエディタ用の名前空間.
@@ -24,6 +24,14 @@ enum ChipListColumnId {
   XScale,
   YScale,
   Rotation,
+};
+
+enum EditSceneCustomDataId {
+  ItemType
+};
+
+enum EditSceneItemType {
+  ChipPicture
 };
 
 void drawDashFrame(QPixmap* pixmap, const QColor& color)
@@ -55,7 +63,7 @@ Main::Main(QWidget* parent) :
   pTextureImage(new QPixmap(1, 1)),
   pStateBox(new StateBox),
   pTextureScene(new QGraphicsScene),
-  pEditScene(new EditScene)
+  pEditScene(new QGraphicsScene)
 {
   pUi->setupUi(this);
   pStateBox->setPos(200, 200);
@@ -68,12 +76,16 @@ Main::Main(QWidget* parent) :
   pUi->sheetList->setIconSize(QSize(128, 128));
   insertSheet();
 
+  pEditScene->addLine(0, 255, 512, 255);
+  pEditScene->addLine(255, 0, 255, 512);
+
   connect(pUi->actionOpen, SIGNAL(triggered()), this, SLOT(openFile()));
   connect(pUi->actionSave, SIGNAL(triggered()), this, SLOT(saveFile()));
   connect(pUi->actionOpenTexture, SIGNAL(triggered()), this, SLOT(openTextureFile()));
   connect(pUi->actionInsertChip, SIGNAL(triggered()), this, SLOT(insertChip()));
   connect(pUi->actionDeleteChip, SIGNAL(triggered()), this, SLOT(deleteChip()));
   connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
+  connect(pEditScene.get(), SIGNAL(changed(const QList<QRectF>&)), this, SLOT(onEditSceneChanged()));
 }
 
 /**
@@ -180,6 +192,32 @@ void Main::insertChip()
   insertChip(rect, position, offset, scale);
 }
 
+class ChipItem : public QGraphicsPixmapItem {
+public:
+  typedef std::function<void(const QPointF&, const ChipItem&)> FuncType;
+
+  ChipItem(FuncType func, const QPixmap& pixmap, QGraphicsItem* parent = 0) :
+    func_(func),
+    QGraphicsPixmapItem(pixmap, parent)
+  {
+    setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
+    setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemSendsGeometryChanges);
+    setOffset(0, 0);
+    setData(ItemType, QVariant(ChipPicture));
+  }
+
+private:
+  QVariant itemChange(GraphicsItemChange change, const QVariant& value) {
+    if (change == ItemPositionChange) {
+      func_(value.toPointF(), *this);
+    }
+    return QGraphicsPixmapItem::itemChange(change, value);
+  }
+
+private:
+  FuncType func_;
+};
+
 /**
   指定されたデータをシートに追加する.
 
@@ -206,12 +244,36 @@ void Main::insertChip(const Rect& rect, const Point2& pos, const Vector2& offset
   pUi->chipList->setItem(row, YScale, new QTableWidgetItem(tr("%1").arg(scale.y)));
   pUi->chipList->setItem(row, Rotation, new QTableWidgetItem(tr("0")));
 
-  QGraphicsPixmapItem* pItem = pEditScene->addPixmap(copyPixmap(*pTextureImage, rect));
-  pItem->setOffset(0, 0);
+  ChipItem* pItem = new ChipItem(
+    ChipItem::FuncType([this](const QPointF& point, const ChipItem& item){ onChangeChipItem(point, item); }),
+    copyPixmap(*pTextureImage, rect)
+  );
+  pEditScene->addItem(pItem);
   chipPtrList.insert(chipPtrList.begin() + row, pItem);
   updateSheetPicture(getCurrentSheetIndex());
 
   connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
+}
+
+void Main::onChangeChipItem(const QPointF& point, const ChipItem& item)
+{
+  const auto itr = std::find(chipPtrList.begin(), chipPtrList.end(), &item);
+  if (itr != chipPtrList.end()) {
+    disconnect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
+    const int row = itr - chipPtrList.begin();
+    QTableWidgetItem* pLeftItem = pUi->chipList->item(row, XPos);
+    if (pLeftItem) {
+      pLeftItem->setText(QString::number(point.x()));
+    }
+    QTableWidgetItem* pTopItem = pUi->chipList->item(row, YPos);
+    if (pTopItem) {
+      pTopItem->setText(QString::number(point.y()));
+    }
+    Chip& chip = animation.sheetList[getCurrentSheetIndex()].chipList[row];
+    chip.position.x = point.x();
+    chip.position.y = point.y();
+    connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
+  }
 }
 
 /**
@@ -349,11 +411,11 @@ void Main::onChipListChanged(int row, int column)
     break;
   case XPos:
     chip.position.x = value;
-    pPixmap->setOffset(chip.position.x, chip.position.y);
+    pPixmap->setPos(chip.position.x, chip.position.y);
     break;
   case YPos:
     chip.position.y = value;
-    pPixmap->setOffset(chip.position.x, chip.position.y);
+    pPixmap->setPos(chip.position.x, chip.position.y);
     break;
   case XOffset:
     chip.center.x = value;
@@ -372,6 +434,24 @@ void Main::onChipListChanged(int row, int column)
     break;
   }
   updateSheetPicture(getCurrentSheetIndex());
+}
+
+/**
+  エディットシーンの内容が更新された.
+
+  マウスドラッグ等でチップ画像が移動された場合に呼び出される.
+*/
+void Main::onEditSceneChanged(const QList<QRectF>&)
+{
+  for (auto i : pEditScene->items()) {
+    const QVariant itemType = i->data(ItemType);
+    if (!itemType.isValid() && (itemType.toInt() != ChipPicture)) {
+      continue;
+    }
+    const QPixmap pixmap = static_cast<QGraphicsPixmapItem*>(i)->pixmap();
+    Chip  tmp;
+    //chip.rect = Rect(i.sceneBoundingRect);
+  }
 }
 
 } // namespace SpriteEditor
