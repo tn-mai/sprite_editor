@@ -400,8 +400,8 @@ void Main::updateSheetPicture(int index)
   painter.setRenderHint(QPainter::Antialiasing);
   pEditScene->render(&painter);
   pUi->sheetList->setItem(
-    index,
     0,
+    index,
     new QTableWidgetItem(
       QIcon(
         image
