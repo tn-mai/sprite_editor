@@ -220,6 +220,11 @@ void Main::insertChip()
   connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
 }
 
+/**
+  チップ画像項目クラス.
+
+  チップビューに表示される、チップリストの各列に対応するチップ画像項目.
+*/
 class ChipItem : public QGraphicsPixmapItem {
 public:
   typedef std::function<void(const QPointF&, const ChipItem&)> FuncType;
