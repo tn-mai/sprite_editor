@@ -118,10 +118,13 @@ void Main::setAnimation(size_t imageIndex)
   if (imageIndex >= animation.sheetList.size()) {
     return;
   }
+  disconnect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
   clearChipListView();
   for (auto i : animation.sheetList[imageIndex].chipList) {
     insertChip(i.rect, i.position, i.center, i.scale);
   }
+  updateSheetPicture(getCurrentSheetIndex());
+  connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
 }
 
 /**
@@ -211,7 +214,10 @@ void Main::insertChip()
   const Vector2 offset(0, 0);
   const Vector2 scale(1, 1);
   animation.sheetList[imageIndex].chipList.push_back(Chip(rect, position, offset, scale));
+  disconnect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
   insertChip(rect, position, offset, scale);
+  updateSheetPicture(getCurrentSheetIndex());
+  connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
 }
 
 class ChipItem : public QGraphicsPixmapItem {
@@ -250,8 +256,6 @@ private:
 */
 void Main::insertChip(const Rect& rect, const Point2& pos, const Vector2& offset, const Vector2& scale)
 {
-  disconnect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
-
   const int row = getCurrentChipIndex();
   pUi->chipList->insertRow(row);
   pUi->chipList->setItem(row, Left, new QTableWidgetItem(tr("%1").arg(rect.left)));
@@ -272,9 +276,6 @@ void Main::insertChip(const Rect& rect, const Point2& pos, const Vector2& offset
   );
   pEditScene->addItem(pItem);
   chipPtrList.insert(chipPtrList.begin() + row, pItem);
-  updateSheetPicture(getCurrentSheetIndex());
-
-  connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
 }
 
 void Main::onChangeChipItem(const QPointF& point, const ChipItem& item)
