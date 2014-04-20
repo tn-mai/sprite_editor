@@ -302,6 +302,7 @@ void Main::onChangeChipItem(const QPointF& point, const ChipItem& item)
     chip.position.x = point.x();
     chip.position.y = point.y();
     connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
+    updateSheetPicture(getCurrentSheetIndex());
   }
 }
 
