@@ -34,6 +34,7 @@ private:
   int getCurrentChipIndex() const;
   void updateSheetPicture(int);
   void onChangeChipItem(const QPointF&, const ChipItem&);
+  void setChipInsertionEnabled(bool);
 
 private slots:
   void openFile();

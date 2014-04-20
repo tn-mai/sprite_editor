@@ -63,7 +63,8 @@ Main::Main(QWidget* parent) :
   pTextureImage(new QPixmap(1, 1)),
   pStateBox(new StateBox),
   pTextureScene(new QGraphicsScene),
-  pEditScene(new QGraphicsScene)
+  pEditScene(new QGraphicsScene),
+  chipPtrList()
 {
   pUi->setupUi(this);
   pStateBox->setPos(200, 200);
@@ -84,8 +85,25 @@ Main::Main(QWidget* parent) :
   connect(pUi->actionOpenTexture, SIGNAL(triggered()), this, SLOT(openTextureFile()));
   connect(pUi->actionInsertChip, SIGNAL(triggered()), this, SLOT(insertChip()));
   connect(pUi->actionDeleteChip, SIGNAL(triggered()), this, SLOT(deleteChip()));
+  connect(pUi->actionInsertSheet, SIGNAL(triggered()), this, SLOT(insertSheet()));
+  connect(pUi->actionDeleteSheet, SIGNAL(triggered()), this, SLOT(deleteSheet()));
   connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
   connect(pEditScene.get(), SIGNAL(changed(const QList<QRectF>&)), this, SLOT(onEditSceneChanged()));
+  setChipInsertionEnabled(false);
+}
+
+/**
+  チップの挿入・削除の有効・無効を設定する.
+
+  @param  flag  - true  有効にする.
+                - false 無効にする.
+*/
+void Main::setChipInsertionEnabled(bool flag)
+{
+  pUi->actionInsertChip->setEnabled(flag);
+  pUi->actionDeleteChip->setEnabled(flag);
+  pUi->actionInsertSheet->setEnabled(flag);
+  pUi->actionDeleteSheet->setEnabled(flag);
 }
 
 /**
@@ -170,6 +188,8 @@ void Main::openTextureFile()
   pUi->textureDock->setWindowTitle(filename + '(' + QString::number(image.width()) + ',' + QString::number(image.height()) + ')');
 
   setAnimation(getCurrentSheetIndex());
+
+  setChipInsertionEnabled(true);
 }
 
 /**
