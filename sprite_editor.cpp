@@ -279,6 +279,7 @@ void Main::insertChip(const Rect& rect, const Point2& pos, const Vector2& offset
     ChipItem::FuncType([this](const QPointF& point, const ChipItem& item){ onChangeChipItem(point, item); }),
     copyPixmap(*pTextureImage, rect)
   );
+  pItem->setPos(pos.x, pos.y);
   pEditScene->addItem(pItem);
   chipPtrList.insert(chipPtrList.begin() + row, pItem);
 }
