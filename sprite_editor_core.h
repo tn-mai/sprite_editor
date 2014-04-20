@@ -48,6 +48,7 @@ private slots:
 
   void onChipListChanged(int, int);
   void onEditSceneChanged(const QList<QRectF>&);
+  void onSheetListSelectionChanged();
 
 private:
   std::shared_ptr<Ui::MainWindow> pUi;
@@ -58,6 +59,7 @@ private:
   std::vector<QGraphicsPixmapItem*> chipPtrList;
 
   Animation  animation;
+  int currentSheetIndex;
 };
 
 void drawDashFrame(QPixmap*, const QColor&);

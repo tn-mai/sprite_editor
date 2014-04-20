@@ -64,7 +64,8 @@ Main::Main(QWidget* parent) :
   pStateBox(new StateBox),
   pTextureScene(new QGraphicsScene),
   pEditScene(new QGraphicsScene),
-  chipPtrList()
+  chipPtrList(),
+  currentSheetIndex(0)
 {
   pUi->setupUi(this);
   pStateBox->setPos(200, 200);
@@ -89,6 +90,7 @@ Main::Main(QWidget* parent) :
   connect(pUi->actionDeleteSheet, SIGNAL(triggered()), this, SLOT(deleteSheet()));
   connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
   connect(pEditScene.get(), SIGNAL(changed(const QList<QRectF>&)), this, SLOT(onEditSceneChanged()));
+  connect(pUi->sheetList, SIGNAL(itemSelectionChanged()), this, SLOT(onSheetListSelectionChanged()));
   setChipInsertionEnabled(false);
 }
 
@@ -370,8 +372,7 @@ void Main::clearSheetList()
 */
 int Main::getCurrentSheetIndex() const
 {
-  const int index = pUi->sheetList->currentColumn();
-  return index >= 0 ? index : 0;
+  return currentSheetIndex;
 }
 
 /**
@@ -472,6 +473,12 @@ void Main::onEditSceneChanged(const QList<QRectF>&)
     Chip  tmp;
     //chip.rect = Rect(i.sceneBoundingRect);
   }
+}
+
+void Main::onSheetListSelectionChanged()
+{
+  currentSheetIndex = pUi->sheetList->currentColumn();
+  setAnimation(currentSheetIndex);
 }
 
 } // namespace SpriteEditor
