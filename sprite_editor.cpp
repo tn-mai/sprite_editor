@@ -213,7 +213,8 @@ void Main::insertChip()
   const Point2 position(0, 0);
   const Vector2 offset(0, 0);
   const Vector2 scale(1, 1);
-  animation.sheetList[imageIndex].chipList.push_back(Chip(rect, position, offset, scale));
+  Sheet::ChipList& chipList = animation.sheetList[imageIndex].chipList;
+  chipList.insert(chipList.begin() + getCurrentChipIndex(), Chip(rect, position, offset, scale));
   disconnect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
   insertChip(rect, position, offset, scale);
   updateSheetPicture(getCurrentSheetIndex());
@@ -342,7 +343,7 @@ void Main::clearChipListView()
 */
 void Main::insertSheet()
 {
-  animation.sheetList.push_back(Sheet());
+  animation.sheetList.insert(animation.sheetList.begin() + getCurrentSheetIndex(), Sheet());
   pUi->sheetList->insertColumn(getCurrentSheetIndex());
   if (pUi->sheetList->rowCount() == 1) {
     pUi->sheetList->setRangeSelected(QTableWidgetSelectionRange(0, 0, 1, 1), true);
