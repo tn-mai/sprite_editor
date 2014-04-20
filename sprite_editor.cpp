@@ -399,16 +399,10 @@ void Main::updateSheetPicture(int index)
   QPainter  painter(&image);
   painter.setRenderHint(QPainter::Antialiasing);
   pEditScene->render(&painter);
-  pUi->sheetList->setItem(
-    0,
-    index,
-    new QTableWidgetItem(
-      QIcon(
-        image
-      ),
-      ""
-    )
-  );
+  QTableWidgetItem* pItem = new QTableWidgetItem(QIcon(image), "");
+  pItem->setFlags(pItem->flags() & ~Qt::ItemIsEditable);
+  pUi->sheetList->setItem(0, index, pItem);
+  pUi->sheetList->setItem(1, index, new QTableWidgetItem(tr("1")));
 }
 
 /**
