@@ -90,6 +90,7 @@ Main::Main(QWidget* parent) :
   connect(pUi->actionDeleteSheet, SIGNAL(triggered()), this, SLOT(deleteSheet()));
   connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
   connect(pUi->sheetList, SIGNAL(itemSelectionChanged()), this, SLOT(onSheetListSelectionChanged()));
+  connect(pUi->sheetList, SIGNAL(cellChanged(int,int)), this, SLOT(onSheetListCellChanged(int, int)));
   setChipInsertionEnabled(false);
 }
 
@@ -457,6 +458,14 @@ void Main::onChipListChanged(int row, int column)
     break;
   }
   updateSheetPicture(getCurrentSheetIndex());
+}
+
+void Main::onSheetListCellChanged(int row, int column)
+{
+  if (row == 1/* index of frames item */) {
+    const QTableWidgetItem& item = *pUi->sheetList->item(row, column);
+    animation.sheetList[column].frames = item.text().toInt();
+  }
 }
 
 void Main::onSheetListSelectionChanged()

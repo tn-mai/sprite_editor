@@ -48,6 +48,7 @@ private slots:
 
   void onChipListChanged(int, int);
   void onSheetListSelectionChanged();
+  void onSheetListCellChanged(int, int);
 
 private:
   std::shared_ptr<Ui::MainWindow> pUi;
