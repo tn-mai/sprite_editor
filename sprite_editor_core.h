@@ -47,7 +47,6 @@ private slots:
   void deleteSheet();
 
   void onChipListChanged(int, int);
-  void onEditSceneChanged(const QList<QRectF>&);
   void onSheetListSelectionChanged();
 
 private:

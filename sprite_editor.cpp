@@ -89,7 +89,6 @@ Main::Main(QWidget* parent) :
   connect(pUi->actionInsertSheet, SIGNAL(triggered()), this, SLOT(insertSheet()));
   connect(pUi->actionDeleteSheet, SIGNAL(triggered()), this, SLOT(deleteSheet()));
   connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
-  connect(pEditScene.get(), SIGNAL(changed(const QList<QRectF>&)), this, SLOT(onEditSceneChanged()));
   connect(pUi->sheetList, SIGNAL(itemSelectionChanged()), this, SLOT(onSheetListSelectionChanged()));
   setChipInsertionEnabled(false);
 }
@@ -458,24 +457,6 @@ void Main::onChipListChanged(int row, int column)
     break;
   }
   updateSheetPicture(getCurrentSheetIndex());
-}
-
-/**
-  エディットシーンの内容が更新された.
-
-  マウスドラッグ等でチップ画像が移動された場合に呼び出される.
-*/
-void Main::onEditSceneChanged(const QList<QRectF>&)
-{
-  for (auto i : pEditScene->items()) {
-    const QVariant itemType = i->data(ItemType);
-    if (!itemType.isValid() && (itemType.toInt() != ChipPicture)) {
-      continue;
-    }
-    const QPixmap pixmap = static_cast<QGraphicsPixmapItem*>(i)->pixmap();
-    Chip  tmp;
-    //chip.rect = Rect(i.sceneBoundingRect);
-  }
 }
 
 void Main::onSheetListSelectionChanged()
