@@ -76,8 +76,10 @@ struct Chip {
   Chipを複数まとめたもの.
 */
 struct Sheet {
-  std::vector<Chip>  chipList;
-  std::vector<Rect>  rectList; ///< 何らかの用途で用いることのできる矩形のリスト.
+  typedef std::vector<Chip> ChipList;
+  typedef std::vector<Rect> RectList;
+  ChipList  chipList;
+  RectList  rectList; ///< 何らかの用途で用いることのできる矩形のリスト.
   Int  frames;
 };
 
@@ -86,9 +88,10 @@ struct Sheet {
   Sheetを複数まとめたもの.
 */
 struct Animation {
+  typedef std::vector<Sheet> SheetList;
   unsigned int version;
   std::string textureName;
-  std::vector<Sheet> sheetList;
+  SheetList sheetList;
 };
 
 inline Vector2::Vector2(const Point2& p) : x(p.x), y(p.y) {}
