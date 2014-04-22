@@ -149,14 +149,14 @@ public:
         editScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 536, 530));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 1050, 1044));
         formLayout_2 = new QFormLayout(scrollAreaWidgetContents);
         formLayout_2->setObjectName(QStringLiteral("formLayout_2"));
         formLayout_2->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
         editView = new QGraphicsView(scrollAreaWidgetContents);
         editView->setObjectName(QStringLiteral("editView"));
-        editView->setMinimumSize(QSize(512, 512));
-        editView->setMaximumSize(QSize(512, 512));
+        editView->setMinimumSize(QSize(1026, 1026));
+        editView->setMaximumSize(QSize(1026, 1026));
         editView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         editView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 

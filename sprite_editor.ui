@@ -118,8 +118,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>536</width>
-           <height>530</height>
+           <width>1050</width>
+           <height>1044</height>
           </rect>
          </property>
          <layout class="QFormLayout" name="formLayout_2">
@@ -130,14 +130,14 @@
            <widget class="QGraphicsView" name="editView">
             <property name="minimumSize">
              <size>
-              <width>512</width>
-              <height>512</height>
+              <width>1026</width>
+              <height>1026</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>512</width>
-              <height>512</height>
+              <width>1026</width>
+              <height>1026</height>
              </size>
             </property>
             <property name="verticalScrollBarPolicy">

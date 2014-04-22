@@ -80,7 +80,7 @@ Main::Main(QWidget* parent) :
   pTextureImage(new QPixmap(1, 1)),
   pStateBox(new StateBox),
   pTextureScene(new QGraphicsScene),
-  pEditScene(new QGraphicsScene),
+  pEditScene(new QGraphicsScene(-512,-512, 1024, 1024)),
   chipPtrList(),
   currentSheetIndex(0)
 {
@@ -95,8 +95,8 @@ Main::Main(QWidget* parent) :
   pUi->sheetList->setIconSize(QSize(128, 128));
   insertSheet();
 
-  pEditScene->addLine(0, 255, 512, 255);
-  pEditScene->addLine(255, 0, 255, 512);
+  pEditScene->addLine(-512, 0, 512, 0);
+  pEditScene->addLine(0, -512, 0, 512);
 
   connect(pUi->actionOpen, SIGNAL(triggered()), this, SLOT(openFile()));
   connect(pUi->actionSave, SIGNAL(triggered()), this, SLOT(saveFile()));
@@ -227,7 +227,7 @@ void Main::insertChip()
   const float h = pStateBox->size().y();
   const int imageIndex = getCurrentSheetIndex();
   const Rect rect(x, y, x + w, y + h);
-  const Point2 position(255, 255);
+  const Point2 position(0, 0);
   const Vector2 offset(0, 0);
   const Vector2 scale(1, 1);
   Sheet::ChipList& chipList = animation.sheetList[imageIndex].chipList;
