@@ -62,12 +62,12 @@ QPixmap copyPixmap(const QPixmap& pixmap, const Rect& rect)
 */
 QTransform makeTransformMatrix(const Chip& chip)
 {
-  QTransform mtx;
   const Float centerX = (chip.rect.right - chip.rect.left) / Float(2);
   const Float centerY = (chip.rect.bottom - chip.rect.top) / Float(2);
-  mtx.translate(chip.center.x - centerX, chip.center.y - centerY);
+  QTransform mtx;
   mtx.scale(chip.scale.x, chip.scale.y);
   mtx.rotate(chip.angle);
+  mtx.translate(chip.center.x - centerX, chip.center.y - centerY);
   return mtx;
 }
 
