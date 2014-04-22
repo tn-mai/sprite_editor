@@ -227,7 +227,7 @@ void Main::insertChip()
   const float h = pStateBox->size().y();
   const int imageIndex = getCurrentSheetIndex();
   const Rect rect(x, y, x + w, y + h);
-  const Point2 position(0, 0);
+  const Point2 position(255, 255);
   const Vector2 offset(0, 0);
   const Vector2 scale(1, 1);
   Sheet::ChipList& chipList = animation.sheetList[imageIndex].chipList;
