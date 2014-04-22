@@ -460,7 +460,7 @@ void Main::onChipListChanged(int row, int column)
     break;
   case XOffset:
     chip.center.x = value;
-    pPixmap->setTransformOriginPoint(chip.center.x, chip.center.y);
+    pPixmap->setTransform(makeTransformMatrix(chip));
     break;
   case YOffset:
     chip.center.y = value;
