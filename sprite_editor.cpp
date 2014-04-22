@@ -55,6 +55,23 @@ QPixmap copyPixmap(const QPixmap& pixmap, const Rect& rect)
 }
 
 /**
+  チップデータから変換行列を作成する.
+
+  @param  chip 元になるチップデータ.
+  @return チップデータの回転・拡縮パラメータから作成された変換行列.
+*/
+QTransform makeTransformMatrix(const Chip& chip)
+{
+  QTransform mtx;
+  const Float centerX = (chip.rect.right - chip.rect.left) / Float(2);
+  const Float centerY = (chip.rect.bottom - chip.rect.top) / Float(2);
+  mtx.translate(chip.center.x - centerX, chip.center.y - centerY);
+  mtx.scale(chip.scale.x, chip.scale.y);
+  mtx.rotate(chip.angle);
+  return mtx;
+}
+
+/**
   コンストラクタ.
 */
 Main::Main(QWidget* parent) :
@@ -121,7 +138,7 @@ void Main::setAnimation(size_t imageIndex)
   disconnect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
   clearChipListView();
   for (auto i : animation.sheetList[imageIndex].chipList) {
-    insertChip(i.rect, i.position, i.center, i.scale, i.angle);
+    insertChip(i);
   }
   updateSheetPicture(getCurrentSheetIndex());
   connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
@@ -216,7 +233,7 @@ void Main::insertChip()
   Sheet::ChipList& chipList = animation.sheetList[imageIndex].chipList;
   chipList.insert(chipList.begin() + getCurrentChipIndex(), Chip(rect, position, offset, scale));
   disconnect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
-  insertChip(rect, position, offset, scale, 0);
+  insertChip(chipList[getCurrentChipIndex()]);
   updateSheetPicture(getCurrentSheetIndex());
   connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
 }
@@ -225,6 +242,16 @@ void Main::insertChip()
   チップ画像項目クラス.
 
   チップビューに表示される、チップリストの各列に対応するチップ画像項目.
+<pre>
+    +-------+
+    |       |
+  O-+---*   |
+    |       |
+    +-------+
+
+  O  回転・拡縮の基準座標.
+  *  画像の中心座標.
+</pre>
 */
 class ChipItem : public QGraphicsPixmapItem {
 public:
@@ -260,29 +287,28 @@ private:
   @param  offset チップ回転拡縮中心座標.
   @param  scale チップ拡縮率.
 */
-void Main::insertChip(const Rect& rect, const Point2& pos, const Vector2& offset, const Vector2& scale, Float angle)
+void Main::insertChip(const Chip& chip)
 {
   const int row = getCurrentChipIndex();
   pUi->chipList->insertRow(row);
-  pUi->chipList->setItem(row, Left, new QTableWidgetItem(tr("%1").arg(rect.left)));
-  pUi->chipList->setItem(row, Top, new QTableWidgetItem(tr("%1").arg(rect.top)));
-  pUi->chipList->setItem(row, Width, new QTableWidgetItem(tr("%1").arg(rect.right - rect.left)));
-  pUi->chipList->setItem(row, Height, new QTableWidgetItem(tr("%1").arg(rect.bottom - rect.top)));
-  pUi->chipList->setItem(row, XPos, new QTableWidgetItem(tr("%1").arg(pos.x)));
-  pUi->chipList->setItem(row, YPos, new QTableWidgetItem(tr("%1").arg(pos.y)));
-  pUi->chipList->setItem(row, XOffset, new QTableWidgetItem(tr("%1").arg(offset.x)));
-  pUi->chipList->setItem(row, YOffset, new QTableWidgetItem(tr("%1").arg(offset.y)));
-  pUi->chipList->setItem(row, XScale, new QTableWidgetItem(tr("%1").arg(scale.x)));
-  pUi->chipList->setItem(row, YScale, new QTableWidgetItem(tr("%1").arg(scale.y)));
-  pUi->chipList->setItem(row, Rotation, new QTableWidgetItem(tr("%1").arg(angle)));
+  pUi->chipList->setItem(row, Left, new QTableWidgetItem(tr("%1").arg(chip.rect.left)));
+  pUi->chipList->setItem(row, Top, new QTableWidgetItem(tr("%1").arg(chip.rect.top)));
+  pUi->chipList->setItem(row, Width, new QTableWidgetItem(tr("%1").arg(chip.rect.right - chip.rect.left)));
+  pUi->chipList->setItem(row, Height, new QTableWidgetItem(tr("%1").arg(chip.rect.bottom - chip.rect.top)));
+  pUi->chipList->setItem(row, XPos, new QTableWidgetItem(tr("%1").arg(chip.position.x)));
+  pUi->chipList->setItem(row, YPos, new QTableWidgetItem(tr("%1").arg(chip.position.y)));
+  pUi->chipList->setItem(row, XOffset, new QTableWidgetItem(tr("%1").arg(chip.center.x)));
+  pUi->chipList->setItem(row, YOffset, new QTableWidgetItem(tr("%1").arg(chip.center.y)));
+  pUi->chipList->setItem(row, XScale, new QTableWidgetItem(tr("%1").arg(chip.scale.x)));
+  pUi->chipList->setItem(row, YScale, new QTableWidgetItem(tr("%1").arg(chip.scale.y)));
+  pUi->chipList->setItem(row, Rotation, new QTableWidgetItem(tr("%1").arg(chip.angle)));
 
   ChipItem* pItem = new ChipItem(
     ChipItem::FuncType([this](const QPointF& point, const ChipItem& item){ onChangeChipItem(point, item); }),
-    copyPixmap(*pTextureImage, rect)
+    copyPixmap(*pTextureImage, chip.rect)
   );
-  pItem->setPos(pos.x, pos.y);
-  pItem->setTransformOriginPoint(offset.x, offset.y);
-  pItem->setRotation(angle);
+  pItem->setPos(chip.position.x, chip.position.y);
+  pItem->setTransform(makeTransformMatrix(chip));
   pEditScene->addItem(pItem);
   chipPtrList.insert(chipPtrList.begin() + row, pItem);
 }
@@ -405,21 +431,6 @@ void Main::updateSheetPicture(int index)
   pItem->setFlags(pItem->flags() & ~Qt::ItemIsEditable);
   pUi->sheetList->setItem(0, index, pItem);
   pUi->sheetList->setItem(1, index, new QTableWidgetItem(tr("1")));
-}
-
-/**
-  チップデータから変換行列を作成する.
-
-  @param  chip 元になるチップデータ.
-  @return チップデータの回転・拡縮パラメータから作成された変換行列.
-*/
-QTransform makeTransformMatrix(const Chip& chip)
-{
-  QTransform mtx;
-  mtx.scale(chip.scale.x, chip.scale.y);
-  mtx.rotate(chip.angle);
-  mtx.translate(chip.center.x, chip.center.y);
-  return mtx;
 }
 
 /**
