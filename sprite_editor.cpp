@@ -255,29 +255,72 @@ void Main::insertChip()
 */
 class ChipItem : public QGraphicsPixmapItem {
 public:
-  typedef std::function<void(const QPointF&, const ChipItem&)> FuncType;
+  typedef std::function<void(const QPointF&, const ChipItem&, ChipDragType)> FuncType;
 
   ChipItem(FuncType func, const QPixmap& pixmap, QGraphicsItem* parent = 0) :
     func_(func),
     QGraphicsPixmapItem(pixmap, parent)
   {
     setShapeMode(QGraphicsPixmapItem::BoundingRectShape);
-    setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemSendsGeometryChanges);
+    setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemSendsGeometryChanges | QGraphicsItem::ItemIsFocusable);
     setOffset(0, 0);
     setData(ItemType, QVariant(ChipPicture));
   }
 
+  QPointF anchorPoint() const { return QPointF(boundingRect().width() / 2.0, boundingRect().height() / 2.0); }
+  QPointF centerPoint() const { return QPointF(transform().dx(), transform().dy()) + anchorPoint(); }
+
 private:
   QVariant itemChange(GraphicsItemChange change, const QVariant& value) {
     if (change == ItemPositionChange) {
-      func_(value.toPointF(), *this);
+      func_(value.toPointF(), *this, ChipDragType::Position);
     }
     return QGraphicsPixmapItem::itemChange(change, value);
+  }
+  void focusInEvent(QFocusEvent* event) {
+    QGraphicsEllipseItem* pEllipseItem = new QGraphicsEllipseItem(QRectF(-5, -5, 5, 5), this);
+    pEllipseItem->setPos(anchorPoint());
+    QGraphicsLineItem* pLineItem = new QGraphicsLineItem(QLineF(anchorPoint(), centerPoint()), this);
+    QGraphicsPixmapItem::focusInEvent(event);
+  }
+  void focusOutEvent(QFocusEvent* event) {
+    for (auto i : childItems()) {
+      i->setParentItem(0);
+      delete i;
+    }
+    QGraphicsPixmapItem::focusOutEvent(event);
+  }
+  void mousePressEvent(QGraphicsSceneMouseEvent* event) {
+    if (event->modifiers() & Qt::ShiftModifier) {
+      lastMousePositon_ = event->scenePos();
+      return;
+    } else if (event->modifiers() & Qt::ControlModifier) {
+      lastMousePositon_ = event->scenePos();
+      return;
+    }
+    QGraphicsPixmapItem::mousePressEvent(event);
+  }
+  void mouseMoveEvent(QGraphicsSceneMouseEvent* event) {
+    if (event->modifiers() & Qt::ShiftModifier) {
+      const QPointF tmp = event->scenePos() - lastMousePositon_;
+      const Float distance = tmp.x() + tmp.y();
+      lastMousePositon_ = event->scenePos();
+      func_(QPointF(distance, 0), *this, ChipDragType::Rotation);
+      return;
+    } else if (event->modifiers() & Qt::ControlModifier) {
+      const QPointF tmp = event->scenePos() - lastMousePositon_;
+      lastMousePositon_ = event->scenePos();
+      func_(tmp, *this, ChipDragType::Offset);
+      return;
+    }
+    QGraphicsPixmapItem::mouseMoveEvent(event);
   }
 
 private:
   FuncType func_;
+  static QPointF lastMousePositon_;
 };
+QPointF ChipItem::lastMousePositon_;
 
 /**
   指定されたデータをシートに追加する.
@@ -304,7 +347,7 @@ void Main::insertChip(const Chip& chip)
   pUi->chipList->setItem(row, Rotation, new QTableWidgetItem(tr("%1").arg(chip.angle)));
 
   ChipItem* pItem = new ChipItem(
-    ChipItem::FuncType([this](const QPointF& point, const ChipItem& item){ onChangeChipItem(point, item); }),
+    ChipItem::FuncType([this](const QPointF& point, const ChipItem& item, ChipDragType type){ onChangeChipItem(point, item, type); }),
     copyPixmap(*pTextureImage, chip.rect)
   );
   pItem->setPos(chip.position.x, chip.position.y);
@@ -313,24 +356,47 @@ void Main::insertChip(const Chip& chip)
   chipPtrList.insert(chipPtrList.begin() + row, pItem);
 }
 
-void Main::onChangeChipItem(const QPointF& point, const ChipItem& item)
+void Main::onChangeChipItem(const QPointF& point, const ChipItem& item, ChipDragType type)
 {
   const auto itr = std::find(chipPtrList.begin(), chipPtrList.end(), &item);
   if (itr != chipPtrList.end()) {
-    disconnect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
     const int row = itr - chipPtrList.begin();
-    QTableWidgetItem* pLeftItem = pUi->chipList->item(row, XPos);
-    if (pLeftItem) {
-      pLeftItem->setText(QString::number(point.x()));
+    switch (type) {
+    case ChipDragType::Position: {
+      disconnect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
+      QTableWidgetItem* pLeftItem = pUi->chipList->item(row, XPos);
+      if (pLeftItem) {
+        pLeftItem->setText(QString::number(point.x()));
+      }
+      QTableWidgetItem* pTopItem = pUi->chipList->item(row, YPos);
+      if (pTopItem) {
+        pTopItem->setText(QString::number(point.y()));
+      }
+      Chip& chip = animation.sheetList[getCurrentSheetIndex()].chipList[row];
+      chip.position.x = point.x();
+      chip.position.y = point.y();
+      connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
+      break;
     }
-    QTableWidgetItem* pTopItem = pUi->chipList->item(row, YPos);
-    if (pTopItem) {
-      pTopItem->setText(QString::number(point.y()));
+    case ChipDragType::Rotation: {
+      QTableWidgetItem* pItem = pUi->chipList->item(row, Rotation);
+      if (pItem) {
+        pItem->setText(QString::number(point.x()));
+      }
+      break;
     }
-    Chip& chip = animation.sheetList[getCurrentSheetIndex()].chipList[row];
-    chip.position.x = point.x();
-    chip.position.y = point.y();
-    connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
+    case ChipDragType::Offset: {
+      if (QTableWidgetItem* pXItem = pUi->chipList->item(row, XOffset)) {
+        const Float newX = pXItem->text().toFloat() + point.x();
+        pXItem->setText(QString::number(newX));
+      }
+      if (QTableWidgetItem* pYItem = pUi->chipList->item(row, YOffset)) {
+        const Float newY = pYItem->text().toFloat() + point.y();
+        pYItem->setText(QString::number(newY));
+      }
+      break;
+    }
+    }
     updateSheetPicture(getCurrentSheetIndex());
   }
 }
@@ -486,7 +552,7 @@ void Main::onChipListChanged(int row, int column)
     pPixmap->setTransform(makeTransformMatrix(chip));
     break;
   case Rotation:
-    chip.angle = value;
+    chip.angle += value;
     pPixmap->setTransform(makeTransformMatrix(chip));
     break;
   }

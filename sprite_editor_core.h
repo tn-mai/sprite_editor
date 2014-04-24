@@ -19,6 +19,12 @@ namespace SpriteEditor {
 
 class ChipItem;
 
+enum class ChipDragType {
+  Position,
+  Offset,
+  Rotation,
+};
+
 class Main : public QMainWindow
 {
   Q_OBJECT
@@ -33,7 +39,7 @@ private:
   int getCurrentSheetIndex() const;
   int getCurrentChipIndex() const;
   void updateSheetPicture(int);
-  void onChangeChipItem(const QPointF&, const ChipItem&);
+  void onChangeChipItem(const QPointF&, const ChipItem&, ChipDragType);
   void setChipInsertionEnabled(bool);
 
 private slots:
