@@ -379,9 +379,9 @@ void Main::onChangeChipItem(const QPointF& point, const ChipItem& item, ChipDrag
       break;
     }
     case ChipDragType::Rotation: {
-      QTableWidgetItem* pItem = pUi->chipList->item(row, Rotation);
-      if (pItem) {
-        pItem->setText(QString::number(point.x()));
+      if (QTableWidgetItem* pItem = pUi->chipList->item(row, Rotation)) {
+        const Float newAngle = pItem->text().toFloat() + point.x();
+        pItem->setText(QString::number(newAngle));
       }
       break;
     }
@@ -552,7 +552,7 @@ void Main::onChipListChanged(int row, int column)
     pPixmap->setTransform(makeTransformMatrix(chip));
     break;
   case Rotation:
-    chip.angle += value;
+    chip.angle = value;
     pPixmap->setTransform(makeTransformMatrix(chip));
     break;
   }
