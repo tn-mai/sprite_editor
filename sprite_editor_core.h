@@ -21,8 +21,9 @@ class ChipItem;
 
 enum class ChipDragType {
   Position,
-  Offset,
   Rotation,
+  Scale,
+  Offset,
 };
 
 class Main : public QMainWindow

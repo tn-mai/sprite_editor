@@ -238,6 +238,8 @@ void Main::insertChip()
   connect(pUi->chipList, SIGNAL(cellChanged(int,int)), this, SLOT(onChipListChanged(int, int)));
 }
 
+  typedef std::function<void(const QPointF&, const ChipItem&, ChipDragType)> ChipFuncType;
+
 /**
   チップ画像項目クラス.
 
@@ -255,9 +257,7 @@ void Main::insertChip()
 */
 class ChipItem : public QGraphicsPixmapItem {
 public:
-  typedef std::function<void(const QPointF&, const ChipItem&, ChipDragType)> FuncType;
-
-  ChipItem(FuncType func, const QPixmap& pixmap, QGraphicsItem* parent = 0) :
+  ChipItem(ChipFuncType func, const QPixmap& pixmap, QGraphicsItem* parent = 0) :
     func_(func),
     QGraphicsPixmapItem(pixmap, parent)
   {
@@ -278,9 +278,17 @@ private:
     return QGraphicsPixmapItem::itemChange(change, value);
   }
   void focusInEvent(QFocusEvent* event) {
-    QGraphicsEllipseItem* pEllipseItem = new QGraphicsEllipseItem(QRectF(-5, -5, 5, 5), this);
-    pEllipseItem->setPos(anchorPoint());
-    QGraphicsLineItem* pLineItem = new QGraphicsLineItem(QLineF(anchorPoint(), centerPoint()), this);
+    const QPen  pen(QColor(0xff, 0x00, 0x00, 0x7f));
+
+    QGraphicsEllipseItem* pEllipseItem = new QGraphicsEllipseItem(QRectF(-5, -5, 10, 10), this);
+    pEllipseItem->setBrush(QBrush(QColor(0xcc, 0xcc, 0x00, 0x7f)));
+    pEllipseItem->setPen(pen);
+
+    QGraphicsLineItem* pLineItem = new QGraphicsLineItem(QLineF(QPointF(0, 0), centerPoint()), this);
+    pLineItem->setPen(pen);
+
+    updateChildTransform();
+
     QGraphicsPixmapItem::focusInEvent(event);
   }
   void focusOutEvent(QFocusEvent* event) {
@@ -300,24 +308,51 @@ private:
     }
     QGraphicsPixmapItem::mousePressEvent(event);
   }
+  void updateChildTransform() {
+    const QTransform  mtx = transform();
+    for (auto i : childItems()) {
+      if (auto pLineItem = dynamic_cast<QGraphicsLineItem*>(i)) {
+        auto mappedCenter = mtx.map(anchorPoint());
+        pLineItem->setLine(0, 0, mappedCenter.x(), mappedCenter.y());
+      }
+      i->setTransform(transform().inverted());
+    }
+  }
   void mouseMoveEvent(QGraphicsSceneMouseEvent* event) {
-    if (event->modifiers() & Qt::ShiftModifier) {
+    switch (event->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier)) {
+    // 回転
+    case Qt::ShiftModifier: {
       const QPointF tmp = event->scenePos() - lastMousePositon_;
       const Float distance = tmp.x() + tmp.y();
       lastMousePositon_ = event->scenePos();
       func_(QPointF(distance, 0), *this, ChipDragType::Rotation);
-      return;
-    } else if (event->modifiers() & Qt::ControlModifier) {
+      updateChildTransform();
+      break;
+    }
+    // オフセット移動
+    case Qt::ControlModifier: {
       const QPointF tmp = event->scenePos() - lastMousePositon_;
       lastMousePositon_ = event->scenePos();
       func_(tmp, *this, ChipDragType::Offset);
-      return;
+      updateChildTransform();
+      break;
     }
-    QGraphicsPixmapItem::mouseMoveEvent(event);
+    // 拡縮
+    case Qt::ShiftModifier + Qt::ControlModifier: {
+      const QPointF tmp = (event->scenePos() - lastMousePositon_) / Float(100);
+      lastMousePositon_ = event->scenePos();
+      func_(tmp, *this, ChipDragType::Scale);
+      updateChildTransform();
+      break;
+    }
+    default:
+      QGraphicsPixmapItem::mouseMoveEvent(event);
+      break;
+    }
   }
 
 private:
-  FuncType func_;
+  ChipFuncType func_;
   static QPointF lastMousePositon_;
 };
 QPointF ChipItem::lastMousePositon_;
@@ -347,7 +382,7 @@ void Main::insertChip(const Chip& chip)
   pUi->chipList->setItem(row, Rotation, new QTableWidgetItem(tr("%1").arg(chip.angle)));
 
   ChipItem* pItem = new ChipItem(
-    ChipItem::FuncType([this](const QPointF& point, const ChipItem& item, ChipDragType type){ onChangeChipItem(point, item, type); }),
+    [this](const QPointF& point, const ChipItem& item, ChipDragType type){ onChangeChipItem(point, item, type); },
     copyPixmap(*pTextureImage, chip.rect)
   );
   pItem->setPos(chip.position.x, chip.position.y);
@@ -382,6 +417,17 @@ void Main::onChangeChipItem(const QPointF& point, const ChipItem& item, ChipDrag
       if (QTableWidgetItem* pItem = pUi->chipList->item(row, Rotation)) {
         const Float newAngle = pItem->text().toFloat() + point.x();
         pItem->setText(QString::number(newAngle));
+      }
+      break;
+    }
+    case ChipDragType::Scale: {
+      if (QTableWidgetItem* pItem = pUi->chipList->item(row, XScale)) {
+        const Float newScale = pItem->text().toFloat() + point.x();
+        pItem->setText(QString::number(newScale));
+      }
+      if (QTableWidgetItem* pItem = pUi->chipList->item(row, YScale)) {
+        const Float newScale = pItem->text().toFloat() + point.y();
+        pItem->setText(QString::number(newScale));
       }
       break;
     }
